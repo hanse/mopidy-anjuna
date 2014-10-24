@@ -9,7 +9,7 @@ global-reset()
   font-smoothing antialiased
 
 $header-height = 50px
-$footer-height = 70px
+$footer-height = 100px
 
 a
   text-decoration none
@@ -26,8 +26,8 @@ body
   font-size 1.2em
   line-height 1.5
   font-family 'Source Sans Pro', 'Helvetica Neue', Helvetica, sans-serif
-  background #444
-  color #eee
+  background #fff
+  color #777
   position relative
 
 header, aside, section, footer
@@ -36,13 +36,12 @@ header, aside, section, footer
 header
   height $header-height
   line-height @height
-  background #111
+  background #eee
 
 aside, section
   padding 1em
 
 aside
-  background lighten(#111, 2%)
   width 20%
   position absolute
   left 0
@@ -50,7 +49,7 @@ aside
   top $header-height
 
 section
-  background #000
+  background #fff
   width 80%
   position absolute
   right 0
@@ -79,17 +78,14 @@ footer
       border-radius (@width/2)
       border 0
       background transparent
-      font-size 16px
+      font-size 22px
+      text-shadow 0 0 2px #fff
       color #444
       cursor pointer
       outline none
 
       &:hover
         color #000
-
-      &.play-button
-        border 1px solid #999
-
 
 
 table
@@ -103,8 +99,9 @@ th
   font-weight 700
   font-size .7em
 
-tr:hover
-  background #222
+tbody
+  tr:hover
+    background lighten(#eee, 10%)
 
 td
   padding 5px 0
