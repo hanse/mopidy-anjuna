@@ -1,0 +1,110 @@
+@import 'nib'
+
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700')
+
+global-reset()
+
+*
+  box-sizing border-box
+  font-smoothing antialiased
+
+$header-height = 50px
+$footer-height = 70px
+
+a
+  text-decoration none
+  color #c0392b
+
+  &:hover
+    text-decoration underline
+
+html, body
+  width 100%
+  height 100%
+
+body
+  font-size 1.2em
+  line-height 1.5
+  font-family 'Source Sans Pro', 'Helvetica Neue', Helvetica, sans-serif
+  background #444
+  color #eee
+  position relative
+
+header, aside, section, footer
+  padding 0 1em
+
+header
+  height $header-height
+  line-height @height
+  background #111
+
+aside, section
+  padding 1em
+
+aside
+  background lighten(#111, 2%)
+  width 20%
+  position absolute
+  left 0
+  bottom $footer-height
+  top $header-height
+
+section
+  background #000
+  width 80%
+  position absolute
+  right 0
+  bottom $footer-height
+  top $header-height
+
+footer
+  background linear-gradient(#ddd, #ccc)
+  text-align center
+  position fixed
+  bottom 0
+  height $footer-height
+  line-height $footer-height
+  width 100%
+
+  .controls
+    line-height $footer-height
+    height $footer-height
+
+    button
+      display inline-block
+      margin 12px 5px 0 5px
+      width 44px
+      height @width
+      line-height @height
+      border-radius (@width/2)
+      border 0
+      background transparent
+      font-size 16px
+      color #444
+      cursor pointer
+      outline none
+
+      &:hover
+        color #000
+
+      &.play-button
+        border 1px solid #999
+
+
+
+table
+  width 100%
+  border-collapse collapse
+  font-size .9em
+
+th
+  color #666
+  text-transform uppercase
+  font-weight 700
+  font-size .7em
+
+tr:hover
+  background #222
+
+td
+  padding 5px 0

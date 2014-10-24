@@ -1,0 +1,35 @@
+{
+  "name": "harley",
+  "version": "0.0.1",
+  "description": "Mopidy Web Frontend",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Hanse/harley"
+  },
+  "main": "index.js",
+  "author": "Hanse",
+  "license": "MIT",
+  "keywords": [
+    "skeleton",
+    "setup",
+    "browserify",
+    "react",
+    "stylus",
+    "nib",
+    "make",
+    "gnu make"
+  ],
+  "dependencies": {
+    "browserify": "latest",
+    "flux": "^2.0.1",
+    "nib": "latest",
+    "react": "latest",
+    "react-router": "^0.9.4",
+    "reactify": "latest",
+    "stylus": "latest",
+    "uglify-js": "latest"
+  },
+  "devDependencies": {
+    "watchify": "latest"
+  }
+}
