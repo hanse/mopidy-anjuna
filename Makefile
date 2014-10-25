@@ -55,9 +55,9 @@ all: $(BUILD_CSS) $(BUILD_JS)
 
 $(BUILD_CSS): $(CSS)
 ifneq ($(NODE_ENV), development)
-	$(STYLUS) --include $(NIB) --compress < $(CSS_MAIN) > $(BUILD_CSS)
+	$(STYLUS) --include assets/stylesheets --include $(NIB) --compress --include-css < $(CSS_MAIN) > $(BUILD_CSS)
 else
-	$(STYLUS) --include $(NIB) < $(CSS_MAIN) > $(BUILD_CSS)
+	$(STYLUS) --include assets/stylesheets --include $(NIB) --include-css < $(CSS_MAIN) > $(BUILD_CSS)
 endif
 
 #

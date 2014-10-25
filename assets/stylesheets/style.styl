@@ -11,6 +11,8 @@ global-reset()
 $header-height = 50px
 $footer-height = 100px
 
+@import 'playlists'
+
 a
   text-decoration none
   color #c0392b
@@ -55,6 +57,7 @@ section
   right 0
   bottom $footer-height
   top $header-height
+  overflow-y scroll
 
 footer
   background linear-gradient(#ddd, #ccc)

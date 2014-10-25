@@ -9,7 +9,11 @@
 module.exports = {
 
   PlaylistActionTypes: {
-    ADD_SONG: 'ADD_SONG',
-    REMOVE_SONG: 'REMOVE_SONG'
+    RECEIVE_PLAYLISTS: 'RECEIVE_PLAYLISTS',
+    CHANGE_PLAYLIST: 'CHANGE_PLAYLIST'
+  },
+
+  MopidyActionTypes: {
+    TRACK_CHANGED: 'TRACK_CHANGED',
   },
 };

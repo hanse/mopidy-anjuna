@@ -1,8 +1,11 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var SongList = require('./SongList');
+var Tracklist = require('./Tracklist');
 var PlayerControls = require('./PlayerControls');
+var Playlists = require('./Playlists');
+
+var MopidyService = require('../services/MopidyService');
 
 var App = React.createClass({
 
@@ -13,9 +16,11 @@ var App = React.createClass({
           <h1>Harley</h1>
         </header>
         <div className='flex'>
-        <aside className='sidebar'>Stuff</aside>
+        <aside className='sidebar'>
+          <Playlists />
+        </aside>
         <section className='main'>
-          <SongList />
+          <Tracklist />
         </section>
         </div>
         <footer>
