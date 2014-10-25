@@ -9,4 +9,35 @@ module.exports = {
       playlists: playlists
     });
   },
+
+  connected: function() {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.CONNECTED,
+    });
+  },
+
+  disconnected: function() {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.DISCONNECTED,
+    });
+  },
+
+  paused: function() {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.PAUSED,
+    });
+  },
+
+  playing: function() {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.PLAYING,
+    });
+  },
+
+  getCurrentTrack: function(track) {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.GET_CURRENT_TRACK,
+      track: track
+    });
+  }
 };
