@@ -13,6 +13,10 @@ module.exports = {
     CHANGE_PLAYLIST: 'CHANGE_PLAYLIST'
   },
 
+  TracklistActionTypes: {
+    SORT_TRACKS: 'SORT_TRACKS'
+  },
+
   MopidyActionTypes: {
     TRACK_CHANGED: 'TRACK_CHANGED',
   },

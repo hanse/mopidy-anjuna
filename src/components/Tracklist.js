@@ -2,6 +2,7 @@
 
 var React = require('react');
 
+var TracklistViewActionCreators = require('../actions/TracklistViewActionCreators');
 var TracklistStore = require('../stores/TracklistStore');
 
 function convertTime(ms) {
@@ -36,8 +37,8 @@ var SongList = React.createClass({
     });
   },
 
-  _onSort: function() {
-
+  _onSort: function(property) {
+    TracklistViewActionCreators.sortBy(property);
   },
 
   render: function() {
@@ -47,7 +48,7 @@ var SongList = React.createClass({
           <tr>
             <th onClick={this._onSort.bind(this, 'name')}>Track</th>
             <th onClick={this._onSort.bind(this, 'artist')}>Artist</th>
-            <th>Time</th>
+            <th onClick={this._onSort.bind(this, 'duration')}>Time</th>
           </tr>
         </thead>
         <tbody>
@@ -55,8 +56,8 @@ var SongList = React.createClass({
             return (
               <tr key={'track-' + i}>
                 <td>{track.name}</td>
-                <td>{track.artists[0].name}</td>
-                <td>{convertTime(track.length)}</td>
+                <td>{track.artist}</td>
+                <td>{convertTime(track.duration)}</td>
               </tr>
             );
           })}
