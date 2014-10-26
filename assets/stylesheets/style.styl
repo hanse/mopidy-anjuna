@@ -112,8 +112,9 @@ th
   font-size .7em
 
 tbody
-  tr:hover
-    background lighten(#eee, 10%)
+  tr
+    &:hover, &.active
+      background lighten(#eee, 10%)
 
 td
   padding 5px 0

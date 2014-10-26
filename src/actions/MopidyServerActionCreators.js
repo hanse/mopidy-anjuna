@@ -34,6 +34,12 @@ module.exports = {
     });
   },
 
+  stopped: function() {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.STOPPED,
+    });
+  },
+
   getCurrentTrack: function(track) {
     AppDispatcher.handleServerAction({
       type: MopidyActionTypes.GET_CURRENT_TRACK,

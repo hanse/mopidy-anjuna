@@ -9,6 +9,11 @@ var _timePosition = 0;
 var _isPlaying = false;
 
 var CurrentlyPlayingStore = Store.create({
+
+  getCurrentTrack: function() {
+    return _track;
+  },
+
   getState: function() {
     return {
       track: _track,
@@ -23,6 +28,7 @@ CurrentlyPlayingStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
   switch (action.type) {
     case MopidyActionTypes.PAUSED:
+    case MopidyActionTypes.STOPPED:
       _isPlaying = false;
       CurrentlyPlayingStore.emitChange();
       break;
@@ -33,7 +39,7 @@ CurrentlyPlayingStore.dispatchToken = AppDispatcher.register(function(payload) {
       break;
 
     case MopidyActionTypes.GET_CURRENT_TRACK:
-      _track = action.track;
+      _track = action.track || {};
       CurrentlyPlayingStore.emitChange();
       break;
 
