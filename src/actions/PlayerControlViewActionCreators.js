@@ -35,4 +35,13 @@ module.exports = {
 
     MopidyService.pause();
   },
+
+  setVolume: function(volume) {
+    AppDispatcher.handleViewAction({
+      type: MopidyActionTypes.CHANGE_VOLUME,
+      volume: volume
+    });
+
+    MopidyService.setVolume(volume);
+  }
 };

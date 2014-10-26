@@ -13,7 +13,8 @@ var CurrentlyPlayingStore = Store.create({
     return {
       track: _track,
       isPlaying: _isPlaying,
-      trackString: _track.name + ' — ' + (_track.artists || []).map(function(artist) { return artist.name; }).join(', ')
+      trackString: _track.name + ' — ' + (_track.artists || []).map(function(artist) { return artist.name; }).join(', '),
+      volume: _volume
     };
   }
 });
@@ -33,6 +34,11 @@ CurrentlyPlayingStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case MopidyActionTypes.GET_CURRENT_TRACK:
       _track = action.track;
+      CurrentlyPlayingStore.emitChange();
+      break;
+
+    case MopidyActionTypes.VOLUME_CHANGED:
+      _volume = action.volume;
       CurrentlyPlayingStore.emitChange();
       break;
   }

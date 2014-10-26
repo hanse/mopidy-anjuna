@@ -39,6 +39,11 @@ var PlayerControls = React.createClass({
     PlayerControlViewActionCreators.prev();
   },
 
+  _onVolumeChange: function() {
+    var newVolume = this.refs.volume.getDOMNode().value|0;
+    PlayerControlViewActionCreators.setVolume(newVolume);
+  },
+
   render: function() {
     var playOrPause = this.state.isPlaying ? 'fa fa-pause' : 'fa fa-play';
     return (
@@ -46,6 +51,7 @@ var PlayerControls = React.createClass({
         <button onClick={this._onPrevTrack}><i className='fa fa-step-backward' /></button>
         <button className='play-button' onClick={this.togglePlay}><i className={playOrPause} /></button>
         <button onClick={this._onNextTrack}><i className='fa fa-step-forward' /></button>
+        <input type='range' value={this.state.volume} ref='volume' onChange={this._onVolumeChange} />
       </div>
     );
   }

@@ -16,6 +16,7 @@ mopidy.on('state:online', function() {
   getPlaylists();
   getState();
   getCurrentTrack();
+  getVolume();
   MopidyServerActionCreators.connected();
 });
 
@@ -34,6 +35,7 @@ mopidy.on('event:playbackStateChanged', function(payload) {
 });
 
 mopidy.on('event:volumeChanged', function(payload) {
+  MopidyServerActionCreators.volumeChanged(payload.volume);
 });
 
 mopidy.on('event:playbackStateChanged', function(payload) {
@@ -123,6 +125,16 @@ function pause() {
   return mopidy.playback.pause().then(noop);
 }
 
+function getVolume() {
+  return mopidy.playback.getVolume().then(function(volume) {
+    MopidyServerActionCreators.volumeChanged(volume);
+  });
+}
+
+function setVolume(volume) {
+  return mopidy.playback.setVolume({volume: volume}).then();
+}
+
 function noop() {
   return console.log.bind(console);
 }
@@ -135,5 +147,6 @@ module.exports = {
   prevTrack: prevTrack,
   play: play,
   pause: pause,
-  playTrack: playTrack
+  playTrack: playTrack,
+  setVolume: setVolume
 };

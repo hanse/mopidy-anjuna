@@ -39,5 +39,12 @@ module.exports = {
       type: MopidyActionTypes.GET_CURRENT_TRACK,
       track: track
     });
-  }
+  },
+
+  volumeChanged: function(newVolume) {
+    AppDispatcher.handleServerAction({
+      type: MopidyActionTypes.VOLUME_CHANGED,
+      volume: newVolume
+    })
+  },
 };
