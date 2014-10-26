@@ -13,7 +13,8 @@ module.exports = {
   },
 
   TracklistActionTypes: {
-    SORT_TRACKS: 'SORT_TRACKS'
+    SORT_TRACKS: 'SORT_TRACKS',
+    PLAY_TRACK: 'PLAY_TRACK'
   },
 
   MopidyActionTypes: {

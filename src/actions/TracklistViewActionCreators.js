@@ -1,5 +1,6 @@
 var AppDispatcher = require('../AppDispatcher');
 var TracklistActionTypes = require('../Constants').TracklistActionTypes;
+var MopidyService = require('../services/MopidyService');
 
 module.exports = {
 
@@ -9,4 +10,13 @@ module.exports = {
       sortBy: property
     });
   },
+
+  playTrack: function(track, others) {
+    AppDispatcher.handleViewAction({
+      type: TracklistActionTypes.PLAY_TRACK,
+      track: track
+    });
+
+    MopidyService.playTrack(track, others);
+  }
 };

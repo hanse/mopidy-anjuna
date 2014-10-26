@@ -20,6 +20,7 @@ var Header = React.createClass({
 
   update: function() {
     this.setState(CurrentlyPlayingStore.getState());
+    document.title = this.state.trackString + ' +iodos';
   },
 
   render: function() {

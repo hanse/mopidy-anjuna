@@ -12,15 +12,17 @@ var TracklistStore = Store.create({
     var playlist = PlaylistStore.getCurrent();
     if (!playlist) return [];
 
-    var tracklist = playlist.tracks.map(function(track) {
-      return {
-        name: track.name,
-        artist: track.artists.map(function(artist) {
-          return artist.name;
-        }).join(', '),
-        duration: track.length
-      };
-    });
+    // var tracklist = playlist.tracks.map(function(track) {
+    //   return {
+    //     name: track.name,
+    //     artist: track.artists.map(function(artist) {
+    //       return artist.name;
+    //     }).join(', '),
+    //     duration: track.length
+    //   };
+    // });
+
+    var tracklist = playlist.tracks;
 
     if (_sortBy) {
       tracklist = tracklist.sort(function(a, b) {

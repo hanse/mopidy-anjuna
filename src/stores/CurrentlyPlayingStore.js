@@ -12,7 +12,8 @@ var CurrentlyPlayingStore = Store.create({
   getState: function() {
     return {
       track: _track,
-      isPlaying: _isPlaying
+      isPlaying: _isPlaying,
+      trackString: _track.name + ' — ' + (_track.artists || []).map(function(artist) { return artist.name; }).join(', ')
     };
   }
 });

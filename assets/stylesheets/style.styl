@@ -7,11 +7,20 @@ global-reset()
 *
   box-sizing border-box
   font-smoothing antialiased
+  user-select none
 
 $header-height = 50px
 $footer-height = 100px
 
 @import 'playlists'
+
+::-webkit-scrollbar
+  background white
+  width 4px
+
+::-webkit-scrollbar-thumb
+  background #eee
+  border-radius 1ex
 
 a
   text-decoration none
@@ -108,3 +117,6 @@ tbody
 
 td
   padding 5px 0
+
+li, tr
+  cursor default

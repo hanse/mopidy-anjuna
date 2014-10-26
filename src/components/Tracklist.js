@@ -4,18 +4,9 @@ var React = require('react');
 
 var TracklistViewActionCreators = require('../actions/TracklistViewActionCreators');
 var TracklistStore = require('../stores/TracklistStore');
+var utils = require('../Utils');
 
-function convertTime(ms) {
-  return [
-    //((ms/(1000*60*60)) % 24) >> 0,
-    ((ms/(1000*60)) % 60) >> 0,
-    ((ms/1000) % 60) >> 0
-  ].map(function(c) {
-    return c < 10 ? '0' + c : c;
-  }).join(':');
-}
-
-var SongList = React.createClass({
+var Tracklist = React.createClass({
 
   getInitialState: function() {
     return {
@@ -41,6 +32,10 @@ var SongList = React.createClass({
     TracklistViewActionCreators.sortBy(property);
   },
 
+  _onPlayTrack: function(track) {
+    TracklistViewActionCreators.playTrack(track, this.state.tracks);
+  },
+
   render: function() {
     return (
       <table>
@@ -54,17 +49,17 @@ var SongList = React.createClass({
         <tbody>
           {this.state.tracks.map(function(track, i) {
             return (
-              <tr key={'track-' + i}>
+              <tr key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)}>
                 <td>{track.name}</td>
-                <td>{track.artist}</td>
-                <td>{convertTime(track.duration)}</td>
+                <td>{utils.artistsAsString(track)}</td>
+                <td>{utils.convertTime(track.length)}</td>
               </tr>
             );
-          })}
+          }.bind(this))}
         </tbody>
       </table>
     );
   }
 });
 
-module.exports = SongList;
+module.exports = Tracklist;

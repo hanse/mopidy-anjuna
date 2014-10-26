@@ -10,7 +10,8 @@ var Playlists = React.createClass({
 
   getInitialState: function() {
     return {
-      playlists: PlaylistStore.getAll()
+      playlists: PlaylistStore.getAll(),
+      current: PlaylistStore.getCurrent()
     };
   },
 
@@ -24,7 +25,8 @@ var Playlists = React.createClass({
 
   update: function() {
     this.setState({
-      playlists: PlaylistStore.getAll()
+      playlists: PlaylistStore.getAll(),
+      current: PlaylistStore.getCurrent()
     });
   },
 
@@ -33,12 +35,14 @@ var Playlists = React.createClass({
   },
 
   render: function() {
+    var currentName = this.state.current ? this.state.current.name : '';
     return (
       <ul className='playlists'>
       {this.state.playlists.map(function(playlist) {
         var [name, owner] = playlist.name.split(/ by /i);
+        var classes = (playlist.name == currentName) ? 'active' : '';
         return (
-          <li key={playlist.name} onClick={this._onChange.bind(this, playlist.name)}><i className='fa fa-music' /> {name} <span className='playlist-owner'>by {owner}</span></li>
+          <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist.name)}><i className='fa fa-music' /> {name} <span className='playlist-owner'>by {owner}</span></li>
         );
       }.bind(this))}
       </ul>

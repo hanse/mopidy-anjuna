@@ -3,8 +3,7 @@ var AppDispatcher = require('../AppDispatcher');
 var PlaylistActionTypes = require('../constants').PlaylistActionTypes;
 
 var _playlists = {};
-var _currentPlaylist = null;
-
+var _currentPlaylist;
 function _addPlaylists(playlists) {
   playlists.forEach(function(playlist) {
     _playlists[playlist.name] = playlists[playlist.name] || playlist;
@@ -15,6 +14,10 @@ var PlaylistStore = Store.create({
 
   getCurrent: function() {
     return _currentPlaylist;
+  },
+
+  getByName: function(name) {
+    return _playlists[name];
   },
 
   getAll: function() {
@@ -40,6 +43,7 @@ PlaylistStore.dispatchToken = AppDispatcher.register(function(payload) {
 
     case PlaylistActionTypes.CHANGE_PLAYLIST:
       _currentPlaylist = _playlists[action.playlist];
+      window.localStorage.currentPlaylist = action.playlist;
       PlaylistStore.emitChange();
       break;
   }
