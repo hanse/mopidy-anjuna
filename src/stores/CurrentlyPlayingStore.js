@@ -8,6 +8,11 @@ var _volume = 1;
 var _timePosition = 0;
 var _isPlaying = false;
 
+function trackString() {
+  if (Object.keys(_track).length === 0) return 'Nothing is playing';
+  return _track.name + ' — ' + (_track.artists || []).map(function(artist) { return artist.name; }).join(', ')
+}
+
 var CurrentlyPlayingStore = Store.create({
 
   getCurrentTrack: function() {
@@ -18,7 +23,7 @@ var CurrentlyPlayingStore = Store.create({
     return {
       track: _track,
       isPlaying: _isPlaying,
-      trackString: _track.name + ' — ' + (_track.artists || []).map(function(artist) { return artist.name; }).join(', '),
+      trackString: trackString(),
       volume: _volume
     };
   }

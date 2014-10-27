@@ -20,14 +20,14 @@ var Header = React.createClass({
 
   update: function() {
     this.setState(CurrentlyPlayingStore.getState());
-    document.title = this.state.trackString + ' +iodos';
+    document.title = this.state.trackString;
   },
 
   render: function() {
     var artists = (this.state.track.artists || []).map(function(artist) { return artist.name; }).join(', ');
     return (
       <header>
-        <h1>{this.state.track.name} &mdash; {artists}</h1>
+        <h1>{this.state.trackString}</h1>
       </header>
     );
   }

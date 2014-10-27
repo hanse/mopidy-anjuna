@@ -45,6 +45,10 @@ mopidy.on('event:playbackStateChanged', function(payload) {
   }
 });
 
+mopidy.on('event:playlistsLoaded', function() {
+  getPlaylists();
+});
+
 mopidy.on('event:tracklistChanged', function(payload) {
 
 });
