@@ -1,12 +1,10 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var ReactRouter = require('react-router');
 var {Routes, Route, DefaultRoute, NotFoundRoute} = ReactRouter;
 
 var App = require('./components/App');
 
-React.renderComponent((
+React.render((
   <Routes location="history">
     <Route handler={App}>
     </Route>

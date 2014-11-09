@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Tracklist = require('./Tracklist');
 var PlayerControls = require('./PlayerControls');
