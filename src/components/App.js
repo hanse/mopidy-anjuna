@@ -6,26 +6,31 @@ var Playlists = require('./Playlists');
 var Loader = require('./Loader');
 
 var ConnectionStore = require('../stores/ConnectionStore');
+var AlbumCoverStore = require('../stores/AlbumCoverStore');
 
 var App = React.createClass({
 
   getInitialState: function() {
     return {
-      connected: ConnectionStore.isConnected()
+      connected: ConnectionStore.isConnected(),
+      coverURL: AlbumCoverStore.getCoverURL()
     };
   },
 
   componentDidMount: function() {
     ConnectionStore.addChangeListener(this.update);
+    AlbumCoverStore.addChangeListener(this.update);
   },
 
   componentWillUnmount: function() {
     ConnectionStore.removeChangeListener(this.update);
+    AlbumCoverStore.removeChangeListener(this.update);
   },
 
   update: function() {
     this.setState({
-      connected: ConnectionStore.isConnected()
+      connected: ConnectionStore.isConnected(),
+      coverURL: AlbumCoverStore.getCoverURL()
     });
   },
 
@@ -36,6 +41,7 @@ var App = React.createClass({
           <Header />
           <div>
             <aside className='sidebar'>
+              <img src={this.state.coverURL} />
               <Playlists />
             </aside>
             <section className='main'>

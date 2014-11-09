@@ -2,6 +2,7 @@ var Mopidy = require('mopidy');
 var MopidyServerActionCreators = require('../actions/MopidyServerActionCreators');
 var PlaylistServerActionCreators = require('../actions/PlaylistServerActionCreators');
 var MopidyActionTypes = require('../constants').MopidyActionTypes;
+var AlbumCoverService = require('./AlbumCoverService');
 
 var mopidy = new Mopidy({
   autoConnect: false,
@@ -88,6 +89,7 @@ function getPlaylists() {
 function getCurrentTrack() {
   mopidy.playback.getCurrentTrack().then(function(track) {
     MopidyServerActionCreators.getCurrentTrack(track);
+    AlbumCoverService.search(track);
   });
 }
 

@@ -20,6 +20,7 @@
     "gnu make"
   ],
   "dependencies": {
+    "album-cover": "0.0.2",
     "browserify": "^6.2.0",
     "flux": "^2.0.1",
     "nib": "^1.0.4",

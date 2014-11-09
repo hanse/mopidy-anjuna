@@ -22,7 +22,6 @@ var Header = React.createClass({
   },
 
   render: function() {
-    console.log('state', this.state)
     var artists = (this.state.track.artists || []).map(function(artist) { return artist.name; }).join(', ');
     return (
       <header>

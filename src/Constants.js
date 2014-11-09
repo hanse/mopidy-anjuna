@@ -32,4 +32,8 @@ module.exports = {
     STOPPED: 'STOPPED',
     GET_CURRENT_TRACK: 'GET_CURRENT_TRACK'
   },
+
+  AlbumCoverActionTypes: {
+    RECEIVE_ALBUM_COVER: 'RECEIVE_ALBUM_COVER'
+  }
 };
