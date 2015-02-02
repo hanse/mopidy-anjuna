@@ -39,7 +39,7 @@ body
   line-height 1.5
   font-family 'HelveticaNeue-Light', Helvetica, sans-serif
   background #F2F2F0
-  color #777
+  color #666
   position relative
 
 header, aside, section, footer
@@ -47,33 +47,35 @@ header, aside, section, footer
 
 header
   height $header-height
-  line-height @height
   background linear-gradient(#4D5259, darken(#4D5259, 10%))
   color #fff
-  position fixed
-  top 0
-  left 0
-  right 0
+  display flex
+  align-items center
   z-index 10
 
-aside, section
-  padding 1em
+main
+  display flex
+  overflow hidden
+  height 100vh
+  margin-top -($header-height)
+  padding-top $header-height
+  margin-bottom -($footer-height)
+  padding-bottom $footer-height
+  width 100%
+  backface-visibility hidden
+  will-change overflow
 
 aside
-  width 20%
-  position absolute
-  left 0
-  bottom $footer-height
-  top $header-height
+  flex 1
 
 section
   background #fff
-  width 80%
-  position absolute
-  right 0
-  bottom $footer-height
-  top $header-height
-  overflow-y scroll
+  flex 4
+
+aside, section
+  padding 1em
+  overflow auto
+  overflow-scrolling touch
 
 footer
   background linear-gradient(#ddd, #ccc)
@@ -128,27 +130,57 @@ footer
         outline none
 
 
-table
+.tracklist
   width 100%
+  font-size 16px
+  display table
   border-collapse collapse
-  font-size .9em
 
-th
-  color #666
-  text-transform uppercase
-  font-weight 700
-  font-size .7em
+  .tracklist-header
+    font-weight 700
+    font-size .7em
+    color #666
+    text-transform uppercase
 
-tbody
-  tr
+    &:hover, &.active
+      background transparent
+
+  li
+    display table-row
+    width 100%
+
     &:hover, &.active
       background lighten(#eee, 10%)
 
-    td:first-child
-      font-size 14px
+    > span
+      display table-cell
 
-td
-  padding 5px 0
+@media all and (max-width: 600px)
+  main
+    flex-direction column
+
+  .tracklist
+    display block
+
+    .tracklist-header
+      display none
+
+    li
+      display flex
+      flex-direction column
+      border-bottom 1px solid #ddd
+      padding 10px
+
+      .artist-name, .track-length
+        color #888
+        font-size 14px
+
+      > span
+        flex 1
+
+        &:first-child
+          float right
+
 
 li, tr
   cursor default

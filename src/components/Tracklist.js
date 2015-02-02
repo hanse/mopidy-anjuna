@@ -39,30 +39,23 @@ var Tracklist = React.createClass({
 
   render: function() {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th onClick={this._onSort.bind(this, 'name')}>Track</th>
-            <th onClick={this._onSort.bind(this, 'artist')}>Artist</th>
-            <th onClick={this._onSort.bind(this, 'length')}>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.tracks.map(function(track, i) {
-            var classes = track.uri === this.state.currentTrack.uri ? 'active' : '';
-            var active = track.uri === this.state.currentTrack.uri;
-            return (
-              <tr key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)} className={active ? 'active' : ''}>
-                <td>{active ? <i className='fa fa-volume-up' /> : i + 1}</td>
-                <td>{track.name}</td>
-                <td>{utils.artistsAsString(track)}</td>
-                <td>{utils.convertTime(track.length)}</td>
-              </tr>
-            );
-          }.bind(this))}
-        </tbody>
-      </table>
+      <ul className='tracklist'>
+        <li className='tracklist-header'>
+          <span onClick={this._onSort.bind(this, 'name')}>Track</span>
+          <span onClick={this._onSort.bind(this, 'artist')}>Artist</span>
+          <span onClick={this._onSort.bind(this, 'length')}>Time</span>
+        </li>
+        {this.state.tracks.map(function(track, i) {
+          var active = track.uri === this.state.currentTrack.uri;
+          return (
+            <li key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)} className={active ? 'active' : ''}>
+              <span>{active ? <i className='fa fa-volume-up' /> : ''} {track.name}</span>
+              <span className='artist-name'>{utils.artistsAsString(track)}</span>
+              <span className='track-length'>{utils.convertTime(track.length)}</span>
+            </li>
+          );
+        }.bind(this))}
+      </ul>
     );
   }
 });

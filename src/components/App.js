@@ -39,16 +39,16 @@ var App = React.createClass({
       <Loader loading={!this.state.connected} text='Connecting...'>
         <div>
           <Header />
-          <div>
-            <aside className='sidebar'>
+          <main>
+            <aside>
               <Playlists />
             </aside>
-            <section className='main'>
+            <section>
               <Tracklist />
             </section>
-          </div>
+          </main>
           <footer>
-            <img src={this.state.coverURL} />
+            <img src={this.state.coverURL} alt='' />
             <PlayerControls />
           </footer>
         </div>
