@@ -3,10 +3,11 @@ var MopidyServerActionCreators = require('../actions/MopidyServerActionCreators'
 var PlaylistServerActionCreators = require('../actions/PlaylistServerActionCreators');
 var MopidyActionTypes = require('../constants').MopidyActionTypes;
 var AlbumCoverService = require('./AlbumCoverService');
+var config = require('../../config.json');
 
 var mopidy = new Mopidy({
   autoConnect: false,
-  webSocketUrl: 'ws://localhost:6680/mopidy/ws/',
+  webSocketUrl: config.webSocketUrl,
   callingConvention: 'by-position-or-by-name'
 });
 
