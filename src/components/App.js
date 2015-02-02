@@ -41,7 +41,6 @@ var App = React.createClass({
           <Header />
           <div>
             <aside className='sidebar'>
-              <img src={this.state.coverURL} />
               <Playlists />
             </aside>
             <section className='main'>
@@ -49,6 +48,7 @@ var App = React.createClass({
             </section>
           </div>
           <footer>
+            <img src={this.state.coverURL} />
             <PlayerControls />
           </footer>
         </div>

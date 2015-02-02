@@ -40,7 +40,9 @@ var Playlists = React.createClass({
         var [name, owner] = playlist.name.split(/ by /i);
         var classes = (playlist.name == currentName) ? 'active' : '';
         return (
-          <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist.name)}><i className='fa fa-music' /> {name} <span className='playlist-owner'>by {owner}</span></li>
+          <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist.name)}>
+            <i className='fa fa-music' /> {name} <span className='playlist-owner'>by {owner}</span>
+          </li>
         );
       }.bind(this))}
       </ul>

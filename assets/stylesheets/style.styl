@@ -37,8 +37,8 @@ html, body
 body
   font-size 1.2em
   line-height 1.5
-  font-family 'Source Sans Pro', 'Helvetica Neue', Helvetica, sans-serif
-  background #fff
+  font-family 'HelveticaNeue-Light', Helvetica, sans-serif
+  background #F2F2F0
   color #777
   position relative
 
@@ -48,7 +48,13 @@ header, aside, section, footer
 header
   height $header-height
   line-height @height
-  background #eee
+  background linear-gradient(#4D5259, darken(#4D5259, 10%))
+  color #fff
+  position fixed
+  top 0
+  left 0
+  right 0
+  z-index 10
 
 aside, section
   padding 1em
@@ -74,31 +80,52 @@ footer
   text-align center
   position fixed
   bottom 0
-  height $footer-height
-  line-height $footer-height
+  background #D9D5D0
   width 100%
+  display flex
+  align-items center
+  padding 20px
+
+  img
+    max-height 64px
 
   .controls
-    line-height $footer-height
-    height $footer-height
-
     button
       display inline-block
-      margin 12px 5px 0 5px
       width 44px
-      height @width
-      line-height @height
       border-radius (@width/2)
       border 0
       background transparent
-      font-size 22px
+      font-size 26px
       text-shadow 0 0 2px #fff
-      color #444
+      color #4D5259
       cursor pointer
       outline none
 
       &:hover
         color #000
+
+    input[type=range]
+      appearance none
+      background transparent
+      margin-right 5px
+
+      &::-webkit-slider-runnable-track
+        background #F2F2F0
+        border-radius 5px
+        width 100px
+        border none
+
+      &::-webkit-slider-thumb
+        appearance none
+        border none
+        background #4D5259
+        height 16px
+        width 16px
+        border-radius 8px
+
+      &:focus
+        outline none
 
 
 table
@@ -116,6 +143,9 @@ tbody
   tr
     &:hover, &.active
       background lighten(#eee, 10%)
+
+    td:first-child
+      font-size 14px
 
 td
   padding 5px 0

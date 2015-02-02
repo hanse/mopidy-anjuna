@@ -42,6 +42,7 @@ var Tracklist = React.createClass({
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th onClick={this._onSort.bind(this, 'name')}>Track</th>
             <th onClick={this._onSort.bind(this, 'artist')}>Artist</th>
             <th onClick={this._onSort.bind(this, 'length')}>Time</th>
@@ -50,8 +51,10 @@ var Tracklist = React.createClass({
         <tbody>
           {this.state.tracks.map(function(track, i) {
             var classes = track.uri === this.state.currentTrack.uri ? 'active' : '';
+            var active = track.uri === this.state.currentTrack.uri;
             return (
-              <tr key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)} className={classes}>
+              <tr key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)} className={active ? 'active' : ''}>
+                <td>{active ? <i className='fa fa-volume-up' /> : i + 1}</td>
                 <td>{track.name}</td>
                 <td>{utils.artistsAsString(track)}</td>
                 <td>{utils.convertTime(track.length)}</td>
