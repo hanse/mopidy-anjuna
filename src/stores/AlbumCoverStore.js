@@ -1,27 +1,19 @@
-var Store = require('./Store');
-var AppDispatcher = require('../AppDispatcher');
-var AlbumCoverActionTypes = require('../Constants').AlbumCoverActionTypes;
+var createStore = require('../createStore');
 
 var _coverURL = null;
 
-var AlbumCoverStore = Store.create({
+var AlbumCoverStore = createStore({
 
-  getCoverURL: function() {
+  getCoverURL() {
     return _coverURL;
-  }
-});
+  },
 
-AlbumCoverStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
-
-  switch (action.type) {
-    case AlbumCoverActionTypes.RECEIVE_ALBUM_COVER:
+  actions: {
+    albumCoverReceived(action) {
       _coverURL = action.cover;
-      AlbumCoverStore.emitChange();
-      break;
+      this.emitChange();
+    }
   }
-
-  return true;
-});
+})
 
 module.exports = AlbumCoverStore;

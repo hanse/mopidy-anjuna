@@ -1,9 +1,7 @@
-var Store = require('./Store');
-var AppDispatcher = require('../AppDispatcher');
+var createStore = require('../createStore');
+
 var PlaylistStore = require('./PlaylistStore');
 var CurrentlyPlayingStore = require('./CurrentlyPlayingStore');
-var PlaylistActionTypes = require('../Constants').PlaylistActionTypes;
-var TracklistActionTypes = require('../Constants').TracklistActionTypes;
 
 var _sortBy = null;
 var _direction = -1;
@@ -31,37 +29,26 @@ function getSortedTracks() {
   return tracklist;
 }
 
-var TracklistStore = Store.create({
-  getState: function() {
+var TracklistStore = createStore({
+  getState() {
     return {
       sortBy: _sortBy,
       sortDirection: _direction,
       tracks: getSortedTracks()
-    };
-  }
-});
+    }
+  },
 
-TracklistStore.dispatchToken = AppDispatcher.register(function(payload) {
+  actions: {
+    changePlaylist() {
+      this.emitChange();
+    },
 
-  AppDispatcher.waitFor([
-    PlaylistStore.dispatchToken,
-    CurrentlyPlayingStore.dispatchToken
-  ]);
-
-  var action = payload.action;
-  switch (action.type) {
-    case PlaylistActionTypes.CHANGE_PLAYLIST:
-      TracklistStore.emitChange();
-      break;
-
-    case TracklistActionTypes.SORT_TRACKS:
+    sortTracks(action) {
       _sortBy = action.sortBy;
       _direction = -_direction;
-      TracklistStore.emitChange();
-      break;
+      this.emitChange();
+    }
   }
-
-  return true;
 });
 
 module.exports = TracklistStore;

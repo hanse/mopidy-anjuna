@@ -1,7 +1,7 @@
 var React = require('react');
 
 var CurrentlyPlayingStore = require('../stores/CurrentlyPlayingStore');
-var PlayerControlViewActionCreators = require('../actions/PlayerControlViewActionCreators');
+var PlayerControlActions = require('../actions/PlayerControlActions');
 
 var PlayerControls = React.createClass({
 
@@ -23,32 +23,32 @@ var PlayerControls = React.createClass({
 
   togglePlay: function() {
     if (this.state.isPlaying) {
-      PlayerControlViewActionCreators.pause();
+      PlayerControlActions.pause();
     } else {
-      PlayerControlViewActionCreators.play();
+      PlayerControlActions.play();
     }
   },
 
   _onNextTrack: function() {
-    PlayerControlViewActionCreators.next();
+    PlayerControlActions.next();
   },
 
   _onPrevTrack: function() {
-    PlayerControlViewActionCreators.prev();
+    PlayerControlActions.prev();
   },
 
   _onVolumeChange: function() {
     var newVolume = this.refs.volume.getDOMNode().value | 0;
-    PlayerControlViewActionCreators.setVolume(newVolume);
+    PlayerControlActions.setVolume(newVolume);
   },
 
   render: function() {
     var playOrPause = this.state.isPlaying ? 'fa fa-pause' : 'fa fa-play';
-    var volumLevel;
+    var volumeLevel;
     if (this.state.volume < 5) volumeLevel = 'off';
     else if (this.state.volume > 80) volumeLevel = 'up';
     else volumeLevel = 'down';
-    console.log(this.state.volume, 'volume')
+
     return (
       <div className='controls'>
         <button onClick={this._onPrevTrack}><i className='fa fa-step-backward' /></button>

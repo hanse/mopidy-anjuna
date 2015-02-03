@@ -1,10 +1,7 @@
-var Store = require('./Store');
-var AppDispatcher = require('../AppDispatcher');
-var MopidyActionTypes = require('../Constants').MopidyActionTypes;
-
+var createStore = require('../createStore');
 
 var _track = {};
-var _volume = 1;
+var _volume = 50;
 var _timePosition = 0;
 var _isPlaying = false;
 
@@ -13,48 +10,42 @@ function trackString() {
   return _track.name + ' — ' + (_track.artists || []).map(function(artist) { return artist.name; }).join(', ')
 }
 
-var CurrentlyPlayingStore = Store.create({
+var CurrentlyPlayingStore = createStore({
 
-  getCurrentTrack: function() {
+  getCurrentTrack() {
     return _track;
   },
 
-  getState: function() {
+  getState() {
     return {
       track: _track,
       isPlaying: _isPlaying,
       trackString: trackString(),
       volume: _volume
     };
-  }
-});
+  },
 
-CurrentlyPlayingStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
-  switch (action.type) {
-    case MopidyActionTypes.PAUSED:
-    case MopidyActionTypes.STOPPED:
+  actions: {
+    paused() {
       _isPlaying = false;
-      CurrentlyPlayingStore.emitChange();
-      break;
+      this.emitChange();
+    },
 
-    case MopidyActionTypes.PLAYING:
+    playing() {
       _isPlaying = true;
-      CurrentlyPlayingStore.emitChange();
-      break;
+      this.emitChange();
+    },
 
-    case MopidyActionTypes.GET_CURRENT_TRACK:
+    getCurrentTrack(action) {
       _track = action.track || {};
-      CurrentlyPlayingStore.emitChange();
-      break;
+      this.emitChange();
+    },
 
-    case MopidyActionTypes.VOLUME_CHANGED:
+    volumeChanged(action) {
       _volume = action.volume;
-      CurrentlyPlayingStore.emitChange();
-      break;
+      this.emitChange();
+    }
   }
-
-  return true;
 });
 
 module.exports = CurrentlyPlayingStore;

@@ -1,6 +1,4 @@
-var Store = require('./Store');
-var AppDispatcher = require('../AppDispatcher');
-var PlaylistActionTypes = require('../constants').PlaylistActionTypes;
+var createStore = require('../createStore');
 
 var _playlists = {};
 var _currentPlaylist;
@@ -10,45 +8,37 @@ function _addPlaylists(playlists) {
   });
 }
 
-var PlaylistStore = Store.create({
+var PlaylistStore = createStore({
 
-  getCurrent: function() {
+  getCurrent() {
     return _currentPlaylist;
   },
 
-  getByName: function(name) {
+  getByName(name) {
     return _playlists[name];
   },
 
-  getAll: function() {
-    var playlists = [];
-    for (var playlist in _playlists) {
-      playlists.push(_playlists[playlist]);
-    }
-    return playlists;
+  getAll() {
+    return Object.keys(_playlists).map((name) => {
+      return _playlists[name];
+    });
   },
 
-  isEmpty: function() {
+  isEmpty() {
     return Object.keys(_playlists).length === 0;
-  }
-});
+  },
 
-PlaylistStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
-  switch (action.type) {
-    case PlaylistActionTypes.RECEIVE_PLAYLISTS:
+  actions: {
+    receivePlaylists(action) {
       _addPlaylists(action.playlists);
-      PlaylistStore.emitChange();
-      break;
+      this.emitChange();
+    },
 
-    case PlaylistActionTypes.CHANGE_PLAYLIST:
+    changePlaylist(action) {
       _currentPlaylist = _playlists[action.playlist];
-      window.localStorage.currentPlaylist = action.playlist;
-      PlaylistStore.emitChange();
-      break;
+      this.emitChange();
+    }
   }
-
-  return true;
 });
 
 module.exports = PlaylistStore;

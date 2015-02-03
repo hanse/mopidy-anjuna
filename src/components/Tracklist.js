@@ -1,6 +1,6 @@
 var React = require('react');
 
-var TracklistViewActionCreators = require('../actions/TracklistViewActionCreators');
+var TracklistActions = require('../actions/TracklistActions');
 var TracklistStore = require('../stores/TracklistStore');
 var CurrentlyPlayingStore = require('../stores/CurrentlyPlayingStore');
 var utils = require('../Utils');
@@ -27,11 +27,11 @@ var Tracklist = React.createClass({
   },
 
   _onSort: function(property) {
-    TracklistViewActionCreators.sortBy(property);
+    TracklistActions.sortBy(property);
   },
 
   _onPlayTrack: function(track) {
-    TracklistViewActionCreators.playTrack(track, this.state.tracks.map(function(track) {
+    TracklistActions.playTrack(track, this.state.tracks.map(function(track) {
       delete track.artist;
       return track;
     }));

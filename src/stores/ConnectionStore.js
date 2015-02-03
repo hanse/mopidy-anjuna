@@ -1,31 +1,24 @@
-var Store = require('./Store');
-var AppDispatcher = require('../AppDispatcher');
-var MopidyActionTypes = require('../Constants').MopidyActionTypes;
+var createStore = require('../createStore');
 
 var _connected = false;
 
-var ConnectionStore = Store.create({
-  isConnected: function() {
+var ConnectionStore = createStore({
+
+  isConnected() {
     return _connected;
-  }
-});
+  },
 
-ConnectionStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
-
-  switch (action.type) {
-    case MopidyActionTypes.CONNECTED:
+  actions: {
+    connected() {
       _connected = true;
-      ConnectionStore.emitChange();
-      break;
+      this.emitChange();
+    },
 
-    case MopidyActionTypes.DISCONNECTED:
+    disconnected() {
       _connected = false;
-      ConnectionStore.emitChange();
-      break;
+      this.emitChange();
+    }
   }
-
-  return true;
 });
 
 module.exports = ConnectionStore;

@@ -1,7 +1,6 @@
 var Mopidy = require('mopidy');
-var MopidyServerActionCreators = require('../actions/MopidyServerActionCreators');
-var PlaylistServerActionCreators = require('../actions/PlaylistServerActionCreators');
-var MopidyActionTypes = require('../constants').MopidyActionTypes;
+var MopidyActions = require('../actions/MopidyActions');
+var PlaylistActions = require('../actions/PlaylistActions');
 var AlbumCoverService = require('./AlbumCoverService');
 var config = require('../../config.json');
 
@@ -19,11 +18,12 @@ mopidy.on('state:online', function() {
   getState();
   getCurrentTrack();
   getVolume();
-  MopidyServerActionCreators.connected();
+  console.log('Server Action Creators', MopidyActions)
+  MopidyActions.connected();
 });
 
 mopidy.on('state:offline', function() {
-  MopidyServerActionCreators.disconnected();
+  MopidyActions.disconnected();
 });
 
 mopidy.on('event:trackPlaybackStarted', function(payload) {
@@ -37,13 +37,13 @@ mopidy.on('event:playbackStateChanged', function(payload) {
 });
 
 mopidy.on('event:volumeChanged', function(payload) {
-  MopidyServerActionCreators.volumeChanged(payload.volume);
+  MopidyActions.volumeChanged(payload.volume);
 });
 
 mopidy.on('event:playbackStateChanged', function(payload) {
   var newState = payload.new_state;
-  if (MopidyServerActionCreators.hasOwnProperty(newState)) {
-    MopidyServerActionCreators[newState]();
+  if (MopidyActions.hasOwnProperty(newState)) {
+    MopidyActions[newState]();
   }
 });
 
@@ -80,7 +80,7 @@ function playTrack(track, others) {
  */
 function getPlaylists() {
   return mopidy.playlists.getPlaylists().then(function(playlists) {
-    PlaylistServerActionCreators.receivePlaylists(playlists);
+    PlaylistActions.receivePlaylists(playlists);
   });
 }
 
@@ -89,7 +89,7 @@ function getPlaylists() {
  */
 function getCurrentTrack() {
   mopidy.playback.getCurrentTrack().then(function(track) {
-    MopidyServerActionCreators.getCurrentTrack(track);
+    MopidyActions.getCurrentTrack(track);
     AlbumCoverService.search(track);
   });
 }
@@ -100,7 +100,7 @@ function getCurrentTrack() {
  */
 function getState() {
   mopidy.playback.getState({}).then(function(payload) {
-    MopidyServerActionCreators[payload]();
+    MopidyActions[payload]();
   });
 }
 
@@ -134,7 +134,7 @@ function pause() {
 
 function getVolume() {
   return mopidy.playback.getVolume().then(function(volume) {
-    MopidyServerActionCreators.volumeChanged(volume);
+    MopidyActions.volumeChanged(volume);
   });
 }
 

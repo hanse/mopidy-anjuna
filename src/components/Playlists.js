@@ -1,7 +1,7 @@
 var React = require('react');
 
 var PlaylistStore = require('../stores/PlaylistStore');
-var PlaylistViewActionCreators = require('../actions/PlaylistViewActionCreators');
+var PlaylistActions = require('../actions/PlaylistActions');
 
 
 var Playlists = React.createClass({
@@ -29,7 +29,7 @@ var Playlists = React.createClass({
   },
 
   _onChange: function(playlist) {
-    PlaylistViewActionCreators.changePlaylist(playlist)
+    PlaylistActions.changePlaylist(playlist)
   },
 
   render: function() {
