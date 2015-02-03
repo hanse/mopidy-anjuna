@@ -10,31 +10,31 @@ var AlbumCoverStore = require('../stores/AlbumCoverStore');
 
 var App = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       connected: ConnectionStore.isConnected(),
       coverURL: AlbumCoverStore.getCoverURL()
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     ConnectionStore.addChangeListener(this.update);
     AlbumCoverStore.addChangeListener(this.update);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     ConnectionStore.removeChangeListener(this.update);
     AlbumCoverStore.removeChangeListener(this.update);
   },
 
-  update: function() {
+  update() {
     this.setState({
       connected: ConnectionStore.isConnected(),
       coverURL: AlbumCoverStore.getCoverURL()
     });
   },
 
-  render: function() {
+  render() {
     return (
       <Loader loading={!this.state.connected} text='Connecting...'>
         <div>

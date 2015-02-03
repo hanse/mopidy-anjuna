@@ -79,7 +79,7 @@ watch-css: $(BUILD_CSS)
 	@true
 
 watch:
-	@foreman start
+	@foreman start -f Devfile
 
 node_modules: package.json
 	@npm install

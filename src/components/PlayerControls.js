@@ -5,23 +5,23 @@ var PlayerControlActions = require('../actions/PlayerControlActions');
 
 var PlayerControls = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return CurrentlyPlayingStore.getState();
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     CurrentlyPlayingStore.addChangeListener(this.update);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     CurrentlyPlayingStore.removeChangeListener(this.update);
   },
 
-  update: function() {
+  update() {
     this.setState(CurrentlyPlayingStore.getState());
   },
 
-  togglePlay: function() {
+  togglePlay() {
     if (this.state.isPlaying) {
       PlayerControlActions.pause();
     } else {
@@ -29,20 +29,20 @@ var PlayerControls = React.createClass({
     }
   },
 
-  _onNextTrack: function() {
+  _onNextTrack() {
     PlayerControlActions.next();
   },
 
-  _onPrevTrack: function() {
+  _onPrevTrack() {
     PlayerControlActions.prev();
   },
 
-  _onVolumeChange: function() {
+  _onVolumeChange() {
     var newVolume = this.refs.volume.getDOMNode().value | 0;
     PlayerControlActions.setVolume(newVolume);
   },
 
-  render: function() {
+  render() {
     var playOrPause = this.state.isPlaying ? 'fa fa-pause' : 'fa fa-play';
     var volumeLevel;
     if (this.state.volume < 5) volumeLevel = 'off';

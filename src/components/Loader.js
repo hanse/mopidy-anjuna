@@ -2,14 +2,14 @@ var React = require('react');
 
 var Loader = React.createClass({
 
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       loading: false,
       text: 'Loading...'
     };
   },
 
-  render: function() {
+  render() {
     if (this.props.loading) {
       return <div className='loader'>{this.props.text}</div>;
     }

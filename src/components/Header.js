@@ -4,25 +4,25 @@ var CurrentlyPlayingStore = require('../stores/CurrentlyPlayingStore');
 
 var Header = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return CurrentlyPlayingStore.getState();
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     CurrentlyPlayingStore.addChangeListener(this.update);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     CurrentlyPlayingStore.removeChangeListener(this.update);
   },
 
-  update: function() {
+  update() {
     this.setState(CurrentlyPlayingStore.getState());
     document.title = this.state.trackString;
   },
 
-  render: function() {
-    var artists = (this.state.track.artists || []).map(function(artist) { return artist.name; }).join(', ');
+  render() {
+    var artists = (this.state.track.artists || []).map((artist) => { artist.name; }).join(', ');
     return (
       <header>
         <h1>{this.state.trackString}</h1>

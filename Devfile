@@ -1,2 +1,3 @@
 js: make watch-js
 css: watch make watch-css
+server: PORT=3000 make server
