@@ -1,28 +1,34 @@
 import React from 'react';
 import TracklistActions from '../actions/TracklistActions';
-import TracklistStore from '../stores/TracklistStore';
+import QueueStore from '../stores/QueueStore';
 import CurrentlyPlayingStore from '../stores/CurrentlyPlayingStore';
 import {convertTime, artistsAsString} from '../helpers';
 
-var Tracklist = React.createClass({
+function getState() {
+  return {
+    tracks: QueueStore.getTracks(),
+    currentTrack: CurrentlyPlayingStore.getCurrentTrack()
+  }
+}
+
+var Queue = React.createClass({
 
   getInitialState() {
-    return TracklistStore.getState();
+    return getState();
   },
 
   componentDidMount() {
-    TracklistStore.addChangeListener(this.update);
+    QueueStore.addChangeListener(this.update);
     CurrentlyPlayingStore.addChangeListener(this.update);
   },
 
   componentWillUnmount() {
-    TracklistStore.removeChangeListener(this.update);
+    QueueStore.removeChangeListener(this.update);
     CurrentlyPlayingStore.removeChangeListener(this.update);
   },
 
   update() {
-    this.setState(TracklistStore.getState());
-    this.setState({currentTrack: CurrentlyPlayingStore.getCurrentTrack()});
+    this.setState(getState());
   },
 
   _onSort(property) {
@@ -30,17 +36,17 @@ var Tracklist = React.createClass({
   },
 
   _onPlayTrack(track) {
-    TracklistActions.enqueueTrack(track);
+    TracklistActions.playTrack(track);
+  },
+
+  _onClearCache() {
+    TracklistActions.clearQueue();
   },
 
   render() {
     return (
       <ul className='tracklist'>
-        <li className='tracklist-header'>
-          <span onClick={this._onSort.bind(this, 'name')}>Track</span>
-          <span onClick={this._onSort.bind(this, 'artist')}>Artist</span>
-          <span onClick={this._onSort.bind(this, 'length')}>Time</span>
-        </li>
+        <button onClick={this._onClearCache}>Clear Cache</button>
         {this.state.tracks.map((track, i) => {
           var active = track.uri === this.state.currentTrack.uri;
           return (
@@ -56,4 +62,4 @@ var Tracklist = React.createClass({
   }
 });
 
-export default Tracklist;
+export default Queue;

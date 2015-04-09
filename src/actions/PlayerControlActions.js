@@ -1,8 +1,7 @@
+import createActions from '../createActions';
+import * as MopidyService from '../services/MopidyService';
 
-var createActions = require('../createActions');
-var MopidyService = require('../services/MopidyService');
-
-var PlayerControlActions = createActions({
+export default createActions({
 
   next() {
     MopidyService.nextTrack();
@@ -23,9 +22,7 @@ var PlayerControlActions = createActions({
   setVolume(volume) {
     MopidyService.setVolume(volume);
     return {
-      volume: volume
+      volume
     };
   }
 });
-
-module.exports = PlayerControlActions;

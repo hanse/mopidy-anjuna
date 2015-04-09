@@ -1,12 +1,12 @@
-var React = require('react');
-var Tracklist = require('./Tracklist');
-var PlayerControls = require('./PlayerControls');
-var Header = require('./Header');
-var Playlists = require('./Playlists');
-var Loader = require('./Loader');
-
-var ConnectionStore = require('../stores/ConnectionStore');
-var AlbumCoverStore = require('../stores/AlbumCoverStore');
+import React from 'react';
+import Tracklist from './Tracklist';
+import Queue from './Queue';
+import PlayerControls from './PlayerControls';
+import Header from './Header';
+import Playlists from './Playlists';
+import Loader from './Loader';
+import ConnectionStore from '../stores/ConnectionStore';
+import AlbumCoverStore from '../stores/AlbumCoverStore';
 
 var App = React.createClass({
 
@@ -36,7 +36,7 @@ var App = React.createClass({
 
   render() {
     return (
-      <Loader loading={!this.state.connected} text='Connecting...'>
+      <Loader loading={!this.state.connected}>
         <div>
           <Header />
           <main>
@@ -45,6 +45,9 @@ var App = React.createClass({
             </aside>
             <section>
               <Tracklist />
+            </section>
+            <section>
+              <Queue />
             </section>
           </main>
           <footer>
@@ -57,4 +60,4 @@ var App = React.createClass({
   }
 });
 
-module.exports = App;
+export default App;

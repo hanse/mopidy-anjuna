@@ -1,16 +1,15 @@
-var Mopidy = require('mopidy');
-var MopidyActions = require('../actions/MopidyActions');
-var PlaylistActions = require('../actions/PlaylistActions');
-var AlbumCoverService = require('./AlbumCoverService');
-var config = require('../../config.json');
+import Mopidy from 'mopidy';
+import MopidyActions from '../actions/MopidyActions';
+import PlaylistActions from '../actions/PlaylistActions';
+import AlbumCoverService from './AlbumCoverService';
+import config from '../../config.json';
 
 var mopidy = new Mopidy({
-  autoConnect: false,
+  autoConnect: true,
   webSocketUrl: config.webSocketUrl,
   callingConvention: 'by-position-or-by-name'
 });
 
-mopidy.connect();
 mopidy.on(console.log.bind(console));
 
 mopidy.on('state:online', function() {
@@ -18,8 +17,8 @@ mopidy.on('state:online', function() {
   getState();
   getCurrentTrack();
   getVolume();
-  console.log('Server Action Creators', MopidyActions)
   MopidyActions.connected();
+  mopidy.tracklist.setConsume({value: true});
 });
 
 mopidy.on('state:offline', function() {
@@ -33,16 +32,13 @@ mopidy.on('event:trackPlaybackStarted', function(payload) {
 mopidy.on('event:trackPlaybackPaused', function() {
 });
 
-mopidy.on('event:playbackStateChanged', function(payload) {
-});
-
 mopidy.on('event:volumeChanged', function(payload) {
   MopidyActions.volumeChanged(payload.volume);
 });
 
 mopidy.on('event:playbackStateChanged', function(payload) {
   var newState = payload.new_state;
-  if (MopidyActions.hasOwnProperty(newState)) {
+  if ('function' === typeof MopidyActions[newState]) {
     MopidyActions[newState]();
   }
 });
@@ -51,109 +47,91 @@ mopidy.on('event:playlistsLoaded', function() {
   getPlaylists();
 });
 
-mopidy.on('event:tracklistChanged', function(payload) {
-
+mopidy.on('event:tracklistChanged', function() {
+  getTracklist();
 });
 
-
-function playTrack(track, others) {
-  mopidy.playback.stop({clear_current_track: true}).then(function() {
-    mopidy.tracklist.clear();
-  }).then(function() {
-    mopidy.tracklist.add({tracks: others});
-  }).then(function() {
-    mopidy.tracklist.getTlTracks().then(function(tlTracks) {
-      var tlTrackToPlay = tlTracks.filter(function(tlTrack) {
-        return tlTrack.track.uri === track.uri;
-      })[0];
-
-      console.log(tlTrackToPlay)
-      mopidy.playback.changeTrack({tl_track: tlTrackToPlay}).then(function() {
-        mopidy.playback.play();
-      });
-    });
-  });
-}
-
-/**
- * Get all available playlists from the server
- */
 function getPlaylists() {
-  return mopidy.playlists.getPlaylists().then(function(playlists) {
+  return mopidy.playlists.getPlaylists().then(playlists => {
     PlaylistActions.receivePlaylists(playlists);
   });
 }
 
-/**
- * Get info about the current track
- */
 function getCurrentTrack() {
-  mopidy.playback.getCurrentTrack().then(function(track) {
+  mopidy.playback.getCurrentTrack().then(track => {
     MopidyActions.getCurrentTrack(track);
     AlbumCoverService.search(track);
   });
 }
 
-/**
- * Get the current playing state (playing, paused, stopped)
- * @return void
- */
+function getTracklist() {
+  mopidy.tracklist.getTracks().then(tracks => {
+    MopidyActions.tracklistReceived(tracks);
+  });
+}
+
 function getState() {
-  mopidy.playback.getState({}).then(function(payload) {
+  mopidy.playback.getState({}).then(payload => {
     MopidyActions[payload]();
   });
 }
 
-/**
- * Play the next track
- */
-function nextTrack() {
-  return mopidy.playback.next().then(noop);
-}
-
-/**
- * Play the previous track
- */
-function prevTrack() {
-  return mopidy.playback.previous().then(noop);
-}
-
-/**
- * Play
- */
-function play() {
-  return mopidy.playback.play().then(noop);
-}
-
-/**
- * Pause
- */
-function pause() {
-  return mopidy.playback.pause().then(noop);
-}
-
 function getVolume() {
-  return mopidy.playback.getVolume().then(function(volume) {
+  return mopidy.playback.getVolume().then(volume => {
     MopidyActions.volumeChanged(volume);
   });
 }
 
-function setVolume(volume) {
+/**
+ * Force a song to the start of the queue
+ */
+export function playTrack(track) {
+  mopidy.playback.stop({clear_current_track: true})
+    .then(function() {
+      mopidy.tracklist.getTlTracks().then(function(tlTracks) {
+        var tlTrackToPlay = tlTracks.filter(function(tlTrack, i) {
+          return tlTrack.track.uri === track.uri;
+        })[0];
+
+        var trackCount = tlTracks.length;
+        mopidy.playback.changeTrack({tl_track: tlTrackToPlay}).then(function(data) {
+          mopidy.playback.play();
+        });
+      });
+  });
+}
+
+/**
+ * Add a track to the end of the play queue.
+ */
+export function enqueueTrack(track) {
+  mopidy.tracklist.add({uri: track.uri});
+}
+
+export function nextTrack() {
+  return mopidy.playback.next().then(noop);
+}
+
+export function prevTrack() {
+  return mopidy.playback.previous().then(noop);
+}
+
+export function play() {
+  return mopidy.playback.play().then(noop);
+}
+
+export function pause() {
+  return mopidy.playback.pause().then(noop);
+}
+
+export function setVolume(volume) {
   return mopidy.playback.setVolume({volume: volume}).then();
+}
+
+export function clearTracklist() {
+  return mopidy.tracklist.clear({}).then();
 }
 
 function noop() {
   return console.log.bind(console);
 }
-
-/**
- * Expose the service API
- */
-module.exports = {
-  nextTrack: nextTrack,
-  prevTrack: prevTrack,
-  play: play,
-  pause: pause,
-  playTrack: playTrack,
-  setVolume: setVolume
-};

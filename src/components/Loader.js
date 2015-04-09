@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var Loader = React.createClass({
 
@@ -18,4 +18,4 @@ var Loader = React.createClass({
   }
 });
 
-module.exports = Loader;
+export default Loader;

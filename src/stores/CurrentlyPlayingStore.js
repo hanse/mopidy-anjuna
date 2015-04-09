@@ -48,4 +48,4 @@ var CurrentlyPlayingStore = createStore({
   }
 });
 
-module.exports = CurrentlyPlayingStore;
+export default CurrentlyPlayingStore;

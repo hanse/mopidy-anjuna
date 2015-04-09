@@ -1,10 +1,9 @@
-
-var Dispatcher = require('./Dispatcher');
-var assign = require('object-assign');
+import Dispatcher from './Dispatcher';
+import assign from 'object-assign';
 
 class Actions {}
 
-function createActions(actions) {
+export default function createActions(actions) {
   var actionContainer = new Actions;
 
   if (actions.hasOwnProperty('voidActions')) {
@@ -22,8 +21,7 @@ function createActions(actions) {
       }, actions[action].apply(actionContainer, args));
       Dispatcher.handleAction(payload);
     };
-  })
+  });
+
   return actionContainer;
 }
-
-module.exports = createActions;

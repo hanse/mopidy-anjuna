@@ -1,7 +1,6 @@
-var React = require('react');
-
-var CurrentlyPlayingStore = require('../stores/CurrentlyPlayingStore');
-var PlayerControlActions = require('../actions/PlayerControlActions');
+import React from 'react';
+import CurrentlyPlayingStore from '../stores/CurrentlyPlayingStore';
+import PlayerControlActions from '../actions/PlayerControlActions';
 
 var PlayerControls = React.createClass({
 
@@ -61,4 +60,4 @@ var PlayerControls = React.createClass({
   }
 });
 
-module.exports = PlayerControls;
+export default PlayerControls;

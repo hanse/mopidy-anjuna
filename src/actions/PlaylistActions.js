@@ -1,17 +1,16 @@
-var createActions = require('../createActions');
+import createActions from '../createActions';
 
-var PlaylistActions = createActions({
+export default createActions({
+
   changePlaylist(playlist) {
     return {
-      playlist: playlist
+      playlist
     };
   },
 
   receivePlaylists(playlists) {
     return {
-      playlists: playlists
+      playlists
     };
   }
 });
-
-module.exports = PlaylistActions;

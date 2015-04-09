@@ -1,4 +1,4 @@
-var createStore = require('../createStore');
+import createStore from '../createStore';
 
 var _connected = false;
 
@@ -21,4 +21,4 @@ var ConnectionStore = createStore({
   }
 });
 
-module.exports = ConnectionStore;
+export default ConnectionStore;

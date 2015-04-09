@@ -1,7 +1,10 @@
-var createStore = require('../createStore');
+import createStore from '../createStore';
 
 var _coverURL = null;
 
+/**
+ * Album Cover Store
+ */
 var AlbumCoverStore = createStore({
 
   getCoverURL() {
@@ -14,6 +17,6 @@ var AlbumCoverStore = createStore({
       this.emitChange();
     }
   }
-})
+});
 
-module.exports = AlbumCoverStore;
+export default AlbumCoverStore;

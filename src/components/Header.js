@@ -1,6 +1,5 @@
-var React = require('react');
-
-var CurrentlyPlayingStore = require('../stores/CurrentlyPlayingStore');
+import React from 'react';
+import CurrentlyPlayingStore from '../stores/CurrentlyPlayingStore';
 
 var Header = React.createClass({
 
@@ -31,4 +30,4 @@ var Header = React.createClass({
   }
 });
 
-module.exports = Header;
+export default Header;

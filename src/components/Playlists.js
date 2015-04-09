@@ -1,8 +1,6 @@
-var React = require('react');
-
-var PlaylistStore = require('../stores/PlaylistStore');
-var PlaylistActions = require('../actions/PlaylistActions');
-
+import React from 'react';
+import PlaylistStore from '../stores/PlaylistStore';
+import PlaylistActions from '../actions/PlaylistActions';
 
 var Playlists = React.createClass({
 
@@ -50,4 +48,4 @@ var Playlists = React.createClass({
   }
 });
 
-module.exports = Playlists;
+export default Playlists;

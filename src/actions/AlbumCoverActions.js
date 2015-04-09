@@ -1,6 +1,6 @@
-var createActions = require('../createActions');
+import createActions from '../createActions';
 
-var AlbumCoverActions = createActions({
+export default createActions({
 
   albumCoverReceived(cover) {
     return {
@@ -8,5 +8,3 @@ var AlbumCoverActions = createActions({
     };
   }
 });
-
-module.exports = AlbumCoverActions;

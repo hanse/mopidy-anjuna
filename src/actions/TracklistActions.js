@@ -1,7 +1,8 @@
-var createActions = require('../createActions');
-var MopidyService = require('../services/MopidyService');
+import createActions from '../createActions';
+import * as MopidyService from '../services/MopidyService';
 
-var TracklistViewActions = createActions({
+export default createActions({
+
   sortTracks(property) {
     return {
       sortBy: property
@@ -10,10 +11,13 @@ var TracklistViewActions = createActions({
 
   playTrack(track, others) {
     MopidyService.playTrack(track, others);
-    return {
-      track: track
-    };
+  },
+
+  enqueueTrack(track) {
+    MopidyService.enqueueTrack(track);
+  },
+
+  clearQueue() {
+    MopidyService.clearTracklist();
   }
 });
-
-module.exports = TracklistViewActions;

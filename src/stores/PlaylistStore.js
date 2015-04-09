@@ -1,4 +1,4 @@
-var createStore = require('../createStore');
+import createStore from '../createStore';
 
 var _playlists = {};
 var _currentPlaylist;
@@ -41,4 +41,4 @@ var PlaylistStore = createStore({
   }
 });
 
-module.exports = PlaylistStore;
+export default PlaylistStore;

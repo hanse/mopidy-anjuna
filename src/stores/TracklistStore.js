@@ -1,7 +1,6 @@
-var createStore = require('../createStore');
-
-var PlaylistStore = require('./PlaylistStore');
-var CurrentlyPlayingStore = require('./CurrentlyPlayingStore');
+import createStore from '../createStore';
+import PlaylistStore from './PlaylistStore';
+import CurrentlyPlayingStore from './CurrentlyPlayingStore';
 
 var _sortBy = null;
 var _direction = -1;
@@ -11,6 +10,8 @@ function getSortedTracks() {
   if (!playlist) return [];
 
   var tracklist = playlist.tracks;
+  if (!tracklist) return [];
+
   var currentTrack = CurrentlyPlayingStore.getCurrentTrack();
   var tracklist = playlist.tracks.map(function(track) {
     track.artist = track.artists.map(function(artist) {
@@ -38,6 +39,7 @@ var TracklistStore = createStore({
     }
   },
 
+  waitFor: [PlaylistStore.dispatchToken, CurrentlyPlayingStore.dispatchToken],
   actions: {
     changePlaylist() {
       this.emitChange();
@@ -51,4 +53,4 @@ var TracklistStore = createStore({
   }
 });
 
-module.exports = TracklistStore;
+export default TracklistStore;

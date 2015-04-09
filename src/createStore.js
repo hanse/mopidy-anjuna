@@ -1,8 +1,8 @@
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var Dispatcher = require('./Dispatcher');
+import {EventEmitter} from 'events';
+import assign from 'object-assign';
+import Dispatcher from './Dispatcher';
 
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
 class Store {
 
@@ -23,10 +23,8 @@ class Store {
   }
 }
 
-function createStore(methods) {
+export default function createStore(methods) {
   var store = assign(new Store, methods);
   Dispatcher.registerStore(store);
   return store;
 }
-
-module.exports = createStore;

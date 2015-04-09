@@ -1,26 +1,22 @@
-var createActions = require('../createActions');
+import createActions from '../createActions';
 
-var MopidyActions = createActions({
+export default createActions({
 
   voidActions: ['connected', 'disconnected', 'playing', 'paused', 'stopped'],
 
   receivePlaylists(playlists) {
-    return {
-      playlists: playlists
-    };
+    return {playlists};
   },
 
   getCurrentTrack(track) {
-    return {
-      track: track
-    };
+    return {track};
   },
 
-  volumeChanged(newVolume) {
-    return {
-      volume: newVolume
-    };
+  volumeChanged(volume) {
+    return {volume};
+  },
+
+  tracklistReceived(tracks) {
+    return {tracks};
   }
 });
-
-module.exports = MopidyActions;

@@ -1,14 +1,13 @@
-var Dispatcher = require('flux').Dispatcher;
-var invariant = require('flux/lib/invariant');
-var assign = require('object-assign');
+import {Dispatcher} from 'flux';
+import invariant from 'flux/lib/invariant';
+import assign from 'object-assign';
 
 /**
  * The Application Dispatcher
  *
  * See Flux App Dispatchers for more info.
  */
-
-module.exports = assign(new Dispatcher(), {
+export default assign(new Dispatcher(), {
 
   handleAction(action) {
     console.log('Dispatched Action', action);
@@ -23,7 +22,7 @@ module.exports = assign(new Dispatcher(), {
     store.dispatchToken = this.register(function(payload) {
       var action = payload.action;
       if (!store.hasOwnProperty('actions')) return;
-      console.log(store.actions, action.type)
+
       var handler = store.actions[action.type];
       var handlerName = action.type;
 
@@ -40,7 +39,10 @@ module.exports = assign(new Dispatcher(), {
         '%s is not a function', handlerName
       );
 
+      if (store.waitFor)
+        this.waitFor(store.waitFor);
+
       handler.call(store, action);
-    })
+    }.bind(this));
   }
 });
