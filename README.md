@@ -1,4 +1,4 @@
-# iodos
+# mopidy-anjuna
 
 > Elegant Web UI for the Mopidy Music Server written in React.js.
 
@@ -7,10 +7,9 @@ Note that this project is very WIP.
 ## Install
 As of now, the only way to install is to build it yourself.
 ```bash
-git clone git://github.com:Hanse/iodos
-cd iodos
-make
-make server
+git clone git://github.com:Hanse/mopidy-anjuna
+cd mopidy-anjuna
+PORT=3000 npm run watch
 ```
 Running these commands should start the client on `localhost:3000`. The Mopidy server must be running on `localhost:6680`.
 
