@@ -2,57 +2,52 @@ import React from 'react';
 import Tracklist from './Tracklist';
 import Queue from './Queue';
 import PlayerControls from './PlayerControls';
-import Header from './Header';
 import Playlists from './Playlists';
 import Loader from './Loader';
-import ConnectionStore from '../stores/ConnectionStore';
-import AlbumCoverStore from '../stores/AlbumCoverStore';
+import StatusStore from '../stores/StatusStore';
 
-var App = React.createClass({
+function getState() {
+  return StatusStore.getState();
+}
+
+const App = React.createClass({
 
   getInitialState() {
-    return {
-      connected: ConnectionStore.isConnected(),
-      coverURL: AlbumCoverStore.getCoverURL()
-    };
+    return getState();
   },
 
   componentDidMount() {
-    ConnectionStore.addChangeListener(this.update);
-    AlbumCoverStore.addChangeListener(this.update);
+    StatusStore.addChangeListener(this.update);
   },
 
   componentWillUnmount() {
-    ConnectionStore.removeChangeListener(this.update);
-    AlbumCoverStore.removeChangeListener(this.update);
+    StatusStore.removeChangeListener(this.update);
   },
 
   update() {
-    this.setState({
-      connected: ConnectionStore.isConnected(),
-      coverURL: AlbumCoverStore.getCoverURL()
-    });
+    this.setState(getState());
   },
 
   render() {
     return (
       <Loader loading={!this.state.connected}>
         <div>
-          <Header />
+          <header>
+            <h1>Anjuna</h1>
+          </header>
           <main>
             <aside>
-              <Playlists />
+              <Playlists {...this.state} />
             </aside>
             <section>
-              <Tracklist />
+              <Tracklist {...this.state} />
             </section>
             <section>
-              <Queue />
+              <Queue {...this.state} />
             </section>
           </main>
           <footer>
-            <img src={this.state.coverURL} alt='' />
-            <PlayerControls />
+            <PlayerControls {...this.state} />
           </footer>
         </div>
       </Loader>

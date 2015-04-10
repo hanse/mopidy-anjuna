@@ -1,12 +1,8 @@
 import React from 'react';
 
-var Loader = React.createClass({
+class Loader extends React.Component {
 
-  getDefaultProps() {
-    return {
-      loading: false,
-    };
-  },
+  defaultProps = { loading: false }
 
   render() {
     if (this.props.loading) {

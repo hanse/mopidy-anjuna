@@ -1,10 +1,9 @@
-var React = require('react');
-var Router = require('react-router');
-var {Routes, Route, DefaultRoute, NotFoundRoute} = Router;
+import React from 'react';
+import {Routes, Route, DefaultRoute, NotFoundRoute} from 'react-router';
 
-var App = require('./components/App');
+const App = require('./components/App');
 
-var routes = (
+const routes = (
   <Route handler={App} path='/'>
     <DefaultRoute handler={App} />
   </Route>

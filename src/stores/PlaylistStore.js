@@ -2,6 +2,7 @@ import createStore from '../createStore';
 
 var _playlists = {};
 var _currentPlaylist;
+
 function _addPlaylists(playlists) {
   playlists.forEach(function(playlist) {
     _playlists[playlist.name] = playlists[playlist.name] || playlist;

@@ -21,8 +21,6 @@ export default createActions({
 
   setVolume(volume) {
     MopidyService.setVolume(volume);
-    return {
-      volume
-    };
+    return { volume };
   }
 });

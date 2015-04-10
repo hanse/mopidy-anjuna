@@ -10,8 +10,7 @@
   "scripts": {
     "watch-js": "watchify src/index.js -d -o public/app.js -v",
     "watch-css": "stylus --use nib -w assets/stylesheets/style.styl -o public/app.css",
-    "watch": "npm run watch-js & npm run watch-css & npm run start",
-    "start": "http-server",
+    "watch": "npm run watch-js & npm run watch-css",
     "test": "istanbul cover _mocha -- src/**/__tests__/*-test.js --compilers js:babel/register && istanbul report cobertura",
     "lint": "jsxhint src/ && jscs src/ --esnext; true",
     "babel-node": "babel-node --experimental --modules=common"
@@ -51,7 +50,8 @@
       [
         "babelify",
         {
-          "modules": "common"
+          "modules": "common",
+          "stage": 0
         }
       ]
     ]

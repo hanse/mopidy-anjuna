@@ -1,37 +1,31 @@
 import React from 'react';
 import TracklistActions from '../actions/TracklistActions';
 import TracklistStore from '../stores/TracklistStore';
-import CurrentlyPlayingStore from '../stores/CurrentlyPlayingStore';
 import {convertTime, artistsAsString} from '../helpers';
 
-var Tracklist = React.createClass({
+class Tracklist extends React.Component {
 
-  getInitialState() {
-    return TracklistStore.getState();
-  },
+  state = TracklistStore.getState();
 
   componentDidMount() {
     TracklistStore.addChangeListener(this.update);
-    CurrentlyPlayingStore.addChangeListener(this.update);
-  },
+  }
 
   componentWillUnmount() {
     TracklistStore.removeChangeListener(this.update);
-    CurrentlyPlayingStore.removeChangeListener(this.update);
-  },
+  }
 
-  update() {
+  update = () => {
     this.setState(TracklistStore.getState());
-    this.setState({currentTrack: CurrentlyPlayingStore.getCurrentTrack()});
-  },
+  }
 
   _onSort(property) {
     TracklistActions.sortTracks(property);
-  },
+  }
 
   _onPlayTrack(track) {
     TracklistActions.enqueueTrack(track);
-  },
+  }
 
   render() {
     return (
@@ -42,7 +36,7 @@ var Tracklist = React.createClass({
           <span onClick={this._onSort.bind(this, 'length')}>Time</span>
         </li>
         {this.state.tracks.map((track, i) => {
-          var active = track.uri === this.state.currentTrack.uri;
+          var active = track.uri === this.props.currentTrack.uri;
           return (
             <li key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)} className={active ? 'active' : ''}>
               <span>{active ? <i className='fa fa-volume-up' /> : ''} {track.name}</span>
@@ -54,6 +48,6 @@ var Tracklist = React.createClass({
       </ul>
     );
   }
-});
+}
 
 export default Tracklist;

@@ -1,11 +1,11 @@
 import createStore from '../createStore';
 
-var _coverURL = null;
+let _coverURL = null;
 
 /**
  * Album Cover Store
  */
-var AlbumCoverStore = createStore({
+const AlbumCoverStore = createStore({
 
   getCoverURL() {
     return _coverURL;

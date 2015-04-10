@@ -1,6 +1,5 @@
 import createStore from '../createStore';
 import PlaylistStore from './PlaylistStore';
-import CurrentlyPlayingStore from './CurrentlyPlayingStore';
 
 var _sortBy = null;
 var _direction = -1;
@@ -12,7 +11,6 @@ function getSortedTracks() {
   var tracklist = playlist.tracks;
   if (!tracklist) return [];
 
-  var currentTrack = CurrentlyPlayingStore.getCurrentTrack();
   var tracklist = playlist.tracks.map(function(track) {
     track.artist = track.artists.map(function(artist) {
       return artist.name;
@@ -39,16 +37,13 @@ var TracklistStore = createStore({
     }
   },
 
-  waitFor: [PlaylistStore.dispatchToken, CurrentlyPlayingStore.dispatchToken],
   actions: {
     changePlaylist() {
-      this.emitChange();
     },
 
     sortTracks(action) {
       _sortBy = action.sortBy;
       _direction = -_direction;
-      this.emitChange();
     }
   }
 });

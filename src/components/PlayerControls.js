@@ -1,27 +1,10 @@
 import React from 'react';
-import CurrentlyPlayingStore from '../stores/CurrentlyPlayingStore';
 import PlayerControlActions from '../actions/PlayerControlActions';
 
-var PlayerControls = React.createClass({
-
-  getInitialState() {
-    return CurrentlyPlayingStore.getState();
-  },
-
-  componentDidMount() {
-    CurrentlyPlayingStore.addChangeListener(this.update);
-  },
-
-  componentWillUnmount() {
-    CurrentlyPlayingStore.removeChangeListener(this.update);
-  },
-
-  update() {
-    this.setState(CurrentlyPlayingStore.getState());
-  },
+const PlayerControls = React.createClass({
 
   togglePlay() {
-    if (this.state.isPlaying) {
+    if (this.props.isPlaying) {
       PlayerControlActions.pause();
     } else {
       PlayerControlActions.play();
@@ -42,10 +25,10 @@ var PlayerControls = React.createClass({
   },
 
   render() {
-    var playOrPause = this.state.isPlaying ? 'fa fa-pause' : 'fa fa-play';
+    var playOrPause = this.props.isPlaying ? 'fa fa-pause' : 'fa fa-play';
     var volumeLevel;
-    if (this.state.volume < 5) volumeLevel = 'off';
-    else if (this.state.volume > 80) volumeLevel = 'up';
+    if (this.props.volume < 5) volumeLevel = 'off';
+    else if (this.props.volume > 80) volumeLevel = 'up';
     else volumeLevel = 'down';
 
     return (
@@ -53,7 +36,7 @@ var PlayerControls = React.createClass({
         <button onClick={this._onPrevTrack}><i className='fa fa-step-backward' /></button>
         <button className='play-button' onClick={this.togglePlay}><i className={playOrPause} /></button>
         <button onClick={this._onNextTrack}><i className='fa fa-step-forward' /></button>
-        <input type='range' value={this.state.volume} ref='volume' onChange={this._onVolumeChange} />
+        <input type='range' value={this.props.volume} ref='volume' onChange={this._onVolumeChange} />
         <i className={'fa fa-volume-' + volumeLevel} />
       </div>
     );

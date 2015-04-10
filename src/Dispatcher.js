@@ -42,7 +42,9 @@ export default assign(new Dispatcher(), {
       if (store.waitFor)
         this.waitFor(store.waitFor);
 
-      handler.call(store, action);
+      if (handler.call(store, action) !== false)
+        store.emitChange();
+
     }.bind(this));
   }
 });
