@@ -22,6 +22,7 @@
     "album-cover": "0.0.3",
     "babel-loader": "^5.0.0",
     "browserify": "^9.0.7",
+    "classnames": "^1.2.0",
     "css-loader": "^0.10.1",
     "flux": "^2.0.1",
     "mopidy": "^0.5.0",

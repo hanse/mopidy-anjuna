@@ -10,10 +10,6 @@ var QueueStore = createStore({
     }
   },
 
-  getTracks() {
-    return _tracks;
-  },
-
   actions: {
     tracklistReceived(action) {
       _tracks = action.tracks;

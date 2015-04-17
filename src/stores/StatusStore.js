@@ -24,6 +24,10 @@ const StatusStore = createStore({
       _isPlaying = false;
     },
 
+    stopped() {
+      _isPlaying = false;
+    },
+
     playing() {
       _isPlaying = true;
     },

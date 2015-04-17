@@ -17,8 +17,9 @@ mopidy.on('state:online', function() {
   getState();
   getCurrentTrack();
   getVolume();
+  getTracklist();
   MopidyActions.connected();
-  mopidy.tracklist.setConsume({value: true});
+  mopidy.tracklist.setConsume({ value: true });
 });
 
 mopidy.on('state:offline', function() {
@@ -65,7 +66,7 @@ function getCurrentTrack() {
 }
 
 function getTracklist() {
-  mopidy.tracklist.getTracks().then(tracks => {
+  mopidy.tracklist.getTlTracks().then(tracks => {
     MopidyActions.tracklistReceived(tracks);
   });
 }
@@ -85,7 +86,7 @@ function getVolume() {
 /**
  * Force a song to the start of the queue
  */
-export function playTrack(track) {
+export function forcePlayTrack(track) {
   mopidy.playback.stop({clear_current_track: true})
     .then(function() {
       mopidy.tracklist.getTlTracks().then(function(tlTracks) {
@@ -101,11 +102,22 @@ export function playTrack(track) {
   });
 }
 
+export function playTrack(tlTrack) {
+  mopidy.playback.stop({ clear_current_track: true })
+    .then(() => {
+      const removeableIds = [];
+      for (let i = 0; i < tlTrack.tlid; i++)
+        removeableIds.push(i);
+      mopidy.tracklist.remove({tlid: removeableIds}).then();
+      mopidy.playback.changeTrack({ tl_track: tlTrack }).then(data => mopidy.playback.play())
+    });
+}
+
 /**
  * Add a track to the end of the play queue.
  */
 export function enqueueTrack(track) {
-  mopidy.tracklist.add({uri: track.uri});
+  mopidy.tracklist.add({ uri: track.uri });
 }
 
 export function nextTrack() {

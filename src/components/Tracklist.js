@@ -1,8 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import TracklistActions from '../actions/TracklistActions';
 import TracklistStore from '../stores/TracklistStore';
 import connectToStores from '../utils/connectToStores';
-import {convertTime, artistsAsString} from '../helpers';
+import ListTrackItem from './ListTrackItem';
 
 class Tracklist extends React.Component {
 
@@ -10,7 +11,8 @@ class Tracklist extends React.Component {
     TracklistActions.sortTracks(property);
   }
 
-  _onTrackClick(track) {
+  _onTrackClick(track, unplayable) {
+    if (unplayable) return;
     TracklistActions.enqueueTrack(track);
   }
 
@@ -22,14 +24,20 @@ class Tracklist extends React.Component {
           <span onClick={this._onSort.bind(this, 'artist')}>Artist</span>
           <span onClick={this._onSort.bind(this, 'length')}>Time</span>
         </li>
+
         {this.props.tracks.map((track, i) => {
+
           let active = track.uri === this.props.currentTrack.uri;
+          let unplayable = track.name.slice(0, 12) === '[unplayable]';
+
           return (
-            <li key={'track-' + i} onDoubleClick={this._onTrackClick.bind(this, track)} className={active ? 'active' : ''}>
-              <span>{active ? <i className='fa fa-volume-up' /> : ''} {track.name}</span>
-              <span className='artist-name'>{artistsAsString(track)}</span>
-              <span className='track-length'>{convertTime(track.length)}</span>
-            </li>
+            <ListTrackItem
+              key={'track' + i}
+              active={active}
+              track={track}
+              unplayable={unplayable}
+              onDoubleClick={this._onTrackClick.bind(this, track, unplayable)}
+            />
           );
         })}
       </ul>

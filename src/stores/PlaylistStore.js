@@ -32,6 +32,7 @@ var PlaylistStore = createStore({
   actions: {
     receivePlaylists(action) {
       _addPlaylists(action.playlists);
+      console.log(action.playlists)
       this.emitChange();
     },
 
