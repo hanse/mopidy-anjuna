@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import PlaylistStore from '../stores/PlaylistStore';
 import PlaylistActions from '../actions/PlaylistActions';
 import connectToStores from '../utils/connectToStores';
@@ -14,7 +15,10 @@ class Playlists extends React.Component {
       <ul className='playlists'>
       {this.props.playlists.map(playlist => {
         let [name, owner] = playlist.name.split(/ by /i);
-        let classes = (playlist.name === this.props.currentPlaylistName) ? 'active' : '';
+        let classes = classNames({
+          active: playlist.name === this.props.currentPlaylistName
+        });
+
         return (
           <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist.name)}>
             <i className='fa fa-music' /> {name} <span className='playlist-owner'>by {owner}</span>

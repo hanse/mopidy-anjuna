@@ -39,9 +39,9 @@ class PlayerControls extends React.Component {
 
     return (
       <div className='controls'>
-        <ButtonWithIcon onClick={this._onPrevTrack}  iconName='step-backward' />
+        <ButtonWithIcon onClick={this._onPrevTrack} iconName='step-backward' />
         <ButtonWithIcon onClick={this._onTogglePlay} iconName={playOrPause} />
-        <ButtonWithIcon onClick={this._onNextTrack}  iconName='step-forward' />
+        <ButtonWithIcon onClick={this._onNextTrack} iconName='step-forward' />
         <input type='range' value={this.props.volume} ref='volume' onChange={this._onVolumeChange} />
         <i className={'fa fa-volume-' + volumeLevel} />
       </div>

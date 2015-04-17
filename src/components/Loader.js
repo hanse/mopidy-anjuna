@@ -2,7 +2,7 @@ import React from 'react';
 
 class Loader extends React.Component {
 
-  defaultProps = { loading: false }
+  static defaultProps = { loading: false }
 
   render() {
     if (this.props.loading) {

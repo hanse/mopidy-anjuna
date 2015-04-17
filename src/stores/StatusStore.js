@@ -26,6 +26,7 @@ const StatusStore = createStore({
 
     stopped() {
       _isPlaying = false;
+      _track = {};
     },
 
     playing() {
