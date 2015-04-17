@@ -1,52 +1,27 @@
 import React from 'react';
 import TracklistActions from '../actions/TracklistActions';
 import QueueStore from '../stores/QueueStore';
+import connectToStores from '../utils/connectToStores';
 import {convertTime, artistsAsString} from '../helpers';
 
-function getState() {
-  return {
-    tracks: QueueStore.getTracks(),
-  }
-}
+class Queue extends React.Component {
 
-var Queue = React.createClass({
-
-  getInitialState() {
-    return getState();
-  },
-
-  componentDidMount() {
-    QueueStore.addChangeListener(this.update);
-  },
-
-  componentWillUnmount() {
-    QueueStore.removeChangeListener(this.update);
-  },
-
-  update() {
-    this.setState(getState());
-  },
-
-  _onSort(property) {
-    TracklistActions.sortTracks(property);
-  },
-
-  _onPlayTrack(track) {
+  _onPlayTrack = (track) => {
     TracklistActions.playTrack(track);
-  },
+  }
 
-  _onClearCache() {
+  _onClearCache = () => {
     TracklistActions.clearQueue();
-  },
+  }
 
   render() {
-    if (this.state.tracks.length === 0)
+    if (this.props.tracks.length === 0)
       return <div>The queue is empty</div>;
 
     return (
       <ul className='tracklist'>
         <button onClick={this._onClearCache}>Clear Cache</button>
-        {this.state.tracks.map((track, i) => {
+        {this.props.tracks.map((track, i) => {
           var active = track.uri === this.props.currentTrack.uri;
           return (
             <li key={'track-' + i} onDoubleClick={this._onPlayTrack.bind(this, track)} className={active ? 'active' : ''}>
@@ -59,6 +34,10 @@ var Queue = React.createClass({
       </ul>
     );
   }
-});
+}
+
+Queue = connectToStores(Queue, [QueueStore], props => ({
+  tracks: QueueStore.getTracks()
+}))
 
 export default Queue;

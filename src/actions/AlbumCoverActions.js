@@ -1,4 +1,5 @@
 import createActions from '../utils/createActions';
+import AlbumCoverService from '../services/AlbumCoverService';
 
 export default createActions({
 

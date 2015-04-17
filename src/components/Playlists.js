@@ -1,37 +1,18 @@
 import React from 'react';
 import PlaylistStore from '../stores/PlaylistStore';
 import PlaylistActions from '../actions/PlaylistActions';
+import connectToStores from '../utils/connectToStores';
 
-const Playlists = React.createClass({
+class Playlists extends React.Component {
 
-  getInitialState() {
-    return {
-      playlists: PlaylistStore.getAll(),
-    };
-  },
-
-  componentDidMount() {
-    PlaylistStore.addChangeListener(this.update);
-  },
-
-  componentWillUnmount() {
-    PlaylistStore.removeChangeListener(this.update);
-  },
-
-  update() {
-    this.setState({
-      playlists: PlaylistStore.getAll(),
-    });
-  },
-
-  _onChange(playlist) {
+  _onChange = (playlist) => {
     PlaylistActions.changePlaylist(playlist);
-  },
+  }
 
   render() {
     return (
       <ul className='playlists'>
-      {this.state.playlists.map((playlist) => {
+      {this.props.playlists.map(playlist => {
         let [name, owner] = playlist.name.split(/ by /i);
         let classes = (playlist.name === this.props.currentPlaylistName) ? 'active' : '';
         return (
@@ -43,6 +24,10 @@ const Playlists = React.createClass({
       </ul>
     );
   }
-});
+}
+
+Playlists = connectToStores(Playlists, [PlaylistStore], props => ({
+  playlists: PlaylistStore.getAll()
+}));
 
 export default Playlists;

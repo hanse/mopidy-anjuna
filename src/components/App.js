@@ -5,60 +5,37 @@ import PlayerControls from './PlayerControls';
 import Playlists from './Playlists';
 import Loader from './Loader';
 import StatusStore from '../stores/StatusStore';
+import connectToStores from '../utils/connectToStores';
 import '../styles/main.styl';
 
-function getState() {
-  return StatusStore.getState();
-}
-
 class App extends React.Component {
-
-  static getStateFromStores() {
-    return StatusStore.getState();
-  }
-
-  constructor() {
-    super();
-    this.state = App.getStateFromStores();
-  }
-
-  componentDidMount() {
-    StatusStore.addChangeListener(this.update);
-  }
-
-  componentWillUnmount() {
-    StatusStore.removeChangeListener(this.update);
-  }
-
-  update = () => {
-    this.setState(App.getStateFromStores());
-  }
-
   render() {
     return (
-      <Loader loading={!this.state.connected}>
+      <Loader loading={!this.props.connected}>
         <div>
           <header>
             <h1>Anjuna</h1>
           </header>
           <main>
             <aside>
-              <Playlists {...this.state} />
+              <Playlists {...this.props} />
             </aside>
             <section>
-              <Tracklist {...this.state} />
+              <Tracklist {...this.props} />
             </section>
             <section>
-              <Queue {...this.state} />
+              <Queue {...this.props} />
             </section>
           </main>
           <footer>
-            <PlayerControls {...this.state} />
+            <PlayerControls {...this.props} />
           </footer>
         </div>
       </Loader>
     );
   }
 }
+
+App = connectToStores(App, [StatusStore], props => StatusStore.getState());
 
 export default App;

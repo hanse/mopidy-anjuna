@@ -13,6 +13,14 @@ PORT=3000 npm run watch
 ```
 Running these commands should start the client on `localhost:3000`. The Mopidy server must be running on `localhost:6680`.
 
+## Todo
+
+[ ] Seek bar
+[ ] Proper queueing
+[ ] Use URLs so resources can be linked
+[ ] Animations
+[ ] Search inside playlists
+
 ## Screenshot
 
 ## License

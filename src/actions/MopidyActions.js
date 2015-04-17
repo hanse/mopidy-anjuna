@@ -2,8 +2,6 @@ import createActions from '../utils/createActions';
 
 export default createActions({
 
-  //voidActions: ['connected', 'disconnected', 'playing', 'paused', 'stopped'],
-
   receivePlaylists(playlists) {
     return { playlists };
   },
