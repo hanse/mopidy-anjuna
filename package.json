@@ -8,52 +8,36 @@
   },
   "main": "index.js",
   "scripts": {
-    "watch-js": "watchify src/index.js -d -o public/app.js -v",
-    "watch-css": "stylus --use nib -w assets/stylesheets/style.styl -o public/app.css",
-    "watch": "npm run watch-js & npm run watch-css",
+    "watch": "webpack --watch",
     "test": "istanbul cover _mocha -- src/**/__tests__/*-test.js --compilers js:babel/register && istanbul report cobertura",
-    "lint": "jsxhint src/ && jscs src/ --esnext; true",
-    "babel-node": "babel-node --experimental --modules=common"
+    "lint": "jsxhint src/ && jscs src/ --esnext; true"
   },
   "author": "Hanse",
   "license": "MIT",
   "keywords": [
-    "skeleton",
-    "setup",
-    "browserify",
-    "react",
-    "stylus",
-    "nib",
-    "make",
-    "gnu make"
+    "mopidy",
+    "spotify"
   ],
   "dependencies": {
     "album-cover": "0.0.3",
+    "babel-loader": "^5.0.0",
     "browserify": "^9.0.7",
+    "css-loader": "^0.10.1",
     "flux": "^2.0.1",
     "mopidy": "^0.5.0",
     "object-assign": "^2.0.0",
     "react": "^0.13.1",
-    "react-router": "^0.13.2"
+    "react-router": "^0.13.2",
+    "style-loader": "^0.10.2",
+    "stylus-loader": "^1.1.0"
   },
   "devDependencies": {
     "babel": "^5.0.12",
-    "babelify": "^6.0.2",
     "http-server": "^0.8.0",
     "nib": "^1.1.0",
     "stylus": "^0.50.0",
     "uglify-js": "^2.4.19",
-    "watchify": "latest"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "modules": "common",
-          "stage": 0
-        }
-      ]
-    ]
+    "webpack": "^1.8.5",
+    "webpack-dev-server": "^1.8.0"
   }
 }

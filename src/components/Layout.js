@@ -1,6 +1,9 @@
 import React from 'react';
+import '../styles/layout.styl';
 
 export class TitleBar extends React.Component {
+  static propTypes = {}
+
   render() {
     return (
       <div>
@@ -11,9 +14,11 @@ export class TitleBar extends React.Component {
 }
 
 export class FlexibleArea extends React.Component {
+  static propTypes = {}
+
   render() {
     return (
-      <div style={{display: 'flex'}}>
+      <div className={'flex'}>
         {this.props.children}
       </div>
     );

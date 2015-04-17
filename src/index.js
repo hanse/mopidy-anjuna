@@ -1,5 +1,7 @@
 import React from 'react';
-import {Routes, Route, DefaultRoute, NotFoundRoute} from 'react-router';
+import Router from 'react-router';
+
+const { Route, DefaultRoute, NotFoundRoute } = Router;
 
 const App = require('./components/App');
 

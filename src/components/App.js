@@ -5,28 +5,34 @@ import PlayerControls from './PlayerControls';
 import Playlists from './Playlists';
 import Loader from './Loader';
 import StatusStore from '../stores/StatusStore';
+import '../styles/main.styl';
 
 function getState() {
   return StatusStore.getState();
 }
 
-const App = React.createClass({
+class App extends React.Component {
 
-  getInitialState() {
-    return getState();
-  },
+  static getStateFromStores() {
+    return StatusStore.getState();
+  }
+
+  constructor() {
+    super();
+    this.state = App.getStateFromStores();
+  }
 
   componentDidMount() {
     StatusStore.addChangeListener(this.update);
-  },
+  }
 
   componentWillUnmount() {
     StatusStore.removeChangeListener(this.update);
-  },
+  }
 
-  update() {
-    this.setState(getState());
-  },
+  update = () => {
+    this.setState(App.getStateFromStores());
+  }
 
   render() {
     return (
@@ -53,6 +59,6 @@ const App = React.createClass({
       </Loader>
     );
   }
-});
+}
 
 export default App;

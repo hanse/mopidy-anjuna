@@ -1,4 +1,4 @@
-import createActions from '../createActions';
+import createActions from '../utils/createActions';
 import * as MopidyService from '../services/MopidyService';
 
 export default createActions({

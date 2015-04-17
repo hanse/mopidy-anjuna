@@ -1,8 +1,8 @@
 import Mopidy from 'mopidy';
 import MopidyActions from '../actions/MopidyActions';
 import PlaylistActions from '../actions/PlaylistActions';
-import AlbumCoverService from './AlbumCoverService';
-import config from '../../config.json';
+import AlbumCoverActions from '../actions/AlbumCoverActions';
+import config from '../../config';
 
 var mopidy = new Mopidy({
   autoConnect: true,
@@ -60,7 +60,7 @@ function getPlaylists() {
 function getCurrentTrack() {
   mopidy.playback.getCurrentTrack().then(track => {
     MopidyActions.getCurrentTrack(track);
-    AlbumCoverService.search(track);
+    AlbumCoverActions.lookup(track);
   });
 }
 

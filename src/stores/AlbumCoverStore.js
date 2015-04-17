@@ -1,4 +1,4 @@
-import createStore from '../createStore';
+import createStore from '../utils/createStore';
 
 let _coverURL = null;
 

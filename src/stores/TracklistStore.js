@@ -1,4 +1,4 @@
-import createStore from '../createStore';
+import createStore from '../utils/createStore';
 import PlaylistStore from './PlaylistStore';
 
 var _sortBy = null;
