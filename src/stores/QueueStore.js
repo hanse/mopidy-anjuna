@@ -1,8 +1,8 @@
 import createStore from '../utils/createStore';
 
-var _tracks = [];
+let _tracks = [];
 
-var QueueStore = createStore({
+const QueueStore = createStore({
 
   getState() {
     return {
@@ -13,7 +13,6 @@ var QueueStore = createStore({
   actions: {
     tracklistReceived(action) {
       _tracks = action.tracks;
-      this.emitChange();
     }
   }
 });

@@ -9,6 +9,10 @@ export default createActions({
     };
   },
 
+  filterTracks(filter) {
+    return { filter }
+  },
+
   playTrack(track, others) {
     MopidyService.playTrack(track, others);
   },

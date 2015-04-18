@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch",
+    "watch": "webpack --watch & http-server -s",
     "test": "istanbul cover _mocha -- src/**/__tests__/*-test.js --compilers js:babel/register && istanbul report cobertura",
     "lint": "jsxhint src/ && jscs src/ --esnext; true"
   },
@@ -21,7 +21,6 @@
   "dependencies": {
     "album-cover": "0.0.3",
     "babel-loader": "^5.0.0",
-    "browserify": "^9.0.7",
     "classnames": "^1.2.0",
     "css-loader": "^0.10.1",
     "flux": "^2.0.1",
