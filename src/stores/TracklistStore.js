@@ -30,7 +30,9 @@ function getTracks() {
     tracklist = tracklist.sort(sortByNumberOrString(_sortBy, _direction));
 
   const regex = new RegExp(_filter, 'i');
-  return tracklist.filter(track => ~track.name.search(regex));
+  return tracklist.filter(track =>
+    ~track.name.search(regex) || ~track.artistName.search(regex)
+  );
 }
 
 const TracklistStore = createStore({
