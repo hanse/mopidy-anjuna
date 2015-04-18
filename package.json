@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch & http-server -s",
+    "start": "node server.js",
     "test": "istanbul cover _mocha -- src/**/__tests__/*-test.js --compilers js:babel/register && istanbul report cobertura",
     "lint": "jsxhint src/ && jscs src/ --esnext; true"
   },
@@ -33,8 +33,8 @@
   },
   "devDependencies": {
     "babel": "^5.0.12",
-    "http-server": "^0.8.0",
     "nib": "^1.1.0",
+    "react-hot-loader": "^1.2.5",
     "stylus": "^0.50.0",
     "uglify-js": "^2.4.19",
     "webpack": "^1.8.5",

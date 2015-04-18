@@ -1,18 +1,29 @@
+var path = require('path');
 var webpack = require('webpack');
 var nib = require('nib');
 
 module.exports = {
-  entry: './src/index.js',
+  devtool: 'eval',
+  entry: [
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    './src/index.js'
+  ],
   output: {
     path: __dirname + '/public',
-    filename: 'app.js'
+    filename: 'app.js',
+    publicPath: ''
   },
   resolve: {
-    extensions: ['', '.js', '.styl']
+    extensions: ['', '.js', '.jsx', '.styl']
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
   module: {
     loaders: [
-      { test: /\.jsx?$/, loaders: ['babel-loader'], exclude: 'node_modules' },
+      { test: /\.jsx?$/, loaders: ['react-hot', 'babel'], include: path.join(__dirname, 'src') },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
     ]
   },

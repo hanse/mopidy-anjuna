@@ -27,7 +27,7 @@ class Tracklist extends React.Component {
         <div className='tracklist-filter'>
           <input
             type='search'
-            placeholder='Filter'
+            placeholder='Filter tracks'
             onChange={this._onFilterTracks.bind(this)}
           />
         </div>
