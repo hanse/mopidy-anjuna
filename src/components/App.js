@@ -14,7 +14,7 @@ class App extends React.Component {
       <Loader loading={!this.props.connected}>
         <div>
           <header>
-            <h1>Anjuna</h1>
+            <h1>{this.props.currentTrack.name}</h1>
           </header>
           <main>
             <aside>

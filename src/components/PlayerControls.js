@@ -20,9 +20,8 @@ class PlayerControls extends React.Component {
     PlayerControlActions.prev();
   }
 
-  _onVolumeChange = () => {
-    let newVolume = this.refs.volume.getDOMNode().value | 0;
-    PlayerControlActions.setVolume(newVolume);
+  _onVolumeChange = (event) => {
+    PlayerControlActions.setVolume(event.target.value | 0);
   }
 
   render() {
@@ -42,7 +41,7 @@ class PlayerControls extends React.Component {
         <ButtonWithIcon onClick={this._onPrevTrack} iconName='step-backward' />
         <ButtonWithIcon onClick={this._onTogglePlay} iconName={playOrPause} />
         <ButtonWithIcon onClick={this._onNextTrack} iconName='step-forward' />
-        <input type='range' value={this.props.volume} ref='volume' onChange={this._onVolumeChange} />
+        <input type='range' value={this.props.volume} onChange={this._onVolumeChange} />
         <i className={'fa fa-volume-' + volumeLevel} />
       </div>
     );
