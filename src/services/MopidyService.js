@@ -43,6 +43,7 @@ mopidy.on('event:playbackStateChanged', function(payload) {
   if ('function' === typeof MopidyActions[newState]) {
     MopidyActions[newState]();
   }
+  checkTimePosition();
 });
 
 mopidy.on('event:playlistsLoaded', function() {
