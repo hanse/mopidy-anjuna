@@ -24,6 +24,7 @@ class App extends React.Component {
               <Tracklist {...this.props} />
             </section>
             <section>
+              <img src={this.props.coverURL} width='100px' />
               <Queue {...this.props} />
             </section>
           </main>

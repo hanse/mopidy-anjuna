@@ -6,6 +6,7 @@ let _volume = 50;
 let _timePosition = 0;
 let _isPlaying = false;
 let _connected = false;
+let _coverURL = null;
 
 const StatusStore = createStore({
 
@@ -15,8 +16,9 @@ const StatusStore = createStore({
       currentPlaylistName: _playlist,
       isPlaying: _isPlaying,
       volume: _volume,
-      connected: _connected
-    }
+      connected: _connected,
+      coverURL: _coverURL
+    };
   },
 
   actions: {
@@ -51,6 +53,10 @@ const StatusStore = createStore({
 
     disconnected() {
       _connected = false;
+    },
+
+    albumCoverReceived(action) {
+      _coverURL = action.cover;
     }
   }
 });
