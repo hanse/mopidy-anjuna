@@ -7,6 +7,11 @@ import ListTrackItem from './ListTrackItem';
 
 class Tracklist extends React.Component {
 
+  constructor() {
+    super();
+    this.state = { selectedIndex: 0 };
+  }
+
   _onFilterTracks(event) {
     event.preventDefault();
     TracklistActions.filterTracks(event.target.value);
@@ -16,9 +21,13 @@ class Tracklist extends React.Component {
     TracklistActions.sortTracks(property);
   }
 
-  _onTrackClick(track, unplayable) {
+  _onAddTrackToQueue(track, unplayable) {
     if (unplayable) return;
     TracklistActions.enqueueTrack(track);
+  }
+
+  _onSelectTrack(trackIndex) {
+    this.setState({ selectedIndex: trackIndex });
   }
 
   render() {
@@ -42,19 +51,22 @@ class Tracklist extends React.Component {
 
             let active = track.uri === this.props.currentTrack.uri;
             let unplayable = track.name.slice(0, 12) === '[unplayable]';
+            let selected = i === this.state.selectedIndex;
 
             return (
               <ListTrackItem
                 key={'track' + i}
                 active={active}
+                selected={selected}
                 track={track}
                 unplayable={unplayable}
-                onDoubleClick={this._onTrackClick.bind(this, track, unplayable)}
+                onClick={this._onSelectTrack.bind(this, i)}
+                onDoubleClick={this._onAddTrackToQueue.bind(this, track, unplayable)}
               />
             );
           })}
         </ul>
-        </div>
+      </div>
     );
   }
 }

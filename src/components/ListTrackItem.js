@@ -7,7 +7,8 @@ class ListTrackItem extends React.Component {
     let track = this.props.track;
     let classes = classNames({
       active: this.props.active,
-      unplayable: this.props.unplayable
+      unplayable: this.props.unplayable,
+      selected: this.props.selected
     });
 
     return (
