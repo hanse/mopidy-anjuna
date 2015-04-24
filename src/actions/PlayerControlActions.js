@@ -22,5 +22,14 @@ export default createActions({
   setVolume(volume) {
     MopidyService.setVolume(volume);
     return { volume };
+  },
+
+  getTimePosition() {
+    MopidyService.checkTimePosition();
+  },
+
+  seek(ms) {
+    MopidyService.seek(ms);
+    return { ms };
   }
 });

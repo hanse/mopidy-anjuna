@@ -17,7 +17,8 @@ const StatusStore = createStore({
       isPlaying: _isPlaying,
       volume: _volume,
       connected: _connected,
-      coverURL: _coverURL
+      coverURL: _coverURL,
+      timePosition: _timePosition
     };
   },
 
@@ -57,6 +58,10 @@ const StatusStore = createStore({
 
     albumCoverReceived(action) {
       _coverURL = action.cover;
+    },
+
+    timePositionReceived(action) {
+      _timePosition = action.timePosition;
     }
   }
 });

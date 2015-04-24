@@ -1,6 +1,7 @@
 import React from 'react';
 import PlayerControlActions from '../actions/PlayerControlActions';
 import ButtonWithIcon from './ButtonWithIcon';
+import SeekBar from './SeekBar';
 
 class PlayerControls extends React.Component {
 
@@ -24,6 +25,10 @@ class PlayerControls extends React.Component {
     PlayerControlActions.setVolume(event.target.value | 0);
   }
 
+  _onSeek(ms) {
+    PlayerControlActions.seek(ms);
+  }
+
   render() {
     let playOrPause = this.props.isPlaying ? 'fa fa-pause' : 'fa fa-play';
 
@@ -41,8 +46,15 @@ class PlayerControls extends React.Component {
         <ButtonWithIcon onClick={this._onPrevTrack} iconName='step-backward' />
         <ButtonWithIcon onClick={this._onTogglePlay} iconName={playOrPause} />
         <ButtonWithIcon onClick={this._onNextTrack} iconName='step-forward' />
-        <input type='range' value={this.props.volume} onChange={this._onVolumeChange} />
+        <input className='volume' type='range' value={this.props.volume} onChange={this._onVolumeChange} />
         <i className={'fa fa-volume-' + volumeLevel} />
+
+        <SeekBar
+          onMove={this._onSeek.bind(this)}
+          isPlaying={this.props.isPlaying}
+          track={this.props.currentTrack}
+          initialTimePosition={this.props.timePosition}
+        />
       </div>
     );
   }

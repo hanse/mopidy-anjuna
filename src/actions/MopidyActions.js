@@ -18,6 +18,10 @@ export default createActions({
     return { tracks };
   },
 
+  timePositionReceived(timePosition) {
+    return { timePosition };
+  },
+
   connected() {},
   disconnected() {},
   playing() {},

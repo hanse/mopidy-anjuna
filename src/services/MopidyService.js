@@ -18,6 +18,7 @@ mopidy.on('state:online', function() {
   getCurrentTrack();
   getVolume();
   getTracklist();
+  checkTimePosition();
   MopidyActions.connected();
   mopidy.tracklist.setConsume({ value: true });
 });
@@ -142,6 +143,16 @@ export function setVolume(volume) {
 
 export function clearTracklist() {
   return mopidy.tracklist.clear({}).then();
+}
+
+export function checkTimePosition() {
+  mopidy.playback.getTimePosition().then(timePosition => {
+    MopidyActions.timePositionReceived(timePosition);
+  });
+}
+
+export function seek(ms) {
+  mopidy.playback.seek({ time_position: ms }).then();
 }
 
 function noop() {
