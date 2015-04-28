@@ -22,7 +22,6 @@ class Queue extends React.Component {
 
     return (
       <ul className='tracklist'>
-        <button onClick={this._onClearQueue}>Clear Queue</button>
         {this.props.tracks.map((tlTrack, i) => {
           let track = tlTrack.track;
           let active = track.uri === this.props.currentTrack.uri;

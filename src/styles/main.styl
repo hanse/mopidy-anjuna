@@ -17,11 +17,11 @@ $footer-height = 100px
 
 ::-webkit-scrollbar
   background white
-  width 4px
+  width 6px
 
 ::-webkit-scrollbar-thumb
-  background #eee
-  border-radius 1ex
+  background #ddd
+  border-radius 3px
 
 a
   text-decoration none
@@ -35,25 +35,27 @@ html, body
   height 100%
 
 body
-  font-size 1.2em
-  line-height 1.5
-  font-family 'HelveticaNeue-Light', Helvetica, sans-serif
-  background #F2F2F0
+  font-size 62.5%
+  line-height 1.6
+  font-family 'Helvetica Neue', Helvetica, sans-serif
+  background #fff
   color #666
   position relative
 
 header, aside, section, footer
   padding 0 1em
 
-header
+.app-header
   height $header-height
   background linear-gradient(#4D5259, darken(#4D5259, 10%))
   color #fff
   display flex
   align-items center
+  justify-content center
   z-index 10
+  font-size 1.4rem
 
-main
+.app-main
   display flex
   overflow hidden
   height 100vh
@@ -61,93 +63,107 @@ main
   padding-top $header-height
   margin-bottom -($footer-height)
   padding-bottom $footer-height
+  position relative
   width 100%
   backface-visibility hidden
   will-change overflow
 
-aside
-  flex 1
-
-section
-  background #fff
-  flex 4
-
-aside, section
-  padding 1em
+.scrollable-section
   overflow auto
   overflow-scrolling touch
+  font-size .8rem
+  padding 1.5rem
 
-footer
+.padded-section
+  padding 1rem
+
+.app-footer
   background linear-gradient(#ddd, #ccc)
-  text-align center
-  position fixed
+  position absolute
   bottom 0
-  background #D9D5D0
-  width 100%
-  display flex
-  align-items center
-  padding 20px
+  left 0
+  right 0
+  z-index 90
+  text-align center
+  height $footer-height
 
-  img
-    max-height 64px
+.flex
+  &-1
+    width 20%
+  &-4
+    width 60%
 
-  .controls
-    button
-      display inline-block
-      width 44px
-      border-radius (@width/2)
-      border 0
-      background transparent
-      font-size 26px
-      text-shadow 0 0 2px #fff
-      color #4D5259
-      cursor pointer
+.controls
+  button
+    border 0
+    background transparent
+    text-shadow 0 0 2px #fff
+    color #4D5259
+    cursor pointer
+    outline none
+    font-size 1.6rem
+    text-shadow 0 0 1px #fff
+    display inline-block
+    padding 10px
+
+    &:hover
+      color #000
+
+  input.volume[type=range]
+    appearance none
+    background transparent
+    margin-right 5px
+
+    &::-webkit-slider-runnable-track
+      background #F2F2F0
+      border-radius 5px
+      width 100px
+      border none
+
+    &::-webkit-slider-thumb
+      appearance none
+      border none
+      background #4D5259
+      height 16px
+      width 16px
+      border-radius 8px
+
+    &:focus
       outline none
 
-      &:hover
-        color #000
+.seekbar
+  display flex
+  flex-direction row
 
-    input.volume[type=range]
-      appearance none
-      background transparent
-      margin-right 5px
+  &-current-time, &-total-time
+    padding 0 5px
 
-      &::-webkit-slider-runnable-track
-        background #F2F2F0
-        border-radius 5px
-        width 100px
-        border none
+.tracklist-filter
+  position absolute
+  width auto
+  background yellow
+  padding 1rem
+  z-index 100
+  right 0
+  left 0
+  top 0
 
-      &::-webkit-slider-thumb
-        appearance none
-        border none
-        background #4D5259
-        height 16px
-        width 16px
-        border-radius 8px
+  input
+    width 100%
+    border-radius 5px
+    border 1px solid #ddd
+    padding 5px
 
-      &:focus
-        outline none
-
-.tracklist-filter input
-  width 100%
-  border-radius 5px
-  font-size 16px
-  border 1px solid #ddd
-  padding 5px
-
-  &:focus
-    outline none
+    &:focus
+      outline none
 
 .tracklist
   width 100%
-  font-size 16px
   display table
   border-collapse collapse
 
-  .tracklist-header
+  &-header
     font-weight 700
-    font-size .7em
     color #666
     text-transform uppercase
 
@@ -170,33 +186,6 @@ footer
 .unplayable
   text-decoration line-through
   color #bbb
-
-@media all and (max-width: 600px)
-  main
-    flex-direction column
-
-  .tracklist
-    display block
-
-    .tracklist-header
-      display none
-
-    li
-      display flex
-      flex-direction column
-      border-bottom 1px solid #ddd
-      padding 10px
-
-      .artist-name, .track-length
-        color #888
-        font-size 14px
-
-      > span
-        flex 1
-
-        &:first-child
-          float right
-
 
 li, tr
   cursor default

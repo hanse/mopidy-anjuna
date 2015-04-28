@@ -4,6 +4,7 @@ import Queue from './Queue';
 import PlayerControls from './PlayerControls';
 import Playlists from './Playlists';
 import Loader from './Loader';
+import NowPlaying from './NowPlaying';
 import StatusStore from '../stores/StatusStore';
 import connectToStores from '../utils/connectToStores';
 import '../styles/main.styl';
@@ -12,25 +13,27 @@ class App extends React.Component {
   render() {
     return (
       <Loader loading={!this.props.connected}>
-        <div>
-          <header>
+        <div className='app-container'>
+          <div className='app-header'>
             <h1>{this.props.currentTrack.name}</h1>
-          </header>
-          <main>
-            <aside>
+          </div>
+          <div className='app-main'>
+            <div className='scrollable-section flex-1'>
               <Playlists {...this.props} />
-            </aside>
-            <section>
+            </div>
+
+            <div className='scrollable-section flex-4'>
               <Tracklist {...this.props} />
-            </section>
-            <section>
-              <img src={this.props.coverURL} width='100px' />
+            </div>
+
+            <div className='scrollable-section flex-1'>
+              <NowPlaying {...this.props} />
               <Queue {...this.props} />
-            </section>
-          </main>
-          <footer>
+            </div>
+          </div>
+          <div className='app-footer'>
             <PlayerControls {...this.props} />
-          </footer>
+          </div>
         </div>
       </Loader>
     );

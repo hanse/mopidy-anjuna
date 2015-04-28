@@ -38,13 +38,13 @@ class SeekBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('receiving props', nextProps);
-    if (nextProps.track.uri !== this.props.track.uri) {
-      this.restart();
-    }
-
+    console.log('next props', nextProps)
     if (!nextProps.isPlaying) {
       this.stop();
+    }
+
+    if (!this.props.isPlaying && nextProps.isPlaying) {
+      this.start();
     }
 
     this.setState({ timePosition: nextProps.initialTimePosition });
@@ -67,14 +67,18 @@ class SeekBar extends React.Component {
   render() {
     return (
       <div className='seekbar'>
-        <span>{convertTime(this.state.timePosition)}</span>
+        <span className='seekbar-current-time'>
+          {convertTime(this.state.timePosition)}
+        </span>
         <input
           type='range'
           value={(this.state.timePosition / this.props.track.length) * 100}
           style={{width: '100%'}}
           onChange={this._onChange.bind(this)}
         />
-        <span>{convertTime(this.props.track.length)}</span>
+        <span className='seekbar-total-time'>
+          {convertTime(this.props.track.length)}
+        </span>
       </div>
     );
   }
