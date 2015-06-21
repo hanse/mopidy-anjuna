@@ -8,6 +8,10 @@ import ListTrackItem from './ListTrackItem';
 
 class Queue extends React.Component {
 
+  static propTypes = {
+    tracks: React.PropTypes.array
+  }
+
   _onPlayTrack = (track) => {
     TracklistActions.playTrack(track);
   }
@@ -18,7 +22,7 @@ class Queue extends React.Component {
 
   render() {
     if (this.props.tracks.length === 0)
-      return <div>The queue is empty</div>;
+      return <div>No songs queued</div>;
 
     return (
       <ul className='Queue'>

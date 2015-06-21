@@ -10,10 +10,7 @@ import assign from 'object-assign';
 export default assign(new Dispatcher(), {
 
   handleAction(action) {
-    console.log('Dispatched Action', action);
-    this.dispatch({
-      action: action
-    });
+    this.dispatch({ action });
   },
 
   registerStore(store) {

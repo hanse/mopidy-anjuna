@@ -7,10 +7,8 @@ import ListTrackItem from './ListTrackItem';
 
 class Tracklist extends React.Component {
 
-  constructor() {
-    super();
-    this.state = { selectedIndex: 0 };
-  }
+  static propTypes = {}
+  state = { selectedIndex: 0 }
 
   _onFilterTracks(event) {
     event.preventDefault();

@@ -39,7 +39,7 @@ mopidy.on('event:volumeChanged', function(payload) {
 });
 
 mopidy.on('event:playbackStateChanged', function(payload) {
-  var newState = payload.new_state;
+  let newState = payload.new_state;
   if ('function' === typeof MopidyActions[newState]) {
     MopidyActions[newState]();
   }

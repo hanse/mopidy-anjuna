@@ -6,6 +6,10 @@ import connectToStores from '../utils/connectToStores';
 
 class Playlists extends React.Component {
 
+  static propTypes = {
+    playlists: React.PropTypes.array
+  }
+
   _onChange = (playlist) => {
     PlaylistActions.changePlaylist(playlist);
   }

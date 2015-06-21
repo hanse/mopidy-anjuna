@@ -93,7 +93,8 @@ header, aside, section, footer
   &-4
     width 60%
 
-.controls
+.PlayerControls
+  display flex
   button
     border 0
     background transparent
@@ -106,8 +107,15 @@ header, aside, section, footer
     display inline-block
     padding 10px
 
+    &:nth-of-type(2)
+      font-size 2rem
+
     &:hover
       color #000
+
+  .volume-level
+    font-size 1.6rem
+    padding 10px 5px
 
   input.volume[type=range]
     appearance none
@@ -138,6 +146,10 @@ header, aside, section, footer
   &-current-time, &-total-time
     padding 0 5px
 
+
+.NowPlaying
+  img
+    display block
 
 .Queue
   li

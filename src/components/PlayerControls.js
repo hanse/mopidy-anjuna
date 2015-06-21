@@ -5,6 +5,11 @@ import SeekBar from './SeekBar';
 
 class PlayerControls extends React.Component {
 
+  static propTypes = {
+    isPlaying: React.PropTypes.bool,
+    volume: React.PropTypes.number
+  }
+
   _onTogglePlay = () => {
     if (this.props.isPlaying) {
       PlayerControlActions.pause();
@@ -42,12 +47,12 @@ class PlayerControls extends React.Component {
     }
 
     return (
-      <div className='controls'>
+      <div className='PlayerControls'>
         <ButtonWithIcon onClick={this._onPrevTrack} iconName='step-backward' />
         <ButtonWithIcon onClick={this._onTogglePlay} iconName={playOrPause} />
         <ButtonWithIcon onClick={this._onNextTrack} iconName='step-forward' />
         <input className='volume' type='range' value={this.props.volume} onChange={this._onVolumeChange} />
-        <i className={'fa fa-volume-' + volumeLevel} />
+        <div className='volume-level'><i className={'fa fa-volume-' + volumeLevel} /></div>
       </div>
     );
   }

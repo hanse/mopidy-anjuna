@@ -3,6 +3,14 @@ import classNames from 'classnames';
 import { artistsAsString, convertTime } from '../helpers';
 
 class ListTrackItem extends React.Component {
+
+  static propTypes = {
+    active: React.PropTypes.bool,
+    unplayable: React.PropTypes.bool,
+    selected: React.PropTypes.bool,
+    track: React.PropTypes.object
+  }
+
   render() {
     let track = this.props.track;
     let classes = classNames({

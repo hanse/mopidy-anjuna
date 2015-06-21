@@ -13,7 +13,15 @@ import { artistsAsString } from '../helpers';
 
 class App extends React.Component {
 
-  static propTypes = {}
+  static propTypes = {
+    currentTrack: React.PropTypes.object,
+    currentPlaylistName: React.PropTypes.string,
+    isPlaying: React.PropTypes.bool,
+    volume: React.PropTypes.number,
+    connected: React.PropTypes.bool,
+    coverURL: React.PropTypes.string,
+    timePosition: React.PropTypes.number
+  }
 
   render() {
     return (

@@ -2,6 +2,10 @@ import React from 'react';
 
 class Loader extends React.Component {
 
+  static propTypes = {
+    loading: React.PropTypes.bool
+  }
+
   static defaultProps = { loading: false }
 
   render() {
