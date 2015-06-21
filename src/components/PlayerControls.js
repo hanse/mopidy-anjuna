@@ -48,13 +48,6 @@ class PlayerControls extends React.Component {
         <ButtonWithIcon onClick={this._onNextTrack} iconName='step-forward' />
         <input className='volume' type='range' value={this.props.volume} onChange={this._onVolumeChange} />
         <i className={'fa fa-volume-' + volumeLevel} />
-
-        <SeekBar
-          onMove={this._onSeek.bind(this)}
-          isPlaying={this.props.isPlaying}
-          track={this.props.currentTrack}
-          initialTimePosition={this.props.timePosition}
-        />
       </div>
     );
   }

@@ -32,16 +32,16 @@ class Tracklist extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className='tracklist-filter'>
+      <div className='Tracklist'>
+        <div className='Tracklist-filter'>
           <input
             type='search'
             placeholder='Filter tracks'
             onChange={this._onFilterTracks.bind(this)}
           />
         </div>
-        <ul className='tracklist'>
-          <li className='tracklist-header'>
+        <ul className='Tracklist-tracks'>
+          <li className='Tracklist-tracks-header'>
             <span onClick={this._onSort.bind(this, 'name')}>Track</span>
             <span onClick={this._onSort.bind(this, 'artistName')}>Artist</span>
             <span onClick={this._onSort.bind(this, 'length')}>Time</span>

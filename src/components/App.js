@@ -9,13 +9,20 @@ import StatusStore from '../stores/StatusStore';
 import connectToStores from '../utils/connectToStores';
 import '../styles/main.styl';
 
+import { artistsAsString } from '../helpers';
+
 class App extends React.Component {
+
+  static propTypes = {}
+
   render() {
     return (
       <Loader loading={!this.props.connected}>
         <div className='app-container'>
           <div className='app-header'>
-            <h1>{this.props.currentTrack.name}</h1>
+            <h1>
+              {this.props.currentTrack.name} <span className='artist-name'>{artistsAsString(this.props.currentTrack)}</span>
+            </h1>
           </div>
           <div className='app-main'>
             <div className='scrollable-section flex-1'>
@@ -28,6 +35,7 @@ class App extends React.Component {
 
             <div className='scrollable-section flex-1'>
               <NowPlaying {...this.props} />
+              <h2 className='up-next'>Up Next</h2>
               <Queue {...this.props} />
             </div>
           </div>

@@ -21,7 +21,7 @@ class Queue extends React.Component {
       return <div>The queue is empty</div>;
 
     return (
-      <ul className='tracklist'>
+      <ul className='Queue'>
         {this.props.tracks.map((tlTrack, i) => {
           let track = tlTrack.track;
           let active = track.uri === this.props.currentTrack.uri;

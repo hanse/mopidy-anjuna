@@ -10,7 +10,7 @@ global-reset()
   user-select none
 
 $header-height = 50px
-$footer-height = 100px
+$footer-height = 70px
 
 @import 'playlists'
 @import 'loader'
@@ -33,6 +33,7 @@ a
 html, body
   width 100%
   height 100%
+  overflow hidden // disable rubberband
 
 body
   font-size 62.5%
@@ -67,15 +68,11 @@ header, aside, section, footer
   width 100%
   backface-visibility hidden
   will-change overflow
+  font-size .9rem
 
 .scrollable-section
   overflow auto
   overflow-scrolling touch
-  font-size .8rem
-  padding 1.5rem
-
-.padded-section
-  padding 1rem
 
 .app-footer
   background linear-gradient(#ddd, #ccc)
@@ -86,6 +83,9 @@ header, aside, section, footer
   z-index 90
   text-align center
   height $footer-height
+  display flex
+  align-items center
+  justify-content center
 
 .flex
   &-1
@@ -138,29 +138,47 @@ header, aside, section, footer
   &-current-time, &-total-time
     padding 0 5px
 
-.tracklist-filter
-  position absolute
-  width auto
-  background yellow
-  padding 1rem
-  z-index 100
-  right 0
-  left 0
-  top 0
+
+.Queue
+  li
+    display flex
+    flex-direction column
+    padding 5px 20px
+
+    .track-length
+      display none
+
+    .artist-name
+      color #aaa
+
+
+    &:hover
+      background lighten(#eee, 10%)
+
+.Tracklist
+  position relative
+
+.Tracklist-filter
+  position fixed
+  width 60%
+  z-index 10
 
   input
     width 100%
-    border-radius 5px
-    border 1px solid #ddd
-    padding 5px
+    border 0
+    padding 10px
+    border-bottom 2px solid #ddd
+    font-size 1.1rem
 
     &:focus
       outline none
 
-.tracklist
+.Tracklist-tracks
   width 100%
   display table
   border-collapse collapse
+  position relative
+  top 50px
 
   &-header
     font-weight 700
@@ -182,6 +200,7 @@ header, aside, section, footer
 
     > span
       display table-cell
+      padding 2px 20px
 
 .unplayable
   text-decoration line-through
@@ -189,3 +208,10 @@ header, aside, section, footer
 
 li, tr
   cursor default
+
+.artist-name
+ color #777
+
+.up-next
+  font-size 1.4rem
+  padding 10px 20px
