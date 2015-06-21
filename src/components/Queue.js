@@ -22,7 +22,7 @@ class Queue extends React.Component {
 
   render() {
     if (this.props.tracks.length === 0)
-      return <div>No songs queued</div>;
+      return <div className='Queue-no-songs'>No songs queued</div>;
 
     return (
       <ul className='Queue'>

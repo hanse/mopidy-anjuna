@@ -1,47 +1,17 @@
 # mopidy-anjuna
 
-> Elegant Web UI for the Mopidy Music Server written in React.js.
+> Web UI for the Mopidy Server
 
-Note that this project is very WIP.
+A web client for the mopidy server that is remarkably well suited for social events or for use in group rooms etc. With this client all songs are queued and jumping the queue is not possible by design.
 
 ## Install
-As of now, the only way to install is to build it yourself.
+Make sure you have [mopidy](https://www.mopidy.com/) installed, then
 ```bash
 git clone git://github.com:Hanse/mopidy-anjuna
 cd mopidy-anjuna
-PORT=3000 npm run watch
+PORT=3000 npm start
 ```
 Running these commands should start the client on `localhost:3000`. The Mopidy server must be running on `localhost:6680`.
 
-## Todo
-
-[ ] Seek bar
-[ ] Proper queueing
-[ ] Use URLs so resources can be linked
-[ ] Animations
-[ ] Search inside playlists
-
-## Screenshot
-
 ## License
-The MIT License (MIT)
-
-Copyright (c) 2015 Hanse
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+MIT
