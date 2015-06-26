@@ -10,8 +10,6 @@ const mopidy = new Mopidy({
   callingConvention: 'by-position-or-by-name'
 });
 
-mopidy.on(::console.log);
-
 mopidy.on('state:online', () => {
   getPlaylists();
   getState();
@@ -110,6 +108,7 @@ export function playTrack(tlTrack) {
       for (let i = 0; i < tlTrack.tlid; i++) {
         removeableIds.push(i);
       }
+
       mopidy.tracklist.remove({ tlid: removeableIds }).then();
       mopidy.playback.changeTrack({ tl_track: tlTrack }).then(() => mopidy.playback.play());
     });

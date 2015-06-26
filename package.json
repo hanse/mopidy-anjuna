@@ -39,7 +39,6 @@
     "uglify-js": "^2.4.23",
     "webpack": "^1.9.12",
     "webpack-dev-server": "^1.9.0",
-    "react-router": "^0.13.3",
     "style-loader": "^0.12.3",
     "stylus-loader": "^1.2.1"
   }
