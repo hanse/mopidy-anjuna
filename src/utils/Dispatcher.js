@@ -20,8 +20,8 @@ export default assign(new Dispatcher(), {
       const action = payload.action;
       if (!store.hasOwnProperty('actions')) return;
 
-      const handlerName = action.type;
-      const handler = store.actions[handlerName];
+      let handlerName = action.type;
+      let handler = store.actions[handlerName];
 
       // the store doesn't care about this action
       if (!handler) return;

@@ -4,6 +4,8 @@
 
 A web client for the mopidy server that is remarkably well suited for social events or for use in group rooms etc. With this client all songs are queued and jumping the queue is not possible by design.
 
+Currently work in progress with some rough edges.
+
 ## Install
 Make sure you have [mopidy](https://www.mopidy.com/) installed, then
 ```bash
