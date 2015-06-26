@@ -1,0 +1,46 @@
+.Tracklist
+  position relative
+
+.Tracklist-filter
+  position fixed
+  width 60%
+  z-index 10
+
+  input
+    width 100%
+    border 0
+    padding 10px
+    border-bottom 2px solid #ddd
+    font-size 1.1rem
+
+    &:focus
+      outline none
+
+.Tracklist-tracks
+  width 100%
+  display table
+  border-collapse collapse
+  position relative
+  top 50px
+
+  &-header
+    font-weight 700
+    color #666
+    text-transform uppercase
+
+    &:hover, &.active
+      background transparent
+
+  li
+    display table-row
+    width 100%
+
+    &:hover, &.active
+      background lighten(#eee, 10%)
+
+    &.selected
+      background #eee
+
+    > span
+      display table-cell
+      padding 2px 20px
