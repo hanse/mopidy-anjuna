@@ -23,6 +23,20 @@ class App extends React.Component {
     timePosition: React.PropTypes.number
   }
 
+  componentDidMount() {
+    this.updateDocumentTitle();
+  }
+
+  componentWillReceiveProps() {
+    this.updateDocumentTitle();
+  }
+
+  updateDocumentTitle() {
+    document.title = this.props.currentTrack.name
+      ? `${this.props.currentTrack.name} - ${artistsAsString(this.props.currentTrack)}`
+      : 'No Songs Playing';
+  }
+
   render() {
     return (
       <Loader loading={!this.props.connected}>
