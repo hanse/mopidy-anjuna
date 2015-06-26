@@ -1,7 +1,6 @@
 import React from 'react';
 import PlayerControlActions from '../actions/PlayerControlActions';
 import ButtonWithIcon from './ButtonWithIcon';
-import SeekBar from './SeekBar';
 
 class PlayerControls extends React.Component {
 

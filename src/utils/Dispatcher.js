@@ -16,17 +16,17 @@ export default assign(new Dispatcher(), {
   registerStore(store) {
     invariant(!store.dispatchToken, 'The store is already registered');
 
-    store.dispatchToken = this.register(function(payload) {
-      var action = payload.action;
+    store.dispatchToken = this.register((payload) => {
+      const action = payload.action;
       if (!store.hasOwnProperty('actions')) return;
 
-      var handler = store.actions[action.type];
-      var handlerName = action.type;
+      const handlerName = action.type;
+      const handler = store.actions[handlerName];
 
       // the store doesn't care about this action
       if (!handler) return;
 
-      if ('string' === typeof handler) {
+      if (typeof handler === 'string') {
         handlerName = handler;
         handler = store[handler];
       }
@@ -36,12 +36,13 @@ export default assign(new Dispatcher(), {
         '%s is not a function', handlerName
       );
 
-      if (store.waitFor)
+      if (store.waitFor) {
         this.waitFor(store.waitFor);
+      }
 
-      if (handler.call(store, action) !== false)
+      if (handler.call(store, action) !== false) {
         store.emitChange();
-
-    }.bind(this));
+      }
+    });
   }
 });

@@ -16,6 +16,6 @@ const routes = (
   </Route>
 );
 
-Router.run(routes, Router.HistoryLocation, function(Handler) {
+Router.run(routes, Router.HistoryLocation, (Handler) => {
   React.render(<Handler />, document.getElementById('app'));
 });

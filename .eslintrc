@@ -1,0 +1,15 @@
+{
+  "extends": "eslint-config-airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "no-console": 0,
+    "no-use-before-define": 0,
+    "block-scoped-var": 0,
+    "no-trailing-spaces": [2, { "skipBlankLines": true }]
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "plugins": ["react"]
+}

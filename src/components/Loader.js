@@ -12,7 +12,7 @@ class Loader extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ excessiveLoading: true })
+      this.setState({ excessiveLoading: true });
     }, 2000);
   }
 

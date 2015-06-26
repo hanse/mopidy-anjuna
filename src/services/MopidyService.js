@@ -4,15 +4,15 @@ import PlaylistActions from '../actions/PlaylistActions';
 import AlbumCoverActions from '../actions/AlbumCoverActions';
 import config from '../../config';
 
-var mopidy = new Mopidy({
+const mopidy = new Mopidy({
   autoConnect: true,
   webSocketUrl: config.webSocketUrl,
   callingConvention: 'by-position-or-by-name'
 });
 
-mopidy.on(console.log.bind(console));
+mopidy.on(::console.log);
 
-mopidy.on('state:online', function() {
+mopidy.on('state:online', () => {
   getPlaylists();
   getState();
   getCurrentTrack();
@@ -23,34 +23,34 @@ mopidy.on('state:online', function() {
   mopidy.tracklist.setConsume({ value: true });
 });
 
-mopidy.on('state:offline', function() {
+mopidy.on('state:offline', () => {
   MopidyActions.disconnected();
 });
 
-mopidy.on('event:trackPlaybackStarted', function(payload) {
+mopidy.on('event:trackPlaybackStarted', () => {
   getCurrentTrack();
 });
 
-mopidy.on('event:trackPlaybackPaused', function() {
+mopidy.on('event:trackPlaybackPaused', () => {
 });
 
-mopidy.on('event:volumeChanged', function(payload) {
+mopidy.on('event:volumeChanged', payload => {
   MopidyActions.volumeChanged(payload.volume);
 });
 
-mopidy.on('event:playbackStateChanged', function(payload) {
+mopidy.on('event:playbackStateChanged', payload => {
   let newState = payload.new_state;
-  if ('function' === typeof MopidyActions[newState]) {
+  if (typeof MopidyActions[newState] === 'function') {
     MopidyActions[newState]();
   }
   checkTimePosition();
 });
 
-mopidy.on('event:playlistsLoaded', function() {
+mopidy.on('event:playlistsLoaded', () => {
   getPlaylists();
 });
 
-mopidy.on('event:tracklistChanged', function() {
+mopidy.on('event:tracklistChanged', () => {
   getTracklist();
 });
 
@@ -90,28 +90,28 @@ function getVolume() {
  */
 export function forcePlayTrack(track) {
   mopidy.playback.stop({clear_current_track: true})
-    .then(function() {
-      mopidy.tracklist.getTlTracks().then(function(tlTracks) {
-        var tlTrackToPlay = tlTracks.filter(function(tlTrack, i) {
-          return tlTrack.track.uri === track.uri;
-        })[0];
+    .then(() => {
+      mopidy.tracklist.getTlTracks().then(tlTracks => {
+        const tlTrackToPlay = tlTracks.filter(
+          tlTrack => tlTrack.track.uri === track.uri
+        )[0];
 
-        var trackCount = tlTracks.length;
-        mopidy.playback.changeTrack({tl_track: tlTrackToPlay}).then(function(data) {
+        mopidy.playback.changeTrack({ tl_track: tlTrackToPlay }).then(() => {
           mopidy.playback.play();
         });
       });
-  });
+    });
 }
 
 export function playTrack(tlTrack) {
   mopidy.playback.stop({ clear_current_track: true })
     .then(() => {
       const removeableIds = [];
-      for (let i = 0; i < tlTrack.tlid; i++)
+      for (let i = 0; i < tlTrack.tlid; i++) {
         removeableIds.push(i);
-      mopidy.tracklist.remove({tlid: removeableIds}).then();
-      mopidy.playback.changeTrack({ tl_track: tlTrack }).then(data => mopidy.playback.play())
+      }
+      mopidy.tracklist.remove({ tlid: removeableIds }).then();
+      mopidy.playback.changeTrack({ tl_track: tlTrack }).then(() => mopidy.playback.play());
     });
 }
 
@@ -123,19 +123,19 @@ export function enqueueTrack(track) {
 }
 
 export function nextTrack() {
-  return mopidy.playback.next().then(noop);
+  return mopidy.playback.next().then();
 }
 
 export function prevTrack() {
-  return mopidy.playback.previous().then(noop);
+  return mopidy.playback.previous().then();
 }
 
 export function play() {
-  return mopidy.playback.play().then(noop);
+  return mopidy.playback.play().then();
 }
 
 export function pause() {
-  return mopidy.playback.pause().then(noop);
+  return mopidy.playback.pause().then();
 }
 
 export function setVolume(volume) {
@@ -154,8 +154,4 @@ export function checkTimePosition() {
 
 export function seek(ms) {
   mopidy.playback.seek({ time_position: ms }).then();
-}
-
-function noop() {
-  return console.log.bind(console);
 }

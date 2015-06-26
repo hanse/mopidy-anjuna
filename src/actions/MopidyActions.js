@@ -26,5 +26,5 @@ export default createActions({
   disconnected() {},
   playing() {},
   paused() {},
-  stopped() {},
+  stopped() {}
 });

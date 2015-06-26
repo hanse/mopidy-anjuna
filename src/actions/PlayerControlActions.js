@@ -30,6 +30,6 @@ export default createActions({
 
   seek(ms) {
     MopidyService.seek(ms);
-    return { ms };
+    return { ms };
   }
 });

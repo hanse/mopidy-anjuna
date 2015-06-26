@@ -7,9 +7,10 @@ let _direction = -1;
 let _filter = '';
 
 function sortByNumberOrString(sortBy, direction) {
-  return function(a, b) {
-    if ('number' === typeof a[sortBy])
+  return (a, b) => {
+    if (typeof a[sortBy] === 'number') {
       return direction * (a[sortBy] - b[sortBy]);
+    }
     return direction * a[sortBy].localeCompare(b[sortBy]);
   };
 }
@@ -26,8 +27,9 @@ function getTracks() {
     return track;
   });
 
-  if (_sortBy)
+  if (_sortBy) {
     tracklist = tracklist.sort(sortByNumberOrString(_sortBy, _direction));
+  }
 
   const regex = new RegExp(_filter, 'i');
   return tracklist.filter(track =>
@@ -42,7 +44,7 @@ const TracklistStore = createStore({
       sortBy: _sortBy,
       sortDirection: _direction,
       tracks: getTracks()
-    }
+    };
   },
 
   actions: {

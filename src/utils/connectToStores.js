@@ -25,7 +25,7 @@ function connectToStores(Component, stores, getStateFromStores) {
     }
 
     render() {
-      return <Component {...this.props} {...this.state} />
+      return <Component {...this.props} {...this.state} />;
     }
   };
 }

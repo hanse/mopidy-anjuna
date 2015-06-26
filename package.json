@@ -9,8 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "istanbul cover _mocha -- src/**/__tests__/*-test.js --compilers js:babel/register && istanbul report cobertura",
-    "lint": "jsxhint src/ && jscs src/ --esnext; true"
+    "lint": "eslint src"
   },
   "author": "Hanse",
   "license": "MIT",
@@ -20,24 +19,28 @@
   ],
   "dependencies": {
     "album-cover": "0.0.3",
-    "babel-loader": "^5.0.0",
     "classnames": "^1.2.0",
-    "css-loader": "^0.10.1",
     "flux": "^2.0.1",
     "mopidy": "^0.5.0",
     "object-assign": "^2.0.0",
     "react": "^0.13.1",
-    "react-router": "^0.13.2",
-    "style-loader": "^0.10.2",
-    "stylus-loader": "^1.1.0"
   },
   "devDependencies": {
     "babel": "^5.0.12",
+    "babel-eslint": "^3.1.19",
+    "babel-loader": "^5.0.0",
+    "css-loader": "^0.10.1",
+    "eslint": "^0.24.0",
+    "eslint-config-airbnb": "0.0.6",
+    "eslint-plugin-react": "^2.5.2",
     "nib": "^1.1.0",
     "react-hot-loader": "^1.2.5",
     "stylus": "^0.50.0",
     "uglify-js": "^2.4.19",
     "webpack": "^1.8.5",
-    "webpack-dev-server": "^1.8.0"
+    "webpack-dev-server": "^1.8.0",
+    "react-router": "^0.13.2",
+    "style-loader": "^0.10.2",
+    "stylus-loader": "^1.1.0"
   }
 }

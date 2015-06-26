@@ -1,15 +1,15 @@
 import createStore from '../utils/createStore';
 
-var _playlists = {};
-var _currentPlaylist;
+let _playlists = {};
+let _currentPlaylist;
 
 function _addPlaylists(playlists) {
-  playlists.forEach(function(playlist) {
+  playlists.forEach((playlist) => {
     _playlists[playlist.name] = playlists[playlist.name] || playlist;
   });
 }
 
-var PlaylistStore = createStore({
+const PlaylistStore = createStore({
 
   getCurrent() {
     return _currentPlaylist;
@@ -32,7 +32,6 @@ var PlaylistStore = createStore({
   actions: {
     receivePlaylists(action) {
       _addPlaylists(action.playlists);
-      console.log(action.playlists)
       this.emitChange();
     },
 

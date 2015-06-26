@@ -56,6 +56,4 @@ class App extends React.Component {
   }
 }
 
-App = connectToStores(App, [StatusStore], props => StatusStore.getState());
-
-export default App;
+export default connectToStores(App, [StatusStore], () => StatusStore.getState());

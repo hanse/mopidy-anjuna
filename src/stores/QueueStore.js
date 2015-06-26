@@ -7,7 +7,7 @@ const QueueStore = createStore({
   getState() {
     return {
       tracks: _tracks
-    }
+    };
   },
 
   actions: {

@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import TracklistActions from '../actions/TracklistActions';
 import TracklistStore from '../stores/TracklistStore';
 import connectToStores from '../utils/connectToStores';
@@ -46,7 +45,6 @@ class Tracklist extends React.Component {
           </li>
 
           {this.props.tracks.map((track, i) => {
-
             let active = track.uri === this.props.currentTrack.uri;
             let unplayable = track.name.slice(0, 12) === '[unplayable]';
             let selected = i === this.state.selectedIndex;
@@ -69,6 +67,6 @@ class Tracklist extends React.Component {
   }
 }
 
-Tracklist = connectToStores(Tracklist, [TracklistStore], props => TracklistStore.getState());
-
-export default Tracklist;
+export default connectToStores(
+  Tracklist, [TracklistStore], () => TracklistStore.getState()
+);

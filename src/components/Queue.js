@@ -2,8 +2,6 @@ import React from 'react';
 import TracklistActions from '../actions/TracklistActions';
 import QueueStore from '../stores/QueueStore';
 import connectToStores from '../utils/connectToStores';
-import {convertTime, artistsAsString} from '../helpers';
-
 import ListTrackItem from './ListTrackItem';
 
 class Queue extends React.Component {
@@ -21,8 +19,9 @@ class Queue extends React.Component {
   }
 
   render() {
-    if (this.props.tracks.length === 0)
+    if (this.props.tracks.length === 0) {
       return <div className='Queue-no-songs'>No songs queued</div>;
+    }
 
     return (
       <ul className='Queue'>
@@ -44,6 +43,4 @@ class Queue extends React.Component {
   }
 }
 
-Queue = connectToStores(Queue, [QueueStore], props => QueueStore.getState());
-
-export default Queue;
+export default connectToStores(Queue, [QueueStore], () => QueueStore.getState());

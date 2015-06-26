@@ -34,8 +34,6 @@ class Playlists extends React.Component {
   }
 }
 
-Playlists = connectToStores(Playlists, [PlaylistStore], props => ({
+export default connectToStores(Playlists, [PlaylistStore], () => ({
   playlists: PlaylistStore.getAll()
 }));
-
-export default Playlists;

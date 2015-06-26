@@ -10,7 +10,7 @@ export default createActions({
   },
 
   filterTracks(filter) {
-    return { filter }
+    return { filter };
   },
 
   playTrack(track, others) {

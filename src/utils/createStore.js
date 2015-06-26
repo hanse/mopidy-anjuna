@@ -19,12 +19,12 @@ class Store {
   }
 
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback)
+    this.removeListener(CHANGE_EVENT, callback);
   }
 }
 
 export default function createStore(methods) {
-  var store = assign(new Store, methods);
+  const store = assign(new Store(), methods);
   Dispatcher.registerStore(store);
   return store;
 }
