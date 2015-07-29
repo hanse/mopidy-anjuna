@@ -1,12 +1,15 @@
-import createActions from '../utils/createActions';
+import ActionTypes from './ActionTypes';
 
-export default createActions({
+export function changePlaylist(playlist) {
+  return {
+    type: ActionTypes.CHANGE_PLAYLIST,
+    payload: playlist
+  };
+}
 
-  changePlaylist(playlist) {
-    return { playlist };
-  },
-
-  receivePlaylists(playlists) {
-    return { playlists };
-  }
-});
+export function receivePlaylists(playlists) {
+  return {
+    type: ActionTypes.RECEIVE_PLAYLISTS,
+    payload: playlists
+  };
+}

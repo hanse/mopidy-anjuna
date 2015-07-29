@@ -1,31 +1,20 @@
-import React from 'react';
-import TracklistActions from '../actions/TracklistActions';
-import QueueStore from '../stores/QueueStore';
-import connectToStores from '../utils/connectToStores';
+import React, { PropTypes, Component } from 'react';
 import ListTrackItem from './ListTrackItem';
 
-class Queue extends React.Component {
+export default class Queue extends Component {
 
   static propTypes = {
-    tracks: React.PropTypes.array
-  }
-
-  _onPlayTrack = (track) => {
-    TracklistActions.playTrack(track);
-  }
-
-  _onClearQueue = () => {
-    TracklistActions.clearQueue();
+    queue: React.PropTypes.array.isRequired
   }
 
   render() {
-    if (this.props.tracks.length === 0) {
+    if (this.props.queue.length === 0) {
       return <div className='Queue-no-songs'>No songs queued</div>;
     }
 
     return (
       <ul className='Queue'>
-        {this.props.tracks.map((tlTrack, i) => {
+        {this.props.queue.map((tlTrack, i) => {
           let track = tlTrack.track;
           let active = track.uri === this.props.currentTrack.uri;
 
@@ -34,7 +23,6 @@ class Queue extends React.Component {
               key={'queue-track' + i}
               active={active}
               track={track}
-              onDoubleClick={this._onPlayTrack.bind(this, tlTrack)}
             />
           );
         })}
@@ -42,5 +30,3 @@ class Queue extends React.Component {
     );
   }
 }
-
-export default connectToStores(Queue, [QueueStore], () => QueueStore.getState());

@@ -6,8 +6,7 @@ export function convertTime(ms) {
    .join(':');
 }
 
-export function artistsAsString(track) {
-  return (track.artists || [])
-    .map(artist => artist.name)
-    .join(', ');
+export function formatArtists(artists) {
+  if (!artists) return '';
+  return artists.map(artist => artist.name).join(', ');
 }

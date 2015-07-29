@@ -1,15 +1,17 @@
-import createActions from '../utils/createActions';
 import AlbumCoverService from '../services/AlbumCoverService';
+import ActionTypes from './ActionTypes';
 
-export default createActions({
+export function albumCoverReceived(cover) {
+  return {
+    type: ActionTypes.ALBUM_COVER_RECEIVED,
+    payload: cover
+  };
+}
 
-  albumCoverReceived(cover) {
-    return { cover };
-  },
-
-  lookup(track) {
+export function lookup(track) {
+  return dispatch => {
     AlbumCoverService.search(track).then(cover => {
-      this.albumCoverReceived(cover);
+      dispatch(albumCoverReceived(cover));
     }).catch(() => {});
-  }
-});
+  };
+}

@@ -1,39 +1,51 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import Tracklist from './Tracklist';
 import Queue from './Queue';
 import PlayerControls from './PlayerControls';
 import Playlists from './Playlists';
 import Loader from './Loader';
 import NowPlaying from './NowPlaying';
-import StatusStore from '../stores/StatusStore';
-import connectToStores from '../utils/connectToStores';
+import { connect } from 'react-redux';
+import { formatArtists } from '../helpers';
 import '../styles/index.styl';
 
-import { artistsAsString } from '../helpers';
+import { createFilter, createSorter } from '../reducers/tracklist';
 
-class App extends React.Component {
+@connect((state) => {
+  return ({
+    ...state.status,
+    playlists: state.playlists.items,
+    currentPlaylistName: state.playlists.currentPlaylistName,
+    queue: state.queue,
+    tracks: state.playlists.currentPlaylistTracks
+      .filter(createFilter(state))
+      .sort(createSorter(state))
+  });
+})
+export default class App extends Component {
 
   static propTypes = {
-    currentTrack: React.PropTypes.object,
-    currentPlaylistName: React.PropTypes.string,
-    isPlaying: React.PropTypes.bool,
-    volume: React.PropTypes.number,
-    connected: React.PropTypes.bool,
-    coverURL: React.PropTypes.string,
-    timePosition: React.PropTypes.number
+    currentTrack: PropTypes.object.isRequired,
+    currentPlaylistName: PropTypes.string.isRequired,
+    tracks: PropTypes.array.isRequired,
+    isPlaying: PropTypes.bool.isRequired,
+    volume: PropTypes.number.isRequired,
+    connected: PropTypes.bool.isRequired,
+    coverURL: PropTypes.string.isRequired,
+    timePosition: PropTypes.number.isRequired
   }
 
   componentDidMount() {
     this.updateDocumentTitle();
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     this.updateDocumentTitle();
   }
 
   updateDocumentTitle() {
     document.title = this.props.currentTrack.name
-      ? `${this.props.currentTrack.name} - ${artistsAsString(this.props.currentTrack)}`
+      ? `${this.props.currentTrack.name} - ${formatArtists(this.props.currentTrack.artists)}`
       : 'No Songs Playing';
   }
 
@@ -43,7 +55,10 @@ class App extends React.Component {
         <div className='App-container'>
           <div className='App-header'>
             <h1>
-              {this.props.currentTrack.name} <span className='artist-name'>{artistsAsString(this.props.currentTrack)}</span>
+              {this.props.currentTrack.name}
+              <span className='artist-name'>
+                {formatArtists(this.props.currentTrack.artists)}
+              </span>
             </h1>
           </div>
           <div className='App-main'>
@@ -69,5 +84,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default connectToStores(App, [StatusStore], () => StatusStore.getState());

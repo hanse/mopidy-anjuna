@@ -1,35 +1,46 @@
-import createActions from '../utils/createActions';
 import * as MopidyService from '../services/MopidyService';
+import ActionTypes from './ActionTypes';
 
-export default createActions({
-
-  next() {
+export function next() {
+  return () => {
     MopidyService.nextTrack();
-  },
+  };
+}
 
-  prev() {
+export function prev() {
+  return () => {
     MopidyService.prevTrack();
-  },
+  };
+}
 
-  play() {
+export function play() {
+  return ()=> {
     MopidyService.play();
-  },
+  };
+}
 
-  pause() {
+export function pause() {
+  return () => {
     MopidyService.pause();
-  },
+  };
+}
 
-  setVolume(volume) {
-    MopidyService.setVolume(volume);
-    return { volume };
-  },
+export function setVolume(value) {
+  return dispatch => {
+    MopidyService.setVolume(value);
+    dispatch({
+      type: ActionTypes.SET_VOLUME,
+      payload: value
+    });
+  };
+}
 
-  getTimePosition() {
-    MopidyService.checkTimePosition();
-  },
-
-  seek(ms) {
+export function seek(ms) {
+  return dispatch => {
     MopidyService.seek(ms);
-    return { ms };
-  }
-});
+    dispatch({
+      type: ActionTypes.SEEK,
+      payload: ms
+    });
+  };
+}

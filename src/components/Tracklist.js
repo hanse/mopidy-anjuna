@@ -1,30 +1,28 @@
-import React from 'react';
-import TracklistActions from '../actions/TracklistActions';
-import TracklistStore from '../stores/TracklistStore';
-import connectToStores from '../utils/connectToStores';
+import React, { PropTypes, Component } from 'react';
+import { filter, sort, enqueue } from '../actions/TracklistActions';
 import ListTrackItem from './ListTrackItem';
 
-class Tracklist extends React.Component {
+export default class Tracklist extends Component {
 
   static propTypes = {}
   state = { selectedIndex: 0 }
 
-  _onFilterTracks(event) {
-    event.preventDefault();
-    TracklistActions.filterTracks(event.target.value);
+  _onFilterTracks(e) {
+    e.preventDefault();
+    this.props.dispatch(filter(e.target.value));
   }
 
   _onSort(property) {
-    TracklistActions.sortTracks(property);
+    this.props.dispatch(sort(property));
   }
 
   _onAddTrackToQueue(track, unplayable) {
     if (unplayable) return;
-    TracklistActions.enqueueTrack(track);
+    this.props.dispatch(enqueue(track));
   }
 
-  _onSelectTrack(trackIndex) {
-    this.setState({ selectedIndex: trackIndex });
+  _onSelectTrack(selectedIndex) {
+    this.setState({ selectedIndex });
   }
 
   render() {
@@ -45,9 +43,9 @@ class Tracklist extends React.Component {
           </li>
 
           {this.props.tracks.map((track, i) => {
-            let active = track.uri === this.props.currentTrack.uri;
-            let unplayable = track.name.slice(0, 12) === '[unplayable]';
-            let selected = i === this.state.selectedIndex;
+            const active = track.uri === this.props.currentTrack.uri;
+            const unplayable = track.name.slice(0, 12) === '[unplayable]';
+            const selected = i === this.state.selectedIndex;
 
             return (
               <ListTrackItem
@@ -66,7 +64,3 @@ class Tracklist extends React.Component {
     );
   }
 }
-
-export default connectToStores(
-  Tracklist, [TracklistStore], () => TracklistStore.getState()
-);

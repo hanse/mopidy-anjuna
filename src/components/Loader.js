@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Loader extends React.Component {
+export default class Loader extends React.Component {
 
   static propTypes = {
     loading: React.PropTypes.bool
@@ -25,8 +25,6 @@ class Loader extends React.Component {
         </div>
       );
     }
-    return this.props.children;
+    return this.props.children || null;
   }
 }
-
-export default Loader;

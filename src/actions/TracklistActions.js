@@ -1,27 +1,34 @@
-import createActions from '../utils/createActions';
 import * as MopidyService from '../services/MopidyService';
+import ActionTypes from './ActionTypes';
 
-export default createActions({
+export function sort(property, direction) {
+  return {
+    type: ActionTypes.SORT_TRACKS,
+    payload: { property, direction }
+  };
+}
 
-  sortTracks(property) {
-    return {
-      sortBy: property
-    };
-  },
+export function filter(value) {
+  return {
+    type: ActionTypes.FILTER_TRACKS,
+    payload: value
+  };
+}
 
-  filterTracks(filter) {
-    return { filter };
-  },
+export function playTrack(track) {
+  return () => {
+    MopidyService.playTrack(track);
+  };
+}
 
-  playTrack(track, others) {
-    MopidyService.playTrack(track, others);
-  },
-
-  enqueueTrack(track) {
+export function enqueue(track) {
+  return () => {
     MopidyService.enqueueTrack(track);
-  },
+  };
+}
 
-  clearQueue() {
-    MopidyService.clearTracklist();
-  }
-});
+export function clearQueue(track) {
+  return () => {
+    MopidyService.clearTracklist(track);
+  };
+}

@@ -1,8 +1,7 @@
-import React from 'react';
-import PlayerControlActions from '../actions/PlayerControlActions';
-import ButtonWithIcon from './ButtonWithIcon';
+import React, { PropTypes, Component } from 'react';
+import * as PlayerControlActions from '../actions/PlayerControlActions';
 
-class PlayerControls extends React.Component {
+export default class PlayerControls extends Component {
 
   static propTypes = {
     isPlaying: React.PropTypes.bool,
@@ -11,26 +10,26 @@ class PlayerControls extends React.Component {
 
   _onTogglePlay = () => {
     if (this.props.isPlaying) {
-      PlayerControlActions.pause();
+      this.props.dispatch(PlayerControlActions.pause());
     } else {
-      PlayerControlActions.play();
+      this.props.dispatch(PlayerControlActions.play());
     }
   }
 
   _onNextTrack = () => {
-    PlayerControlActions.next();
+    this.props.dispatch(PlayerControlActions.next());
   }
 
   _onPrevTrack = () => {
-    PlayerControlActions.prev();
+    this.props.dispatch(PlayerControlActions.prev());
   }
 
   _onVolumeChange = (event) => {
-    PlayerControlActions.setVolume(event.target.value | 0);
+    this.props.dispatch(PlayerControlActions.setVolume(event.target.value | 0));
   }
 
   _onSeek(ms) {
-    PlayerControlActions.seek(ms);
+    this.props.dispatch(PlayerControlActions.seek(ms));
   }
 
   render() {
@@ -47,14 +46,12 @@ class PlayerControls extends React.Component {
 
     return (
       <div className='PlayerControls'>
-        <ButtonWithIcon onClick={this._onPrevTrack} iconName='step-backward' />
-        <ButtonWithIcon onClick={this._onTogglePlay} iconName={playOrPause} />
-        <ButtonWithIcon onClick={this._onNextTrack} iconName='step-forward' />
+        <button onClick={this._onPrevTrack}><i className='fa fa-step-backward' /></button>
+        <button onClick={this._onTogglePlay}><i className={playOrPause} /></button>
+        <button onClick={this._onNextTrack}><i className='fa fa-step-forward' /></button>
         <input className='volume' type='range' value={this.props.volume} onChange={this._onVolumeChange} />
         <div className='volume-level'><i className={'fa fa-volume-' + volumeLevel} /></div>
       </div>
     );
   }
 }
-
-export default PlayerControls;

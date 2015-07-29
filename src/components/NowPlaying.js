@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 
-class NowPlaying extends React.Component {
+export default class NowPlaying extends Component {
 
   static propTypes = {
-    coverURL: React.PropTypes.string
+    coverURL: PropTypes.string
   }
 
   render() {
@@ -14,5 +14,3 @@ class NowPlaying extends React.Component {
     );
   }
 }
-
-export default NowPlaying;

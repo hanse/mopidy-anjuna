@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
-import { artistsAsString, convertTime } from '../helpers';
+import { formatArtists, convertTime } from '../helpers';
 
-class ListTrackItem extends React.Component {
+export default class ListTrackItem extends Component {
 
   static propTypes = {
-    active: React.PropTypes.bool,
-    unplayable: React.PropTypes.bool,
-    selected: React.PropTypes.bool,
-    track: React.PropTypes.object
+    active: PropTypes.bool.isRequired,
+    unplayable: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
+    track: PropTypes.object.isRequired
   }
 
   render() {
@@ -22,11 +22,9 @@ class ListTrackItem extends React.Component {
     return (
       <li {...this.props} className={classes}>
         <span>{this.props.active ? <i className='fa fa-volume-up' /> : ''} {track.name.replace('[unplayable] ', '')}</span>
-        <span className='artist-name'>{artistsAsString(track)}</span>
+        <span className='artist-name'>{formatArtists(track.artists)}</span>
         <span className='track-length'>{convertTime(track.length)}</span>
       </li>
     );
   }
 }
-
-export default ListTrackItem;

@@ -1,30 +1,42 @@
-import createActions from '../utils/createActions';
+import ActionTypes from './ActionTypes';
 
-export default createActions({
+export function receivePlaylists(playlists) {
+  return {
+    type: ActionTypes.RECEIVE_PLAYLISTS,
+    payload: playlists
+  };
+}
 
-  receivePlaylists(playlists) {
-    return { playlists };
-  },
+export function getCurrentTrack(track) {
+  return {
+    type: ActionTypes.GET_CURRENT_TRACK,
+    payload: track
+  };
+}
 
-  getCurrentTrack(track) {
-    return { track };
-  },
+export function volumeChanged(volume) {
+  return {
+    type: ActionTypes.VOLUME_CHANGED,
+    payload: volume
+  };
+}
 
-  volumeChanged(volume) {
-    return { volume };
-  },
+export function tracklistReceived(tracks) {
+  return {
+    type: ActionTypes.TRACKLIST_RECEIVED,
+    payload: tracks
+  };
+}
 
-  tracklistReceived(tracks) {
-    return { tracks };
-  },
+export function timePositionReceived(timePosition) {
+  return {
+    type: ActionTypes.TIME_POSITION_RECEIVED,
+    payload: timePosition
+  };
+}
 
-  timePositionReceived(timePosition) {
-    return { timePosition };
-  },
-
-  connected() {},
-  disconnected() {},
-  playing() {},
-  paused() {},
-  stopped() {}
-});
+export const connected = () => ({ type: ActionTypes.CONNECTED });
+export const disconnected = () => ({ type: ActionTypes.DISCONNECTED });
+export const playing = () => ({ type: ActionTypes.PLAYING });
+export const paused = () => ({ type: ActionTypes.PAUSED });
+export const stopped = () => ({ type: ActionTypes.STOPPED });

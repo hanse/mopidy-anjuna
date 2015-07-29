@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
-import PlaylistStore from '../stores/PlaylistStore';
-import PlaylistActions from '../actions/PlaylistActions';
-import connectToStores from '../utils/connectToStores';
+import { changePlaylist } from '../actions/PlaylistActions';
 
-class Playlists extends React.Component {
+export default class Playlists extends Component {
 
   static propTypes = {
-    playlists: React.PropTypes.array
+    playlists: PropTypes.array.isRequired
   }
 
   _onChange = (playlist) => {
-    PlaylistActions.changePlaylist(playlist);
+    this.props.dispatch(changePlaylist(playlist));
   }
 
   render() {
@@ -24,8 +22,8 @@ class Playlists extends React.Component {
         });
 
         return (
-          <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist.name)}>
-            <i className='fa fa-music' /> {name} <span className='playlist-owner'>by {owner}</span>
+          <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist)}>
+            <i className='fa fa-music' />{name}<span className='playlist-owner'>by {owner}</span>
           </li>
         );
       })}
@@ -33,7 +31,3 @@ class Playlists extends React.Component {
     );
   }
 }
-
-export default connectToStores(Playlists, [PlaylistStore], () => ({
-  playlists: PlaylistStore.getAll()
-}));

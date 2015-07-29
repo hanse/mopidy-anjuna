@@ -1,9 +1,12 @@
+import 'babel/polyfill';
 import React from 'react';
-import Dispatcher from './utils/Dispatcher';
+import { Provider } from 'react-redux';
 import App from './components/App';
+import { store } from './redux';
 
-Dispatcher.register(payload => {
-  console.log('[Flux]', payload.action.type, payload.action);
-});
-
-React.render(<App />, document.getElementById('app'));
+React.render(
+  <Provider {...{ store }}>
+    {() => <App />}
+  </Provider>,
+  document.getElementById('root')
+);

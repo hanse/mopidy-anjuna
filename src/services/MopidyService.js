@@ -1,8 +1,9 @@
 import Mopidy from 'mopidy';
-import MopidyActions from '../actions/MopidyActions';
-import PlaylistActions from '../actions/PlaylistActions';
-import AlbumCoverActions from '../actions/AlbumCoverActions';
+import * as MopidyActions from '../actions/MopidyActions';
+import * as PlaylistActions from '../actions/PlaylistActions';
+import * as AlbumCoverActions from '../actions/AlbumCoverActions';
 import config from '../../config';
+import { store } from '../redux';
 
 const mopidy = new Mopidy({
   autoConnect: true,
@@ -17,12 +18,12 @@ mopidy.on('state:online', () => {
   getVolume();
   getTracklist();
   checkTimePosition();
-  MopidyActions.connected();
+  store.dispatch(MopidyActions.connected());
   mopidy.tracklist.setConsume({ value: true });
 });
 
 mopidy.on('state:offline', () => {
-  MopidyActions.disconnected();
+  store.dispatch(MopidyActions.disconnected());
 });
 
 mopidy.on('event:trackPlaybackStarted', () => {
@@ -33,13 +34,13 @@ mopidy.on('event:trackPlaybackPaused', () => {
 });
 
 mopidy.on('event:volumeChanged', payload => {
-  MopidyActions.volumeChanged(payload.volume);
+  store.dispatch(MopidyActions.volumeChanged(payload.volume));
 });
 
 mopidy.on('event:playbackStateChanged', payload => {
   let newState = payload.new_state;
   if (typeof MopidyActions[newState] === 'function') {
-    MopidyActions[newState]();
+    store.dispatch(MopidyActions[newState]());
   }
   checkTimePosition();
 });
@@ -54,32 +55,32 @@ mopidy.on('event:tracklistChanged', () => {
 
 function getPlaylists() {
   return mopidy.playlists.getPlaylists().then(playlists => {
-    PlaylistActions.receivePlaylists(playlists);
+    store.dispatch(PlaylistActions.receivePlaylists(playlists || []));
   });
 }
 
 function getCurrentTrack() {
   mopidy.playback.getCurrentTrack().then(track => {
-    MopidyActions.getCurrentTrack(track);
-    AlbumCoverActions.lookup(track);
+    store.dispatch(MopidyActions.getCurrentTrack(track || {}));
+    store.dispatch(AlbumCoverActions.lookup(track));
   });
 }
 
 function getTracklist() {
   mopidy.tracklist.getTlTracks().then(tracks => {
-    MopidyActions.tracklistReceived(tracks);
+    store.dispatch(MopidyActions.tracklistReceived(tracks || []));
   });
 }
 
 function getState() {
   mopidy.playback.getState({}).then(payload => {
-    MopidyActions[payload]();
+    store.dispatch(MopidyActions[payload]());
   });
 }
 
 function getVolume() {
   return mopidy.playback.getVolume().then(volume => {
-    MopidyActions.volumeChanged(volume);
+    store.dispatch(MopidyActions.volumeChanged(volume));
   });
 }
 
@@ -147,7 +148,7 @@ export function clearTracklist() {
 
 export function checkTimePosition() {
   mopidy.playback.getTimePosition().then(timePosition => {
-    MopidyActions.timePositionReceived(timePosition);
+    store.dispatch(MopidyActions.timePositionReceived(timePosition));
   });
 }
 
