@@ -1,11 +1,50 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, Component, findDOMNode } from 'react';
 import { filter, sort, enqueue } from '../actions/TracklistActions';
 import ListTrackItem from './ListTrackItem';
+
+function isUnplayable(track) {
+  return track.name.slice(0, 12) === '[unplayable]';
+}
 
 export default class Tracklist extends Component {
 
   static propTypes = {}
   state = { selectedIndex: 0 }
+
+  componentDidMount() {
+    window.addEventListener('keydown', ::this.onKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', ::this.onKeyDown);
+  }
+
+  onKeyDown(e) {
+    switch (e.which) {
+      case 38: // UP
+        e.preventDefault();
+        this.setState({ selectedIndex: Math.max(0, this.state.selectedIndex - 1) });
+        break;
+
+      case 40: // DOWN
+        e.preventDefault();
+        this.setState({ selectedIndex: Math.min(this.props.tracks.length - 1, this.state.selectedIndex + 1) });
+        break;
+
+      case 13: // ENTER
+        e.preventDefault();
+        const track = this.props.tracks[this.state.selectedIndex];
+        this._onAddTrackToQueue(track, isUnplayable(track));
+        break;
+
+      default:
+        return;
+    }
+  }
+
+  componentDidUpdate() {
+    findDOMNode(this.refs.activeItem).scrollIntoViewIfNeeded(false);
+  }
 
   _onFilterTracks(e) {
     e.preventDefault();
@@ -22,11 +61,13 @@ export default class Tracklist extends Component {
   }
 
   _onSelectTrack(selectedIndex) {
+    this.scrollTop = findDOMNode(this.refs.tracklist).scrollTop;
     this.setState({ selectedIndex });
   }
 
   render() {
     return (
+      <div className='scrollable-section flex-4' ref='tracklist'>
       <div className='Tracklist'>
         <div className='Tracklist-filter'>
           <input
@@ -44,11 +85,12 @@ export default class Tracklist extends Component {
 
           {this.props.tracks.map((track, i) => {
             const active = track.uri === this.props.currentTrack.uri;
-            const unplayable = track.name.slice(0, 12) === '[unplayable]';
+            const unplayable = isUnplayable(track);
             const selected = i === this.state.selectedIndex;
 
             return (
               <ListTrackItem
+                ref={selected ? 'activeItem' : null}
                 key={'track' + i}
                 active={active}
                 selected={selected}
@@ -60,6 +102,7 @@ export default class Tracklist extends Component {
             );
           })}
         </ul>
+      </div>
       </div>
     );
   }

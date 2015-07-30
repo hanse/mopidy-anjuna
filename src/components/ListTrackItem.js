@@ -14,6 +14,7 @@ export default class ListTrackItem extends Component {
   render() {
     let track = this.props.track;
     let classes = classNames({
+      ListTrackItem: true,
       active: this.props.active,
       unplayable: this.props.unplayable,
       selected: this.props.selected

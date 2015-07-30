@@ -66,9 +66,7 @@ export default class App extends Component {
               <Playlists {...this.props} />
             </div>
 
-            <div className='scrollable-section flex-4'>
-              <Tracklist {...this.props} />
-            </div>
+            <Tracklist {...this.props} />
 
             <div className='scrollable-section flex-1'>
               <NowPlaying {...this.props} />
