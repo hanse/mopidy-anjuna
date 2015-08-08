@@ -19,8 +19,8 @@ export default class Tracklist extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.currentPlaylistName !== nextProps.currentPlaylistName
-      || this.props.selectedTrack !== nextProps.selectedTrack;
+    console.log(nextProps.tracks === this.props.tracks);
+    return true;
   }
 
   onKeyDown(e) {
@@ -46,9 +46,15 @@ export default class Tracklist extends Component {
     }
   }
 
+  // timeposition currently triggers a re-render, so scroll only if needed
+  // hard to implement shouldComponentUpdate here
+  lastScrolledItem = null
   componentDidUpdate() {
     const activeItem = findDOMNode(this.refs.activeItem);
-    if (activeItem) activeItem.scrollIntoViewIfNeeded(false);
+    if (activeItem && this.lastScrolledItem !== activeItem) {
+      activeItem.scrollIntoViewIfNeeded(false);
+      this.lastScrolledItem = activeItem;
+    }
   }
 
   _onFilterTracks(e) {

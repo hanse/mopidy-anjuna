@@ -35,7 +35,7 @@ function selectTracks(state) {
     selectedPlaylist: state.playlists.selectedIndex,
     coverURL: state.status.covers[state.status.currentTrack.uri],
     tracks: selectTracks(state)
-  }::log());
+  });
 })
 export default class App extends Component {
 
