@@ -1,4 +1,5 @@
 import ActionTypes from './ActionTypes';
+import { checkTimePosition } from '../services/MopidyService';
 
 export function receivePlaylists(playlists) {
   return {
@@ -32,6 +33,22 @@ export function timePositionReceived(timePosition) {
   return {
     type: ActionTypes.TIME_POSITION_RECEIVED,
     payload: timePosition
+  };
+}
+
+export function requestTimePosition() {
+  return (dispatch, getState) => {
+    const delay = 1000;
+    let n = 0;
+    setInterval(() => {
+      if (!getState().status.isPlaying) return;
+      dispatch(timePositionReceived(getState().status.timePosition + delay));
+
+      if (n++ === 10) {
+        checkTimePosition();
+        n = 0;
+      }
+    }, delay);
   };
 }
 

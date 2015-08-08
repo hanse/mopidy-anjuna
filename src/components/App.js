@@ -4,27 +4,35 @@ import Queue from './Queue';
 import PlayerControls from './PlayerControls';
 import Scrollable from './Scrollable';
 import Playlists from './Playlists';
+import Progress from './Progress';
 import Loader from './Loader';
 import { connect } from 'react-redux';
 import { formatArtists } from '../helpers';
 import { saveState } from '../actions/AppActions';
+import { requestTimePosition } from '../actions/MopidyActions';
 import '../styles/index.styl';
 import { createFilter, createSorter } from '../reducers/tracklist';
 
 const { CSSTransitionGroup } = React.addons;
 
+function selectTracks(state) {
+  const tracks = (state.playlists.items.find(p => p.name === state.status.currentPlaylistName) || {}).tracks;
+  return tracks.map(track => ({ ...track, artistName: formatArtists(track.artists)}))
+    .filter(createFilter(state))
+    .sort(createSorter(state));
+}
+
 @connect((state) => {
   return ({
     ...state.status,
     playlists: state.playlists.items,
-    currentPlaylistName: state.playlists.currentPlaylistName,
+    currentPlaylistName: state.status.currentPlaylistName,
     queue: state.queue,
     selectedTrack: state.tracklist.selectedIndex,
     selectedPlaylist: state.playlists.selectedIndex,
     coverURL: state.status.covers[state.status.currentTrack.uri],
-    tracks: state.playlists.currentPlaylistTracks
-      .filter(createFilter(state))
-      .sort(createSorter(state))
+    tracks: selectTracks(state),
+    trackPosition: (state.status.timePosition / state.status.currentTrack.length) * 100
   });
 })
 export default class App extends Component {
@@ -46,6 +54,8 @@ export default class App extends Component {
     window.onbeforeunload = () => {
       this.props.dispatch(saveState());
     };
+
+    this.props.dispatch(requestTimePosition());
   }
 
   componentDidUpdate() {
@@ -94,6 +104,8 @@ export default class App extends Component {
           <div className='App-footer'>
             <PlayerControls {...this.props} />
           </div>
+
+          <Progress trackPosition={this.props.trackPosition} />
         </div>
       </Loader>
     );

@@ -27,9 +27,13 @@ export function createSorter(state) {
   };
 }
 
+function contains(first, second) {
+  return first.toLowerCase().indexOf(second.toLowerCase()) !== -1;
+}
+
 export function createFilter(state) {
   const { filter } = state.tracklist;
-  return track => track.name.indexOf(filter) !== -1;
+  return track => contains(track.name, filter) || contains(track.artistName, filter);
 }
 
 export default createReducer(initialState, {

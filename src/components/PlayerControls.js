@@ -46,7 +46,7 @@ export default class PlayerControls extends Component {
 
     return (
       <div className='PlayerControls'>
-        <button onClick={this._onPrevTrack}><i className='fa fa-step-backward' /></button>
+        <button onClick={this._onPrevTrack} disabled><i className='fa fa-step-backward' /></button>
         <button onClick={this._onTogglePlay}><i className={playOrPause} /></button>
         <button onClick={this._onNextTrack}><i className='fa fa-step-forward' /></button>
         <input className='volume' type='range' value={this.props.volume} onChange={this._onVolumeChange} />
