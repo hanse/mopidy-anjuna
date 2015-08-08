@@ -53,7 +53,7 @@ export default class App extends Component {
     this.updateDocumentTitle();
 
     window.onbeforeunload = () => {
-      //this.props.dispatch(saveState());
+      this.props.dispatch(saveState());
     };
 
     this.props.dispatch(requestTimePosition());
