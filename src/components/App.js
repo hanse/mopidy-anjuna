@@ -19,7 +19,8 @@ import { createFilter, createSorter } from '../reducers/tracklist';
     playlists: state.playlists.items,
     currentPlaylistName: state.playlists.currentPlaylistName,
     queue: state.queue,
-    selectedIndex: state.tracklist.selectedIndex,
+    selectedTrack: state.tracklist.selectedIndex,
+    selectedPlaylist: state.playlists.selectedIndex,
     tracks: state.playlists.currentPlaylistTracks
       .filter(createFilter(state))
       .sort(createSorter(state))
@@ -46,7 +47,7 @@ export default class App extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate() {
     this.updateDocumentTitle();
   }
 
@@ -84,6 +85,7 @@ export default class App extends Component {
               <Queue {...this.props} />
             </Scrollable>
           </div>
+
           <div className='App-footer'>
             <PlayerControls {...this.props} />
           </div>

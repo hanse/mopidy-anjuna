@@ -29,14 +29,16 @@ export function filter(value) {
 }
 
 export function playTrack(track) {
-  return () => {
+  return (dispatch) => {
     MopidyService.playTrack(track);
+    dispatch({ type: ActionTypes.PLAY_TRACK });
   };
 }
 
 export function enqueue(track) {
-  return () => {
+  return (dispatch) => {
     MopidyService.enqueueTrack(track);
+    dispatch({ type: ActionTypes.ENQUEUE_TRACK });
   };
 }
 

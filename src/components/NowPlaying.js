@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 export default class NowPlaying extends Component {
 
   static propTypes = {
-    coverURL: PropTypes.string
+    coverURL: PropTypes.string.isRequired
   }
 
   render() {

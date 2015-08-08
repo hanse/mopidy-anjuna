@@ -7,6 +7,17 @@ export function changePlaylist(playlist) {
   };
 }
 
+export function select(index) {
+  return (dispatch, getState) => {
+    if (getState().playlists.selectedIndex === index) {
+      return;
+    }
+
+    dispatch({ type: ActionTypes.SELECT_PLAYLIST, payload: index });
+    dispatch(changePlaylist(getState().playlists.items[index]));
+  };
+}
+
 export function receivePlaylists(playlists) {
   return {
     type: ActionTypes.RECEIVE_PLAYLISTS,

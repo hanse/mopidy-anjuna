@@ -9,7 +9,7 @@ const initialState = {
   selectedIndex: 0
 };
 
-const VALID_SORT_PROPERTIES = ['name', 'length'];
+const VALID_SORT_PROPERTIES = ['name', 'artistName', 'length'];
 
 export function createSorter(state) {
   const { direction, sortBy } = state.tracklist;
@@ -41,6 +41,6 @@ export default createReducer(initialState, {
 
   [ActionTypes.SORT_TRACKS]: (state, action) => {
     const { property } = action.payload;
-    return { ...state, sortBy: property, direction: state.direction * -1 };
+    return { ...state, sortBy: property, direction: state.direction * -1, selectedIndex: 0 };
   }
 });

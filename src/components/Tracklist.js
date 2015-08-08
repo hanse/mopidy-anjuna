@@ -1,4 +1,5 @@
 import React, { PropTypes, Component, findDOMNode } from 'react';
+import { connect } from 'react-redux';
 import { filter, sort, enqueue, select } from '../actions/TracklistActions';
 import ListTrackItem from './ListTrackItem';
 
@@ -6,36 +7,31 @@ function isUnplayable(track) {
   return track.name.slice(0, 12) === '[unplayable]';
 }
 
+@connect(state => ({
+  filter: state.tracklist.filter
+}))
 export default class Tracklist extends Component {
 
   static propTypes = {
-    tracks: PropTypes.array,
-    selectedIndex: PropTypes.number
-  }
-  
-  componentDidMount() {
-    window.addEventListener('keydown', ::this.onKeyDown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', ::this.onKeyDown);
+    tracks: PropTypes.array.isRequired,
+    selectedTrack: PropTypes.number.isRequired
   }
 
   onKeyDown(e) {
     switch (e.which) {
       case 38: // UP
         e.preventDefault();
-        this.props.dispatch(select(Math.max(0, this.props.selectedIndex - 1)));
+        this.props.dispatch(select(Math.max(0, this.props.selectedTrack - 1)));
         break;
 
       case 40: // DOWN
         e.preventDefault();
-        this.props.dispatch(select(Math.min(this.props.tracks.length - 1, this.props.selectedIndex + 1)));
+        this.props.dispatch(select(Math.min(this.props.tracks.length - 1, this.props.selectedTrack + 1)));
         break;
 
       case 13: // ENTER
         e.preventDefault();
-        const track = this.props.tracks[this.props.selectedIndex];
+        const track = this.props.tracks[this.props.selectedTrack];
         this._onAddTrackToQueue(track, isUnplayable(track));
         break;
 
@@ -45,7 +41,8 @@ export default class Tracklist extends Component {
   }
 
   componentDidUpdate() {
-    findDOMNode(this.refs.activeItem).scrollIntoViewIfNeeded(false);
+    const activeItem = findDOMNode(this.refs.activeItem);
+    if (activeItem) activeItem.scrollIntoViewIfNeeded(false);
   }
 
   _onFilterTracks(e) {
@@ -69,12 +66,13 @@ export default class Tracklist extends Component {
 
   render() {
     return (
-      <div className='Tracklist' ref='tracklist'>
+      <div tabIndex={-1} className='Tracklist' ref='tracklist' onKeyDown={::this.onKeyDown}>
         <div className='Tracklist-filter'>
           <input
             type='search'
             placeholder='Filter tracks'
             onChange={this._onFilterTracks.bind(this)}
+            value={this.props.filter}
           />
         </div>
         <ul className='Tracklist-tracks'>
@@ -87,7 +85,7 @@ export default class Tracklist extends Component {
           {this.props.tracks.map((track, i) => {
             const active = track.uri === this.props.currentTrack.uri;
             const unplayable = isUnplayable(track);
-            const selected = i === this.props.selectedIndex;
+            const selected = i === this.props.selectedTrack;
 
             return (
               <ListTrackItem
