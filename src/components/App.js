@@ -1,17 +1,17 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, Component } from 'react/addons';
 import Tracklist from './Tracklist';
 import Queue from './Queue';
 import PlayerControls from './PlayerControls';
 import Scrollable from './Scrollable';
 import Playlists from './Playlists';
 import Loader from './Loader';
-import NowPlaying from './NowPlaying';
 import { connect } from 'react-redux';
 import { formatArtists } from '../helpers';
 import { saveState } from '../actions/AppActions';
 import '../styles/index.styl';
-
 import { createFilter, createSorter } from '../reducers/tracklist';
+
+const { CSSTransitionGroup } = React.addons;
 
 @connect((state) => {
   return ({
@@ -21,6 +21,7 @@ import { createFilter, createSorter } from '../reducers/tracklist';
     queue: state.queue,
     selectedTrack: state.tracklist.selectedIndex,
     selectedPlaylist: state.playlists.selectedIndex,
+    coverURL: state.status.covers[state.status.currentTrack.uri],
     tracks: state.playlists.currentPlaylistTracks
       .filter(createFilter(state))
       .sort(createSorter(state))
@@ -80,7 +81,11 @@ export default class App extends Component {
             </Scrollable>
 
             <Scrollable>
-              <NowPlaying {...this.props} />
+              <div className='cover-image'>
+                <CSSTransitionGroup transitionName='opacity'>
+                    <img src={this.props.coverURL} key={this.props.coverURL} />
+                </CSSTransitionGroup>
+              </div>
               <h2 className='up-next'>Up Next</h2>
               <Queue {...this.props} />
             </Scrollable>

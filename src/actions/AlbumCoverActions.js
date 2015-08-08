@@ -1,17 +1,19 @@
 import AlbumCoverService from '../services/AlbumCoverService';
 import ActionTypes from './ActionTypes';
 
-export function albumCoverReceived(cover) {
+export function albumCoverReceived(track, cover) {
   return {
     type: ActionTypes.ALBUM_COVER_RECEIVED,
-    payload: cover
+    payload: { track, cover }
   };
 }
 
 export function lookup(track) {
   return dispatch => {
     AlbumCoverService.search(track).then(cover => {
-      dispatch(albumCoverReceived(cover));
-    }).catch(() => {});
+      dispatch(albumCoverReceived(track, cover));
+    }).catch(() => {
+      dispatch(albumCoverReceived(track, 'http://cdn.last.fm/flatness/responsive/2/noimage/default_album_300_g4.png'));
+    });
   };
 }

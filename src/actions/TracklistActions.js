@@ -1,4 +1,5 @@
 import * as MopidyService from '../services/MopidyService';
+import { lookup } from './AlbumCoverActions';
 import ActionTypes from './ActionTypes';
 
 export function sort(property, direction) {
@@ -38,6 +39,7 @@ export function playTrack(track) {
 export function enqueue(track) {
   return (dispatch) => {
     MopidyService.enqueueTrack(track);
+    dispatch(lookup(track));
     dispatch({ type: ActionTypes.ENQUEUE_TRACK });
   };
 }

@@ -1,7 +1,6 @@
 import Mopidy from 'mopidy';
 import * as MopidyActions from '../actions/MopidyActions';
 import * as PlaylistActions from '../actions/PlaylistActions';
-import * as AlbumCoverActions from '../actions/AlbumCoverActions';
 import config from '../../config';
 import { store } from '../redux';
 
@@ -62,7 +61,6 @@ function getPlaylists() {
 function getCurrentTrack() {
   mopidy.playback.getCurrentTrack().then(track => {
     store.dispatch(MopidyActions.getCurrentTrack(track || {}));
-    store.dispatch(AlbumCoverActions.lookup(track));
   });
 }
 

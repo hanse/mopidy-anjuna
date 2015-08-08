@@ -1,5 +1,6 @@
 import createReducer from '../utils/createReducer';
 import ActionTypes from '../actions/ActionTypes';
+import { uniqueId } from 'lodash';
 
 /**
  * Queue reducer

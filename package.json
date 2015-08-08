@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "album-cover": "0.0.3",
+    "animate.css": "^3.2.5",
     "classnames": "^2.1.2",
     "flux": "^2.0.3",
     "mopidy": "^0.5.0",
