@@ -1,5 +1,5 @@
 import React, { PropTypes, Component, findDOMNode } from 'react';
-import { filter, sort, enqueue } from '../actions/TracklistActions';
+import { filter, sort, enqueue, select } from '../actions/TracklistActions';
 import ListTrackItem from './ListTrackItem';
 
 function isUnplayable(track) {
@@ -8,9 +8,11 @@ function isUnplayable(track) {
 
 export default class Tracklist extends Component {
 
-  static propTypes = {}
-  state = { selectedIndex: 0 }
-
+  static propTypes = {
+    tracks: PropTypes.array,
+    selectedIndex: PropTypes.number
+  }
+  
   componentDidMount() {
     window.addEventListener('keydown', ::this.onKeyDown);
   }
@@ -23,17 +25,17 @@ export default class Tracklist extends Component {
     switch (e.which) {
       case 38: // UP
         e.preventDefault();
-        this.setState({ selectedIndex: Math.max(0, this.state.selectedIndex - 1) });
+        this.props.dispatch(select(Math.max(0, this.props.selectedIndex - 1)));
         break;
 
       case 40: // DOWN
         e.preventDefault();
-        this.setState({ selectedIndex: Math.min(this.props.tracks.length - 1, this.state.selectedIndex + 1) });
+        this.props.dispatch(select(Math.min(this.props.tracks.length - 1, this.props.selectedIndex + 1)));
         break;
 
       case 13: // ENTER
         e.preventDefault();
-        const track = this.props.tracks[this.state.selectedIndex];
+        const track = this.props.tracks[this.props.selectedIndex];
         this._onAddTrackToQueue(track, isUnplayable(track));
         break;
 
@@ -62,13 +64,12 @@ export default class Tracklist extends Component {
 
   _onSelectTrack(selectedIndex) {
     this.scrollTop = findDOMNode(this.refs.tracklist).scrollTop;
-    this.setState({ selectedIndex });
+    this.props.dispatch(select(selectedIndex));
   }
 
   render() {
     return (
-      <div className='scrollable-section flex-4' ref='tracklist'>
-      <div className='Tracklist'>
+      <div className='Tracklist' ref='tracklist'>
         <div className='Tracklist-filter'>
           <input
             type='search'
@@ -86,7 +87,7 @@ export default class Tracklist extends Component {
           {this.props.tracks.map((track, i) => {
             const active = track.uri === this.props.currentTrack.uri;
             const unplayable = isUnplayable(track);
-            const selected = i === this.state.selectedIndex;
+            const selected = i === this.props.selectedIndex;
 
             return (
               <ListTrackItem
@@ -102,7 +103,6 @@ export default class Tracklist extends Component {
             );
           })}
         </ul>
-      </div>
       </div>
     );
   }

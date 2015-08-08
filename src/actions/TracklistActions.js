@@ -8,6 +8,19 @@ export function sort(property, direction) {
   };
 }
 
+export function select(index) {
+  return (dispatch, getState) => {
+    if (getState().tracklist.selectedIndex === index) {
+      return;
+    }
+
+    dispatch({
+      type: ActionTypes.SELECT_TRACK,
+      payload: index
+    });
+  };
+}
+
 export function filter(value) {
   return {
     type: ActionTypes.FILTER_TRACKS,

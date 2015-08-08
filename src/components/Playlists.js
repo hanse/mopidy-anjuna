@@ -23,7 +23,7 @@ export default class Playlists extends Component {
 
         return (
           <li className={classes} key={playlist.name} onClick={this._onChange.bind(this, playlist)}>
-            <i className='fa fa-music' />{name}<span className='playlist-owner'>by {owner}</span>
+            <i className='fa fa-music' />{name} <span className='playlist-owner'>by {owner}</span>
           </li>
         );
       })}

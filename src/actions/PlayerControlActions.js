@@ -14,7 +14,7 @@ export function prev() {
 }
 
 export function play() {
-  return ()=> {
+  return () => {
     MopidyService.play();
   };
 }

@@ -5,7 +5,8 @@ import ActionTypes from '../actions/ActionTypes';
 const initialState = {
   sortBy: 'name',
   direction: -1,
-  filter: ''
+  filter: '',
+  selectedIndex: 0
 };
 
 const VALID_SORT_PROPERTIES = ['name', 'length'];
@@ -35,6 +36,8 @@ export default createReducer(initialState, {
   [ActionTypes.FILTER_TRACKS]: (state, action) => {
     return { ...state, filter: action.payload };
   },
+
+  [ActionTypes.SELECT_TRACK]: (state, { payload }) => ({ ...state, selectedIndex: payload }),
 
   [ActionTypes.SORT_TRACKS]: (state, action) => {
     const { property } = action.payload;
