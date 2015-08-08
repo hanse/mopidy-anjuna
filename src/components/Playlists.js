@@ -9,6 +9,11 @@ export default class Playlists extends Component {
     selectedPlaylist: PropTypes.number.isRequired
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.selectedPlaylist !== nextProps.selectedPlaylist
+      || this.props.playlists.length !== nextProps.playlists.length;
+  }
+
   componentDidUpdate() {
     const activeItem = findDOMNode(this.refs.activeItem);
     if (activeItem) activeItem.scrollIntoViewIfNeeded(false);

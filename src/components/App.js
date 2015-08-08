@@ -17,23 +17,25 @@ const { CSSTransitionGroup } = React.addons;
 
 function selectTracks(state) {
   const tracks = (state.playlists.items.find(p => p.name === state.status.currentPlaylistName) || {}).tracks;
-  return tracks.map(track => ({ ...track, artistName: formatArtists(track.artists)}))
+  return (tracks || []).map(track => ({ ...track, artistName: formatArtists(track.artists)}))
     .filter(createFilter(state))
     .sort(createSorter(state));
 }
 
 @connect((state) => {
   return ({
-    ...state.status,
+    volume: state.status.volume,
+    currentTrack: state.status.currentTrack,
+    isPlaying: state.status.isPlaying,
+    connected: state.status.connected,
     playlists: state.playlists.items,
     currentPlaylistName: state.status.currentPlaylistName,
     queue: state.queue,
     selectedTrack: state.tracklist.selectedIndex,
     selectedPlaylist: state.playlists.selectedIndex,
     coverURL: state.status.covers[state.status.currentTrack.uri],
-    tracks: selectTracks(state),
-    trackPosition: (state.status.timePosition / state.status.currentTrack.length) * 100
-  });
+    tracks: selectTracks(state)
+  }::log());
 })
 export default class App extends Component {
 
@@ -44,15 +46,14 @@ export default class App extends Component {
     isPlaying: PropTypes.bool.isRequired,
     volume: PropTypes.number.isRequired,
     connected: PropTypes.bool.isRequired,
-    coverURL: PropTypes.string.isRequired,
-    timePosition: PropTypes.number.isRequired
+    coverURL: PropTypes.string.isRequired
   }
 
   componentDidMount() {
     this.updateDocumentTitle();
 
     window.onbeforeunload = () => {
-      this.props.dispatch(saveState());
+      //this.props.dispatch(saveState());
     };
 
     this.props.dispatch(requestTimePosition());
@@ -105,7 +106,7 @@ export default class App extends Component {
             <PlayerControls {...this.props} />
           </div>
 
-          <Progress trackPosition={this.props.trackPosition} />
+          <Progress />
         </div>
       </Loader>
     );

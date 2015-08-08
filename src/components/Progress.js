@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Progress {
+class Progress {
   static propTypes = {
     trackPosition: PropTypes.number.isRequired
   }
@@ -26,5 +27,14 @@ export default class Progress {
         }}></div>
       </div>
     );
+  }
+}
+
+@connect(state => ({
+  trackPosition: (state.status.timePosition / state.status.currentTrack.length) * 100
+}))
+export default class ProgressContainer extends Component {
+  render() {
+    return <Progress trackPosition={this.props.trackPosition} />;
   }
 }

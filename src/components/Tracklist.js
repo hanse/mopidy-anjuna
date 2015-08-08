@@ -1,5 +1,6 @@
 import React, { PropTypes, Component, findDOMNode } from 'react';
 import { connect } from 'react-redux';
+import shallowEqual from 'react-redux/lib/utils/shallowEqual';
 import { filter, sort, enqueue, select } from '../actions/TracklistActions';
 import ListTrackItem from './ListTrackItem';
 
@@ -15,6 +16,11 @@ export default class Tracklist extends Component {
   static propTypes = {
     tracks: PropTypes.array.isRequired,
     selectedTrack: PropTypes.number.isRequired
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.currentPlaylistName !== nextProps.currentPlaylistName
+      || this.props.selectedTrack !== nextProps.selectedTrack;
   }
 
   onKeyDown(e) {
