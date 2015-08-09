@@ -6,11 +6,14 @@ A web client for the mopidy server that is remarkably well suited for social eve
 
 Currently work in progress with some rough edges.
 
+![Screenshot](http://i.imgur.com/vfm5lsK.png)
+
 ## Install
 Make sure you have [mopidy](https://www.mopidy.com/) installed, then
 ```bash
 git clone git://github.com:Hanse/mopidy-anjuna
 cd mopidy-anjuna
+npm install
 PORT=3000 npm start
 ```
 Running these commands should start the client on `localhost:3000`. The Mopidy server must be running on `localhost:6680`.
