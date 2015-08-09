@@ -6,7 +6,7 @@ A web client for the mopidy server that is remarkably well suited for social eve
 
 Currently work in progress with some rough edges.
 
-![Screenshot](http://i.imgur.com/vfm5lsK.png)
+![Screenshot](http://i.imgur.com/67m07OR.png)
 
 ## Install
 Make sure you have [mopidy](https://www.mopidy.com/) installed, then

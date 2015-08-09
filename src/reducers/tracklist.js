@@ -43,6 +43,8 @@ export default createReducer(initialState, {
 
   [ActionTypes.SELECT_TRACK]: (state, { payload }) => ({ ...state, selectedIndex: payload }),
 
+  [ActionTypes.CHANGE_PLAYLIST]: (state, action) => ({ ...state, filter: '' }),
+
   [ActionTypes.SORT_TRACKS]: (state, action) => {
     const { property } = action.payload;
     return { ...state, sortBy: property, direction: state.direction * -1, selectedIndex: 0 };
