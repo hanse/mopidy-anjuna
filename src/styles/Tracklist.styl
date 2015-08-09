@@ -3,15 +3,19 @@
 
 .Tracklist-filter
   position fixed
+  z-index 1
   width 60%
-  z-index 10
 
   input
     width 100%
     border 0
     padding 10px
-    border-bottom 2px solid #ddd
     font-size 1.1rem
+    background #eee
+    box-shadow 0 1px 0 rgba(0, 0, 0, 0.1)
+
+    &:hover
+      box-shadow 0 1px 0 rgba(0, 0, 0, 0.2)
 
     &:focus
       outline none

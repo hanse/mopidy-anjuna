@@ -18,11 +18,6 @@ export default class Tracklist extends Component {
     selectedTrack: PropTypes.number.isRequired
   }
 
-  shouldComponentUpdate(nextProps) {
-    console.log(nextProps.tracks === this.props.tracks);
-    return true;
-  }
-
   onKeyDown(e) {
     switch (e.which) {
       case 38: // UP

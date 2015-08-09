@@ -13,7 +13,7 @@ class Progress {
   render() {
     return (
       <div style={{
-        backgroundColor: '#34495e',
+        backgroundColor: '#111',
         position: 'absolute',
         height: '5px',
         width: '100%',

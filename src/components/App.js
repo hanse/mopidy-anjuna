@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react/addons';
 import Tracklist from './Tracklist';
 import Queue from './Queue';
 import PlayerControls from './PlayerControls';
-import Scrollable from './Scrollable';
 import Playlists from './Playlists';
 import Progress from './Progress';
 import Loader from './Loader';
@@ -83,15 +82,15 @@ export default class App extends Component {
             </h1>
           </div>
           <div className='App-main'>
-            <Scrollable>
+            <div className='scrollable flex-1' tabIndex={0}>
               <Playlists {...this.props} />
-            </Scrollable>
+            </div>
 
-            <Scrollable flex={4}>
+            <div className='scrollable flex-4' tabIndex={1}>
               <Tracklist {...this.props} />
-            </Scrollable>
+            </div>
 
-            <Scrollable>
+            <div className='scrollable flex-1' tabIndex={2}>
               <div className='cover-image'>
                 <CSSTransitionGroup transitionName='opacity'>
                     <img src={this.props.coverURL} key={this.props.coverURL} />
@@ -99,7 +98,7 @@ export default class App extends Component {
               </div>
               <h2 className='up-next'>Up Next</h2>
               <Queue {...this.props} />
-            </Scrollable>
+            </div>
           </div>
 
           <div className='App-footer'>
