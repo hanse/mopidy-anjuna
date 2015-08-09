@@ -93,7 +93,7 @@ export default class App extends Component {
             <div className='scrollable flex-1' tabIndex={2}>
               <div className='cover-image'>
                 <CSSTransitionGroup transitionName='opacity'>
-                    <img src={this.props.coverURL} key={this.props.coverURL} />
+                  <img src={this.props.coverURL} key={this.props.coverURL} />
                 </CSSTransitionGroup>
               </div>
               <h2 className='up-next'>Up Next</h2>
