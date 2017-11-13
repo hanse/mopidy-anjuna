@@ -1,7 +1,7 @@
 import Mopidy from 'mopidy';
 import * as MopidyActions from '../actions/MopidyActions';
 import * as PlaylistActions from '../actions/PlaylistActions';
-import config from '../../config';
+import config from '../config';
 import { store } from '../redux';
 
 const mopidy = new Mopidy({

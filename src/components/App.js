@@ -21,22 +21,7 @@ function selectTracks(state) {
     .sort(createSorter(state));
 }
 
-@connect((state) => {
-  return ({
-    volume: state.status.volume,
-    currentTrack: state.status.currentTrack,
-    isPlaying: state.status.isPlaying,
-    connected: state.status.connected,
-    playlists: state.playlists.items,
-    currentPlaylistName: state.status.currentPlaylistName,
-    queue: state.queue,
-    selectedTrack: state.tracklist.selectedIndex,
-    selectedPlaylist: state.playlists.selectedIndex,
-    coverURL: state.status.covers[state.status.currentTrack.uri],
-    tracks: selectTracks(state)
-  });
-})
-export default class App extends Component {
+class App extends Component {
 
   static propTypes = {
     currentTrack: PropTypes.object.isRequired,
@@ -111,3 +96,19 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect((state) => {
+  return ({
+    volume: state.status.volume,
+    currentTrack: state.status.currentTrack,
+    isPlaying: state.status.isPlaying,
+    connected: state.status.connected,
+    playlists: state.playlists.items,
+    currentPlaylistName: state.status.currentPlaylistName,
+    queue: state.queue,
+    selectedTrack: state.tracklist.selectedIndex,
+    selectedPlaylist: state.playlists.selectedIndex,
+    coverURL: state.status.covers[state.status.currentTrack.uri],
+    tracks: selectTracks(state)
+  });
+})(App);

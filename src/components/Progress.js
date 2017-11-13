@@ -30,11 +30,6 @@ class Progress {
   }
 }
 
-@connect(state => ({
+export default connect(state => ({
   trackPosition: (state.status.timePosition / state.status.currentTrack.length) * 100
-}))
-export default class ProgressContainer extends Component {
-  render() {
-    return <Progress trackPosition={this.props.trackPosition} />;
-  }
-}
+}))(Progress);

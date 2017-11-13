@@ -8,17 +8,14 @@ function isUnplayable(track) {
   return track.name.slice(0, 12) === '[unplayable]';
 }
 
-@connect(state => ({
-  filter: state.tracklist.filter
-}))
-export default class Tracklist extends Component {
+class Tracklist extends Component {
 
   static propTypes = {
     tracks: PropTypes.array.isRequired,
     selectedTrack: PropTypes.number.isRequired
   }
 
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     switch (e.which) {
       case 38: // UP
         e.preventDefault();
@@ -39,7 +36,7 @@ export default class Tracklist extends Component {
       default:
         return;
     }
-  }
+  };
 
   // timeposition currently triggers a re-render, so scroll only if needed
   // hard to implement shouldComponentUpdate here
@@ -73,7 +70,7 @@ export default class Tracklist extends Component {
 
   render() {
     return (
-      <div tabIndex={-1} className='Tracklist' ref='tracklist' onKeyDown={::this.onKeyDown}>
+      <div tabIndex={-1} className='Tracklist' ref='tracklist' onKeyDown={this.onKeyDown}>
         <div className='Tracklist-filter'>
           <input
             type='search'
@@ -112,3 +109,7 @@ export default class Tracklist extends Component {
     );
   }
 }
+
+export default connect(state => ({
+  filter: state.tracklist.filter
+}))(Tracklist);

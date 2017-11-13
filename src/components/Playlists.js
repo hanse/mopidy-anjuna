@@ -19,7 +19,7 @@ export default class Playlists extends Component {
     if (activeItem) activeItem.scrollIntoViewIfNeeded(false);
   }
 
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     switch (e.which) {
       case 38: // UP
         e.preventDefault();
@@ -34,15 +34,15 @@ export default class Playlists extends Component {
       default:
         return;
     }
-  }
+  };
 
   _onChange = (index) => {
     this.props.dispatch(select(index));
-  }
+  };
 
   render() {
     return (
-      <ul tabIndex={-1} className='playlists' onKeyDown={::this.onKeyDown}>
+      <ul tabIndex={-1} className='playlists' onKeyDown={this.onKeyDown}>
       {this.props.playlists.map((playlist, index) => {
         const [name, owner] = playlist.name.split(/ by /i);
         const active = index === this.props.selectedPlaylist;
