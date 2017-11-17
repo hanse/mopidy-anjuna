@@ -1,4 +1,5 @@
 import invariant from 'invariant';
+import fuzzysearch from 'fuzzysearch';
 import createReducer from '../utils/createReducer';
 import ActionTypes from '../actions/ActionTypes';
 
@@ -28,12 +29,13 @@ export function createSorter(state) {
 }
 
 function contains(first, second) {
-  return first.toLowerCase().indexOf(second.toLowerCase()) !== -1;
+  return fuzzysearch(second.toLowerCase(), first.toLowerCase());
 }
 
 export function createFilter(state) {
   const { filter } = state.tracklist;
-  return track => contains(track.name, filter) || contains(track.artistName, filter);
+  return track =>
+    contains(track.name, filter) || contains(track.artistName, filter);
 }
 
 export default createReducer(initialState, {
@@ -41,12 +43,20 @@ export default createReducer(initialState, {
     return { ...state, filter: action.payload };
   },
 
-  [ActionTypes.SELECT_TRACK]: (state, { payload }) => ({ ...state, selectedIndex: payload }),
+  [ActionTypes.SELECT_TRACK]: (state, { payload }) => ({
+    ...state,
+    selectedIndex: payload
+  }),
 
   [ActionTypes.CHANGE_PLAYLIST]: (state, action) => ({ ...state, filter: '' }),
 
   [ActionTypes.SORT_TRACKS]: (state, action) => {
     const { property } = action.payload;
-    return { ...state, sortBy: property, direction: state.direction * -1, selectedIndex: 0 };
+    return {
+      ...state,
+      sortBy: property,
+      direction: state.direction * -1,
+      selectedIndex: 0
+    };
   }
 });
