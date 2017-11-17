@@ -1,46 +1,37 @@
-import * as MopidyService from '../services/MopidyService';
-import ActionTypes from './ActionTypes';
-
 export function next() {
-  return () => {
-    MopidyService.nextTrack();
+  return {
+    type: 'NEXT_TRACK'
   };
 }
 
 export function prev() {
-  return () => {
-    MopidyService.prevTrack();
+  return {
+    type: 'PREV_TRACK'
   };
 }
 
 export function play() {
-  return () => {
-    MopidyService.play();
+  return {
+    type: 'PLAY'
   };
 }
 
 export function pause() {
-  return () => {
-    MopidyService.pause();
+  return {
+    type: 'PAUSE'
   };
 }
 
 export function setVolume(value) {
-  return dispatch => {
-    MopidyService.setVolume(value);
-    dispatch({
-      type: ActionTypes.SET_VOLUME,
-      payload: value
-    });
+  return {
+    type: 'SET_VOLUME',
+    payload: value
   };
 }
 
 export function seek(ms) {
-  return dispatch => {
-    MopidyService.seek(ms);
-    dispatch({
-      type: ActionTypes.SEEK,
-      payload: ms
-    });
+  return {
+    type: 'SEEK',
+    payload: ms
   };
 }

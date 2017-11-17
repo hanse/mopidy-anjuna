@@ -29,5 +29,8 @@
   "devDependencies": {
     "invariant": "^2.1.0",
     "react-scripts": "^1.0.17"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }

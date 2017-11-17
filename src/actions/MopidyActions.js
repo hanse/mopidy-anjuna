@@ -1,6 +1,5 @@
 import ActionTypes from './ActionTypes';
 import { lookup } from './AlbumCoverActions';
-import { checkTimePosition } from '../services/MopidyService';
 
 export function receivePlaylists(playlists) {
   return {
@@ -10,12 +9,9 @@ export function receivePlaylists(playlists) {
 }
 
 export function getCurrentTrack(track) {
-  return (dispatch) => {
-    dispatch(lookup(track));
-    dispatch({
-      type: ActionTypes.GET_CURRENT_TRACK,
-      payload: track
-    });
+  return {
+    type: ActionTypes.GET_CURRENT_TRACK,
+    payload: track
   };
 }
 
@@ -49,7 +45,7 @@ export function requestTimePosition() {
       dispatch(timePositionReceived(getState().status.timePosition + delay));
 
       if (n++ === 10) {
-        checkTimePosition();
+        dispatch({ type: 'CHECK_TIME_POSITION' });
         n = 0;
       }
     }, delay);

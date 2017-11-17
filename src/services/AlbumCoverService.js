@@ -8,15 +8,18 @@ export function search(track) {
       reject();
     }
 
-    covers.search({
-      artist: track.artists[0].name,
-      album: track.album.name,
-      size: 'mega'
-    }, (err, res) => {
-      if (err || res === 'No image was found') {
-        return reject(res);
+    covers.search(
+      {
+        artist: track.artists[0].name,
+        album: track.album.name,
+        size: 'mega'
+      },
+      (err, res) => {
+        if (err || res === 'No image was found') {
+          return reject(res);
+        }
+        resolve(res);
       }
-      resolve(res);
-    });
+    );
   });
 }

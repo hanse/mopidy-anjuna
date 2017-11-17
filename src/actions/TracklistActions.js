@@ -1,4 +1,3 @@
-import * as MopidyService from '../services/MopidyService';
 import { lookup } from './AlbumCoverActions';
 import ActionTypes from './ActionTypes';
 
@@ -30,15 +29,15 @@ export function filter(value) {
 }
 
 export function enqueue(track) {
-  return (dispatch) => {
-    MopidyService.enqueueTrack(track);
+  return dispatch => {
     dispatch(lookup(track));
-    dispatch({ type: ActionTypes.ENQUEUE_TRACK });
+    dispatch({ type: ActionTypes.ENQUEUE_TRACK, payload: track });
   };
 }
 
 export function clearQueue(track) {
-  return () => {
-    MopidyService.clearTracklist(track);
+  return {
+    type: 'CLEAR_QUEUE',
+    payload: track
   };
 }
