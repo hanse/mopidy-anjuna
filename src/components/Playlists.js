@@ -5,7 +5,7 @@ import { select } from '../actions/PlaylistActions';
 
 export default class Playlists extends Component {
   componentDidUpdate() {
-    const activeItem = findDOMNode(this.refs.activeItem);
+    const activeItem = findDOMNode(this.activeItem);
     if (activeItem) activeItem.scrollIntoViewIfNeeded(false);
   }
 
@@ -50,7 +50,7 @@ export default class Playlists extends Component {
 
           return (
             <li
-              ref={active ? 'activeItem' : null}
+              ref={ref => (this.activeItem = active ? ref : this.activeItem)}
               className={classes}
               key={playlist.name}
               onClick={this._onChange.bind(this, index)}

@@ -40,7 +40,7 @@ class Tracklist extends Component {
   // hard to implement shouldComponentUpdate here
   lastScrolledItem = null;
   componentDidUpdate() {
-    const activeItem = findDOMNode(this.refs.activeItem);
+    const activeItem = findDOMNode(this.activeItem);
     if (activeItem && this.lastScrolledItem !== activeItem) {
       activeItem.scrollIntoViewIfNeeded(false);
       this.lastScrolledItem = activeItem;
@@ -62,7 +62,7 @@ class Tracklist extends Component {
   }
 
   _onSelectTrack(selectedIndex) {
-    this.scrollTop = findDOMNode(this.refs.tracklist).scrollTop;
+    this.scrollTop = this.tracklist.scrollTop;
     this.props.dispatch(select(selectedIndex));
   }
 
@@ -71,7 +71,7 @@ class Tracklist extends Component {
       <div
         tabIndex={-1}
         className="Tracklist"
-        ref="tracklist"
+        ref={ref => (this.tracklist = ref)}
         onKeyDown={this.onKeyDown}
       >
         <div className="Tracklist-filter">
@@ -96,7 +96,8 @@ class Tracklist extends Component {
 
             return (
               <ListTrackItem
-                ref={selected ? 'activeItem' : null}
+                ref={ref =>
+                  (this.activeItem = selected ? ref : this.activeItem)}
                 key={'track' + i}
                 active={active}
                 selected={selected}
