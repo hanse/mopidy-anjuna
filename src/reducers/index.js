@@ -1,4 +1,12 @@
-export { default as playlists } from './playlists';
-export { default as queue } from './queue';
-export { default as status } from './status';
-export { default as tracklist } from './tracklist';
+import { combineReducers } from 'redux';
+import playlists from './playlists';
+import queue from './queue';
+import status from './status';
+import tracklist from './tracklist';
+
+export default combineReducers({
+  playlists,
+  queue,
+  status,
+  tracklist
+});

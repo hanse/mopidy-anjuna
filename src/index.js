@@ -1,5 +1,5 @@
-import 'babel/polyfill';
 import React from 'react';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './components/App';
 import { store } from './redux';
@@ -9,9 +9,9 @@ global.log = function log(self = this) {
   return this;
 };
 
-React.render(
+render(
   <Provider {...{ store }}>
-    {() => <App />}
+    <App />
   </Provider>,
   document.getElementById('root')
 );

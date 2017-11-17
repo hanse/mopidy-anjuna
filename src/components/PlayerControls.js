@@ -1,32 +1,26 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import * as PlayerControlActions from '../actions/PlayerControlActions';
 
 export default class PlayerControls extends Component {
-
-  static propTypes = {
-    isPlaying: React.PropTypes.bool,
-    volume: React.PropTypes.number
-  }
-
   _onTogglePlay = () => {
     if (this.props.isPlaying) {
       this.props.dispatch(PlayerControlActions.pause());
     } else {
       this.props.dispatch(PlayerControlActions.play());
     }
-  }
+  };
 
   _onNextTrack = () => {
     this.props.dispatch(PlayerControlActions.next());
-  }
+  };
 
   _onPrevTrack = () => {
     this.props.dispatch(PlayerControlActions.prev());
-  }
+  };
 
-  _onVolumeChange = (event) => {
+  _onVolumeChange = event => {
     this.props.dispatch(PlayerControlActions.setVolume(event.target.value | 0));
-  }
+  };
 
   _onSeek(ms) {
     this.props.dispatch(PlayerControlActions.seek(ms));
@@ -45,12 +39,25 @@ export default class PlayerControls extends Component {
     }
 
     return (
-      <div className='PlayerControls'>
-        <button onClick={this._onPrevTrack} disabled><i className='fa fa-step-backward' /></button>
-        <button onClick={this._onTogglePlay}><i className={playOrPause} /></button>
-        <button onClick={this._onNextTrack}><i className='fa fa-step-forward' /></button>
-        <input className='volume' type='range' value={this.props.volume} onChange={this._onVolumeChange} />
-        <div className='volume-level'><i className={'fa fa-volume-' + volumeLevel} /></div>
+      <div className="PlayerControls">
+        <button onClick={this._onPrevTrack} disabled>
+          <i className="fa fa-step-backward" />
+        </button>
+        <button onClick={this._onTogglePlay}>
+          <i className={playOrPause} />
+        </button>
+        <button onClick={this._onNextTrack}>
+          <i className="fa fa-step-forward" />
+        </button>
+        <input
+          className="volume"
+          type="range"
+          value={this.props.volume}
+          onChange={this._onVolumeChange}
+        />
+        <div className="volume-level">
+          <i className={'fa fa-volume-' + volumeLevel} />
+        </div>
       </div>
     );
   }

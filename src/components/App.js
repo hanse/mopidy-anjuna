@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react/addons';
+import React, { Component } from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import Tracklist from './Tracklist';
 import Queue from './Queue';
 import PlayerControls from './PlayerControls';
@@ -12,27 +13,18 @@ import { requestTimePosition } from '../actions/MopidyActions';
 import '../styles/index.styl';
 import { createFilter, createSorter } from '../reducers/tracklist';
 
-const { CSSTransitionGroup } = React.addons;
-
 function selectTracks(state) {
-  const tracks = (state.playlists.items.find(p => p.name === state.status.currentPlaylistName) || {}).tracks;
-  return (tracks || []).map(track => ({ ...track, artistName: formatArtists(track.artists)}))
+  const tracks = (state.playlists.items.find(
+    p => p.name === state.status.currentPlaylistName
+  ) || {}
+  ).tracks;
+  return (tracks || [])
+    .map(track => ({ ...track, artistName: formatArtists(track.artists) }))
     .filter(createFilter(state))
     .sort(createSorter(state));
 }
 
 class App extends Component {
-
-  static propTypes = {
-    currentTrack: PropTypes.object.isRequired,
-    currentPlaylistName: PropTypes.string.isRequired,
-    tracks: PropTypes.array.isRequired,
-    isPlaying: PropTypes.bool.isRequired,
-    volume: PropTypes.number.isRequired,
-    connected: PropTypes.bool.isRequired,
-    coverURL: PropTypes.string.isRequired
-  }
-
   componentDidMount() {
     this.updateDocumentTitle();
 
@@ -49,44 +41,49 @@ class App extends Component {
 
   updateDocumentTitle() {
     document.title = this.props.currentTrack.name
-      ? `${this.props.currentTrack.name} - ${formatArtists(this.props.currentTrack.artists)}`
+      ? `${this.props.currentTrack.name} - ${formatArtists(
+          this.props.currentTrack.artists
+        )}`
       : 'No Songs Playing';
   }
 
   render() {
     return (
       <Loader loading={!this.props.connected}>
-        <div className='App-container'>
-          <div className='App-header'>
+        <div className="App-container">
+          <div className="App-header">
             <h1>
-              {this.props.currentTrack.name}
-              {' '}
-              <span className='artist-name'>
+              {this.props.currentTrack.name}{' '}
+              <span className="artist-name">
                 {formatArtists(this.props.currentTrack.artists)}
               </span>
             </h1>
           </div>
-          <div className='App-main'>
-            <div className='scrollable flex-1' tabIndex={0}>
+          <div className="App-main">
+            <div className="scrollable flex-1" tabIndex={0}>
               <Playlists {...this.props} />
             </div>
 
-            <div className='scrollable flex-4' tabIndex={1}>
+            <div className="scrollable flex-4" tabIndex={1}>
               <Tracklist {...this.props} />
             </div>
 
-            <div className='scrollable flex-1' tabIndex={2}>
-              <div className='cover-image'>
-                <CSSTransitionGroup transitionName='opacity'>
-                  <img src={this.props.coverURL} key={this.props.coverURL} />
+            <div className="scrollable flex-1" tabIndex={2}>
+              <div className="cover-image">
+                <CSSTransitionGroup transitionName="opacity">
+                  <img
+                    src={this.props.coverURL}
+                    key={this.props.coverURL}
+                    alt=""
+                  />
                 </CSSTransitionGroup>
               </div>
-              <h2 className='up-next'>Up Next</h2>
+              <h2 className="up-next">Up Next</h2>
               <Queue {...this.props} />
             </div>
           </div>
 
-          <div className='App-footer'>
+          <div className="App-footer">
             <PlayerControls {...this.props} />
           </div>
 
@@ -97,8 +94,8 @@ class App extends Component {
   }
 }
 
-export default connect((state) => {
-  return ({
+export default connect(state => {
+  return {
     volume: state.status.volume,
     currentTrack: state.status.currentTrack,
     isPlaying: state.status.isPlaying,
@@ -110,5 +107,5 @@ export default connect((state) => {
     selectedPlaylist: state.playlists.selectedIndex,
     coverURL: state.status.covers[state.status.currentTrack.uri],
     tracks: selectTracks(state)
-  });
+  };
 })(App);

@@ -1,6 +1,6 @@
-import React, { PropTypes, Component, findDOMNode } from 'react';
+import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
-import shallowEqual from 'react-redux/lib/utils/shallowEqual';
 import { filter, sort, enqueue, select } from '../actions/TracklistActions';
 import ListTrackItem from './ListTrackItem';
 
@@ -9,13 +9,7 @@ function isUnplayable(track) {
 }
 
 class Tracklist extends Component {
-
-  static propTypes = {
-    tracks: PropTypes.array.isRequired,
-    selectedTrack: PropTypes.number.isRequired
-  }
-
-  onKeyDown = (e) => {
+  onKeyDown = e => {
     switch (e.which) {
       case 38: // UP
         e.preventDefault();
@@ -24,7 +18,11 @@ class Tracklist extends Component {
 
       case 40: // DOWN
         e.preventDefault();
-        this.props.dispatch(select(Math.min(this.props.tracks.length - 1, this.props.selectedTrack + 1)));
+        this.props.dispatch(
+          select(
+            Math.min(this.props.tracks.length - 1, this.props.selectedTrack + 1)
+          )
+        );
         break;
 
       case 13: // ENTER
@@ -40,7 +38,7 @@ class Tracklist extends Component {
 
   // timeposition currently triggers a re-render, so scroll only if needed
   // hard to implement shouldComponentUpdate here
-  lastScrolledItem = null
+  lastScrolledItem = null;
   componentDidUpdate() {
     const activeItem = findDOMNode(this.refs.activeItem);
     if (activeItem && this.lastScrolledItem !== activeItem) {
@@ -70,17 +68,22 @@ class Tracklist extends Component {
 
   render() {
     return (
-      <div tabIndex={-1} className='Tracklist' ref='tracklist' onKeyDown={this.onKeyDown}>
-        <div className='Tracklist-filter'>
+      <div
+        tabIndex={-1}
+        className="Tracklist"
+        ref="tracklist"
+        onKeyDown={this.onKeyDown}
+      >
+        <div className="Tracklist-filter">
           <input
-            type='search'
-            placeholder='Filter tracks'
+            type="search"
+            placeholder="Filter tracks"
             onChange={this._onFilterTracks.bind(this)}
             value={this.props.filter}
           />
         </div>
-        <ul className='Tracklist-tracks'>
-          <li className='Tracklist-tracks-header'>
+        <ul className="Tracklist-tracks">
+          <li className="Tracklist-tracks-header">
             <span onClick={this._onSort.bind(this, 'name')}>Track</span>
             <span onClick={this._onSort.bind(this, 'artistName')}>Artist</span>
             <span onClick={this._onSort.bind(this, 'length')}>Time</span>
@@ -100,7 +103,11 @@ class Tracklist extends Component {
                 track={track}
                 unplayable={unplayable}
                 onClick={this._onSelectTrack.bind(this, i)}
-                onDoubleClick={this._onAddTrackToQueue.bind(this, track, unplayable)}
+                onDoubleClick={this._onAddTrackToQueue.bind(
+                  this,
+                  track,
+                  unplayable
+                )}
               />
             );
           })}

@@ -1,5 +1,4 @@
 import ActionTypes from './ActionTypes';
-import { lookup } from './AlbumCoverActions';
 
 export function receivePlaylists(playlists) {
   return {

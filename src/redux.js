@@ -1,13 +1,13 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { loggerMiddleware, loadState } from './utils';
 import mopidyMiddleware from './mopidyMiddleware';
-import * as reducers from './reducers';
+import reducer from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunk,
-  mopidyMiddleware(),
-  loggerMiddleware
-)(loadState()(createStore));
-const reducer = combineReducers(reducers);
-export const store = createStoreWithMiddleware(reducer);
+export const store = createStore(
+  reducer,
+  compose(
+    applyMiddleware(thunk, mopidyMiddleware(), loggerMiddleware),
+    loadState()
+  )
+);
