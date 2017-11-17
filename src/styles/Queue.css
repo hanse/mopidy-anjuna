@@ -1,0 +1,22 @@
+.Queue-no-songs {
+  padding: 10px 20px;
+}
+.Queue li {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 20px;
+}
+.Queue li .track-length {
+  display: none;
+}
+.Queue li .artist-name {
+  color: #aaa;
+}
+.Queue li:hover {
+  background: #f0f0f0;
+}
+.up-next {
+  font-size: 1.4rem;
+  padding: 10px 20px;
+  margin-top: 40px;
+}

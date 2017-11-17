@@ -1,0 +1,53 @@
+.Tracklist {
+  position: relative;
+}
+.Tracklist-filter {
+  position: fixed;
+  z-index: 1;
+  width: 60%;
+}
+.Tracklist-filter input {
+  width: 100%;
+  border: 0;
+  padding: 10px;
+  font-size: 1.1rem;
+  background: #eee;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}
+.Tracklist-filter input:hover {
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+.Tracklist-filter input:focus {
+  outline: none;
+}
+.Tracklist-tracks {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  position: relative;
+  top: 50px;
+}
+.Tracklist-tracks-header {
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+}
+.Tracklist-tracks-header:hover,
+.Tracklist-tracks-header.active {
+  background: transparent;
+}
+.Tracklist-tracks li {
+  display: table-row;
+  width: 100%;
+}
+.Tracklist-tracks li:hover,
+.Tracklist-tracks li.active {
+  background: #f0f0f0;
+}
+.Tracklist-tracks li.selected {
+  background: #eee;
+}
+.Tracklist-tracks li > span {
+  display: table-cell;
+  padding: 2px 20px;
+}

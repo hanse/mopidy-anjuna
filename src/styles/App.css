@@ -1,0 +1,39 @@
+.App-header {
+  height: 50px;
+  background: linear-gradient(#372f34, #4d4249);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  font-size: 1.4rem;
+  padding-top: 5px;
+}
+.App-main {
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+  margin-top: -50px;
+  padding-top: 50px;
+  margin-bottom: -70px;
+  padding-bottom: 70px;
+  position: relative;
+  width: 100%;
+  backface-visibility: hidden;
+  will-change: overflow;
+  font-size: 0.9rem;
+}
+.App-footer {
+  background: linear-gradient(#ddd, #ccc);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  text-align: center;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

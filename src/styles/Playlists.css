@@ -1,0 +1,20 @@
+.playlists {
+  color: #555;
+  padding: 20px 0;
+}
+.playlists .playlist-owner {
+  color: #999;
+}
+.playlists i {
+  color: #ddd;
+  margin-right: 5px;
+}
+.playlists li {
+  padding: 2px 20px;
+}
+.playlists li:hover {
+  background: linear-gradient(#efefef, #dfdfdf);
+}
+.playlists li.active {
+  font-weight: 700;
+}

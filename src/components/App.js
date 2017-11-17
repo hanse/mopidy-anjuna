@@ -10,8 +10,8 @@ import { connect } from 'react-redux';
 import { formatArtists } from '../helpers';
 import { saveState } from '../actions/AppActions';
 import { requestTimePosition } from '../actions/MopidyActions';
-import '../styles/index.styl';
 import { createFilter, createSorter } from '../reducers/tracklist';
+import '../styles/index.css';
 
 function selectTracks(state) {
   const tracks = (state.playlists.items.find(
@@ -78,8 +78,11 @@ class App extends Component {
                   />
                 </CSSTransitionGroup>
               </div>
-              <h2 className="up-next">Up Next</h2>
-              <Queue {...this.props} />
+
+              <div style={{ marginTop: '150px' }}>
+                <h2 className="up-next">Up Next</h2>
+                <Queue {...this.props} />
+              </div>
             </div>
           </div>
 
